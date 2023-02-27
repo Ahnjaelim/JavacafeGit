@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<!-- Thymeleaf 이용하기위해 네임스페이스 지정하기 -->
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div th:fragment="sidebar" id="layoutSidenav" >
+    <div class="l-navbar" id="navbar">
+        <nav class="nav">
+            <div>
+                <div class="nav__brand">
+                 	<ion-icon name="cafe-sharp"></ion-icon><br>
+                    <a href="#" class="nav__logo">JavaCafe</a>
+                </div>
+                <div href="#" class="nav__link collapse1 sidemenu">
+                        <ion-icon name="person-sharp" class="nav__icon "></ion-icon>
+                        <span class="nav_name">STAFF</span>
+						
+						
+                        <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
+
+                        <ul class="collapse__menu">
+                            <a href="#" class="collapse__sublink">STAFF1</a>
+                            <a href="#" class="collapse__sublink">STAFF2</a>
+                            <a href="#" class="collapse__sublink">STAFF3</a>
+                        </ul>
+                    </div>
+                    <div href="#" class="nav__link collapse1">
+                        <ion-icon name="bag-sharp" class="nav__icon"></ion-icon>
+                        <span class="nav_name">INVENTORY</span>
+						
+						
+                        <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
+
+                        <ul class="collapse__menu">
+                            <a href="#" class="collapse__sublink">INVENTORY1</a>
+                            <a href="#" class="collapse__sublink">INVENTORY2</a>
+                            <a href="#" class="collapse__sublink">INVENTORY3</a>
+                        </ul>
+                    </div>
+                    <div href="#" class="nav__link collapse1">
+                        <ion-icon name="file-tray-full-sharp" class="nav__icon"></ion-icon>
+                        <span class="nav_name">RECIPE</span>
+						
+						
+                        <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
+
+                        <ul class="collapse__menu">
+                            <a href="#" class="collapse__sublink">RECIPE1</a>
+                            <a href="#" class="collapse__sublink">RECIPE2</a>
+                            <a href="#" class="collapse__sublink">RECIPE3</a>
+                        </ul>
+                    </div>
+					<div href="#" class="nav__link collapse1">
+                        <ion-icon name="people-sharp" class="nav__icon"></ion-icon>
+                        <span class="nav_name">USER</span>
+						
+						
+                        <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
+
+                        <ul class="collapse__menu">
+                            <a href="#" class="collapse__sublink">USER1</a>
+                            <a href="#" class="collapse__sublink">USER2</a>
+                            <a href="#" class="collapse__sublink">USER3</a>
+                        </ul>
+                    </div>
+                    
+					<div href="#" class="nav__link collapse1">
+                        <ion-icon name="chatbox-sharp" class="nav__icon"></ion-icon>
+                        <span class="nav_name">BOARD</span>
+						
+						
+                        <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
+
+                        <ul class="collapse__menu">
+                            <a href="#" class="collapse__sublink">JBOARD</a>
+                            <a href="#" class="collapse__sublink">YBOARD</a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div><!-- sidebar end -->   
+
+
+
+    
+
+
+</html>
+ 
