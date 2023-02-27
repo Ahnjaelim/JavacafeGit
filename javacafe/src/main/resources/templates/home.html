@@ -1,26 +1,75 @@
 <!DOCTYPE html>
-
-<!-- Thymeleaf 이용하기위해 네임스페이스 지정하기 -->
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layout/main.html}">
-<head>
-<meta charset="UTF-8">
-<title>자바 카페</title>
-</head>
-<body>
-	<div layout:fragment="content">
-		<div>
-			123
-		</div>
-		<div>
-			456
-		</div>
-		<div>
-			789
-		</div>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="~{layout/mainlayout.html}">
 	
-	</div>
-</body>
+
+		
+		
+	<main class="mainbg" layout:fragment="content">
+
+		<div   style="width:1000px; height: 300px">
+			<canvas id="myChart"></canvas>
+		</div>
+		
+		<div>
+		두번째 컨텐츠
+		</div>
+		
+		<div>
+		세번째 컨텐츠
+		</div>
+		
+	</main>
+	    
+	    
+	 
+	  
+
+	<script layout:fragment="script" th:inline="javascript">
+	console.log('script')		
+	var ctx = document.getElementById("myChart").getContext('2d');
+
+	var myChart = new Chart(ctx, {
+	    type: 'line',
+	    data: {
+	        labels: ["1월", "2월", "3월", "4월", "5월", "6월","7월", "8월", "9월", "10월", "11월", "12월"],
+	        datasets: [{
+	            label: '매출', //차트이름
+	            fill:false, //채우기
+	            data: [12, 19, 3, 5, 2, 3,4,8,9,7,15,16],
+	            backgroundColor: [
+	                'rgba(0, 0, 0)',
+	                'rgba(0, 0, 0)',
+	                'rgba(0, 0, 0)',
+	                'rgba(0, 0, 0)',
+	                'rgba(0, 0, 0)',
+	                'rgba(0, 0, 0)',
+	                'rgba(0, 0, 0)',
+	                'rgba(0, 0, 0)',
+	                'rgba(0, 0, 0)',
+	                'rgba(0, 0, 0)',
+	                'rgba(0, 0, 0)',
+	                'rgba(0, 0, 0)'
+	            
+	              
+	            ],
+	            borderColor: [
+	                'rgba(0, 0, 0)'	          
+	            ],
+	            borderWidth: 1
+	        }]
+	    },
+	    options: {
+	        maintainAspectRatio: false, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero:true
+	                }
+	            }]
+	        }
+	    }
+	});
+	</script>
 </html>
- 

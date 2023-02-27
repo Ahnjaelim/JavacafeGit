@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+body{
+	background-color: #ffefd9;
+}
+
+.main_box{
+	display: flex;
+	gap:50px;
+}	
+
+.mainbox{
+	flex-grow: 1;
+	padding-top: 40px;
+}
