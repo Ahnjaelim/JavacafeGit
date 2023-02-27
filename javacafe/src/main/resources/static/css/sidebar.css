@@ -67,7 +67,7 @@ a {
 /*icon*/
 .md {
 	font-size:45px;
-	align-content: center;
+	margin: auto;
 }
 
 
@@ -86,6 +86,9 @@ a {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
+    margin-top : 1rem;
+    padding-left: 30px;
+    
  
 }
 
@@ -103,7 +106,6 @@ a {
 
 .nav__link {
     display: grid;
-    grid-template-columns: max-content max-content;
     align-items: center;
     column-gap: .75rem;
     padding: .75rem;
@@ -142,13 +144,14 @@ a {
 }
 
 /* COLLAPSE */
-.collapse {
+.collapse1 {
     grid-template-columns: 20px max-content 1fr;
 }
 
 .collapse__link {
     justify-self: flex-end;
     transition: .5;
+    font-size: 1.25rem;
 }
 
 .collapse__menu {
@@ -164,6 +167,7 @@ a {
 .collapse__sublink:hover {
     color: var(--white-color);
 }
+
 
 /* Show collapse */
 .showCollapse {
