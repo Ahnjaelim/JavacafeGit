@@ -10,9 +10,9 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class SampleController {
 
-		@GetMapping("/sample")
-		public void hello(Model model) {
-			log.info("Sample Controller Test");
-			model.addAttribute("msg", "HELLO WORLD");
-		}
+	@GetMapping("/sample")
+	public void hello(Model model) {
+		log.info("Sample Controller Test");
+		model.addAttribute("msg", "HELLO WORLD");
+	}
 }
