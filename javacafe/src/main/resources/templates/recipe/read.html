@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/mainlayout.html}">
+       
+<main class="mainbg" layout:fragment="content">
+<!-- ================================================================================ -->
+
+<style>
+.table {background:#ffffff;}
+</style>
+<table width="100%">
+<colgroup>
+	<col width="330px" />
+	<col width="*" />	
+</colgroup>
+<tr style="vertical-align:top;">
+	<td><img th:src="|/view/${dto.rimg}|" style="width:300px; height:300px;"/></td>
+	<td>
+		<table class="table table-bordered">
+		<colgroup>
+			<col width="15%" />
+			<col width="35%" />
+			<col width="15%" />
+			<col width="35%" />
+		</colgroup>
+		<tr>
+			<th>메뉴 상태</th><td colspan="3" th:switch="${dto.rstate}">
+				<span th:case="0">판매 종료</span>
+				<span th:case="1">판매 가능</span>
+			</td>
+		</tr>
+		<tr>
+			<th>메뉴 이름</th><td>[[${dto.rname}]]</td>
+			<th>영문 이름</th><td>[[${dto.reng}]]</td>
+		</tr>
+		<tr>
+			<th>제조 단가</th><td>[[${dto.rcost}]]</td>
+			<th>소비자 가격</th><td>[[${dto.rprice}]]</td>
+		</tr>
+		<tr>
+			<th>메뉴 소개</th><td colspan="3">[[${dto.rdesc}]]</td>
+		</tr>
+		<tr>
+			<th>레시피</th><td colspan="3">[[${dto.rtext}]]</td>
+		</tr>
+		<tr>
+			<th>칼로리</th><td colspan="3">[[${dto.rkcal}]] kcal</td>
+		</tr>									
+		</table>	
+	</td>
+</tr>
+</table>
+
+<div th:with="link = ${pageRequestDTO.getLink()}">
+<a th:href="|@{/recipe/list}?${link}|" class="text-decoration-none">
+    <button type="button" class="btn btn-primary">List</button>
+</a>
+<a th:href="|@{/recipe/register(rno=${dto.rno})}&${link}|" class="text-decoration-none">
+    <button type="button" class="btn btn-secondary">Modify</button>
+</a>
+</div>
+
+<!-- ================================================================================ -->
+</main>
+
+<script layout:fragment="script" th:inline="javascript">
+</script>

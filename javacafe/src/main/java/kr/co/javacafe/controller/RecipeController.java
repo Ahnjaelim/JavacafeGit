@@ -1,11 +1,21 @@
 package kr.co.javacafe.controller;
 
+import java.io.File;
+import java.nio.file.Files;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,7 +34,7 @@ import lombok.extern.log4j.Log4j2;
 public class RecipeController {
 	
 	private final RecipeService recipeService;
-	
+
 	@GetMapping("/list")
 	public void list(PageRequestDTO pageRequestDTO, Model model) {
 		log.info(pageRequestDTO);
@@ -34,12 +44,34 @@ public class RecipeController {
 	}
 	
 	@GetMapping("/register")
-	public void registerGET() {
-		
+	public void registerGET(Long rno, Model model) {
+		if(rno == null) {
+			log.info("<Recipe Controller> recipe register GET");
+			RecipeDTO recipeDTO = RecipeDTO.builder()
+					.rno(0L)
+					.rcate(0)
+					.rname("")
+					.reng("")
+					.rdesc("")
+					.rtext("")
+					.rcost(0)
+					.rprice(0)
+					.rkcal(0)
+					.rimg("")
+					.rstate(0)
+					.build();
+			model.addAttribute("dto", recipeDTO);
+		}else {
+			log.info("<Recipe Controller> recipe modify GET");
+			RecipeDTO recipeDTO = recipeService.readOne(rno);
+			log.info(recipeDTO);
+			model.addAttribute("dto", recipeDTO);
+			
+		}
 	}
 	
 	@PostMapping("/register")
-	public String registerPost(@Valid RecipeDTO recipeDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	public String registerPost(@Valid RecipeDTO recipeDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 		log.info("<Recipe Controller> recipe register POST");
 		if(bindingResult.hasErrors()) {
 			log.info("has errors......");
@@ -47,8 +79,35 @@ public class RecipeController {
 			return "redirect:/recipe/register";
 		}
 		log.info(recipeDTO);
-		Long rno = recipeService.register(recipeDTO);
+		Long rno = recipeService.register(recipeDTO, request);
 		redirectAttributes.addFlashAttribute("result", rno);
 		return "redirect:/recipe/list";
 	}
+	
+	@PostMapping("/modify")
+	public String modify(PageRequestDTO pageRequestDTO, @Valid RecipeDTO recipeDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+		log.info("<Recipe Controller> modify POST");
+		log.info(recipeDTO);
+		if(bindingResult.hasErrors()) {
+			log.info("has errors!");
+			String link = pageRequestDTO.getLink();
+			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+			redirectAttributes.addAttribute("rno", recipeDTO.getRno());
+			return "redirect:/recipe/register?"+link;
+			
+		}
+		recipeService.modify(recipeDTO, request);
+		redirectAttributes.addFlashAttribute("result","modified");
+		redirectAttributes.addAttribute("rno", recipeDTO.getRno());
+		return "redirect:/recipe/read";
+	}
+	
+	@GetMapping("/read")
+	public void read(Long rno, PageRequestDTO pageRequestDTO, Model model) {
+		RecipeDTO recipeDTO = recipeService.readOne(rno);
+		log.info(recipeDTO);
+		model.addAttribute("dto", recipeDTO);
+	}
+	
+
 }
