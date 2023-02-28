@@ -25,6 +25,7 @@ import kr.co.javacafe.dto.PageResponseDTO;
 import kr.co.javacafe.dto.RecipeDTO;
 import kr.co.javacafe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import lombok.extern.log4j.Log4j2;
 
 @Controller
@@ -107,6 +108,9 @@ public class RecipeController {
 		RecipeDTO recipeDTO = recipeService.readOne(rno);
 		log.info(recipeDTO);
 		model.addAttribute("dto", recipeDTO);
+		// 개행 문자 넘기기
+		String nlString = System.getProperty("line.separator").toString();
+		model.addAttribute("nlString", nlString);
 	}
 	
 

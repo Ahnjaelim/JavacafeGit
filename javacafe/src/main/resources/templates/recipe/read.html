@@ -40,7 +40,11 @@
 			<th>메뉴 소개</th><td colspan="3">[[${dto.rdesc}]]</td>
 		</tr>
 		<tr>
-			<th>레시피</th><td colspan="3">[[${dto.rtext}]]</td>
+			<th>레시피</th>
+			<td colspan="3">
+				<!--  /*<div th:text="${dto.rtext}"></div>*/ -->
+				<span th:utext="${#strings.replace(dto.rtext, nlString, '&lt;br /&gt;')}"></span>
+			</td>
 		</tr>
 		<tr>
 			<th>칼로리</th><td colspan="3">[[${dto.rkcal}]] kcal</td>
