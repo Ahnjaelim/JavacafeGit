@@ -1,13 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/basic.html}">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/mainlayout.html}">
+       
+<main class="mainbg" layout:fragment="content">
 
-<head>
-  <title>Board Register</title>
-</head>
-
-<div layout:fragment="content">
   <div class="row mt-3">
     <div class="col">
       <div class="card">
@@ -44,7 +39,7 @@
       </div><!--end card-->
     </div><!-- end col-->
   </div><!-- end row-->
-</div>
+</main>
 
 
 <script layout:fragment="script" th:inline="javascript">

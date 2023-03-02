@@ -1,53 +1,61 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/basic.html}">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/mainlayout.html}">
+       
+<main class="mainbg" layout:fragment="content">
 
-<head>
-  <title>Board Register</title>
-</head>
+<style>
+.input-group-text {width:200px; text-align:center; display:inline-block;}
+</style>
 
-<div layout:fragment="content">
-  <div class="row mt-3">
-    <div class="col">
-      <div class="card">
-        <div class="card-header">
-          Board Register
-        </div>
-        <div class="card-body">
-          <form action="/recipe/register" method="post">
-			  <input type="hidden" name="rstate" value="1">
-            <div class="input-group mb-3">
-              <span class="input-group-text">메뉴 이름</span>
-              <input type="text" name="rname" class="form-control" placeholder="Title">
-            </div>
-            <div class="input-group mb-3">
-              <span class="input-group-text">영문 이름</span>
-              <input type="text" name="reng" class="form-control" placeholder="Title">
-            </div>
-            <div class="input-group mb-3">
-              <span class="input-group-text">메뉴 소개</span>
-              <input type="text" name="rdesc" class="form-control" placeholder="Title">
-            </div>            
-            <div class="input-group mb-3">
-              <span class="input-group-text">레시피</span>
-              <textarea class="form-control col-sm-5" rows="5" name="rtext"></textarea>
-            </div>
-
-            <div class="my-4">
-              <div class="float-end">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="reset" class="btn btn-secondary">Reset</button>
-              </div>
-            </div>
-          </form>
-        </div><!--end card body-->
-
-      </div><!--end card-->
-    </div><!-- end col-->
-  </div><!-- end row-->
+<form method="post" th:attr="action=${dto.rno == 0 ? '/recipe/register' : '/recipe/modify'}" enctype="multipart/form-data">
+<input th:if="${dto.rno>0}" type="hidden" name="rno" th:value="${dto.rno}" />
+<div class="input-group mb-1">
+	<span class="input-group-text">메뉴 상태</span>
+	<div class="form-control">
+		<input th:if="${dto.rno>0}" class="form-check-input" name="rstate" type="checkbox" value="1" id="flexCheckDefault" th:attr="checked=${dto.rstate == 1 ? 'true' : 'false'}" />
+		<input th:if="${dto.rno==0}" class="form-check-input" name="rstate" type="checkbox" value="1" id="flexCheckDefault" checked="true" />
+		<label class="form-check-label" for="flexCheckDefault">메뉴 판매 가능</label>
+	</div>
+</div>
+<div class="input-group mb-1">
+	<span class="input-group-text">메뉴 이름</span>
+	<input type="text" name="rname" class="form-control" th:value="${dto.rname}" />
+	<span class="input-group-text">영문 이름</span>
+	<input type="text" name="reng" class="form-control" th:value="${dto.reng}"  />              
+</div>
+<div class="input-group mb-1">
+	<span class="input-group-text">제조 단가</span>
+	<input type="text" name="rcost" class="form-control" th:value="${dto.rcost}" />
+	<span class="input-group-text">소비자 가격</span>
+	<input type="text" name="rprice" class="form-control" th:value="${dto.rprice}" />              
+</div>
+<div class="input-group mb-1">
+	<span class="input-group-text">메뉴 소개</span>
+	<input type="text" name="rdesc" class="form-control" th:value="${dto.rdesc}" />
 </div>
 
+<div class="input-group mb-1">
+	<span class="input-group-text">레시피</span>
+	<textarea class="form-control col-sm-5" rows="5" name="rtext">[[${dto.rtext}]]</textarea>
+</div>
+<div class="input-group mb-1">
+	<span class="input-group-text">칼로리</span>
+	<input type="text" name="rkcal" class="form-control" th:value="${dto.rkcal}" />
+</div>
+<div class="input-group mb-1">
+	<span class="input-group-text">이미지 업로드</span>
+	<input type="file" name="file" class="form-control" />
+</div>
+
+<a href="/recipe/list" class="btn btn-primary">목록</a>
+<button type="submit" class="btn btn-primary">Submit</button>
+<button type="reset" class="btn btn-secondary">Reset</button>
+
+</form>
+
+  
+  
+</main>
 
 <script layout:fragment="script" th:inline="javascript">
 

@@ -1,5 +1,7 @@
 package kr.co.javacafe.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,23 +33,23 @@ public class RecipeServiceTest {
 				.rimg("/img")
 				.rstate(1)
 				.build();
-		Long rno = recipeService.register(recipeDTO);
-		log.info("rno : "+rno);
+		// Long rno = recipeService.register(recipeDTO);
+		// log.info("rno : "+rno);
 	}
 	
-	// @Test
+	@Test
 	public void testModifty() {
 		RecipeDTO recipeDTO = RecipeDTO.builder()
-				.rno(11L)
+				.rno(12L)
 				.rname("Modify 서비스 테스트")
 				.reng("Modify Service Test")
 				.rdesc("Modify Desc 서비스 테스트")
 				.rtext("Modify Text 서비스 테스트")
 				.build();
-		recipeService.modify(recipeDTO);
+		// recipeService.modify(recipeDTO);
 	}
 	
-	@Test
+	// @Test
 	public void testList() {
 		PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
 				.type("n")

@@ -1,7 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/basic.html}">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/mainlayout.html}">
+       
+<main class="mainbg" layout:fragment="content">
 
-<div layout:fragment="content">
+<style>
+.col {display:block; color:#1e1e1e;}
+.col:hover { color:#1e1e1e;}
+.card-title,
+.card-title p {padding:0; margin:0;}
+.card-title {text-align:center;}
+.card-title p:nth-child(1) {font-weight:bold; padding:20px 0px 10px 0px;}
+.card-title p:nth-child(2) {padding:0px 0px 30px 0px;}
+.card-text {text-align:center; padding:0px 0px 30px 0px;}
+</style>
 
 <form action="/recipe/list" method="get">
 <input type="hidden" name="size" th:value="${pageRequestDTO.size}" />
@@ -16,49 +27,36 @@
 <button class="btn btn-outline-secondary clearBtn" type="submit">Clear</button>
 </form>
 
-	<h1>Board List</h1>
-	<table class="table">
-	<colgroup>
-		<col width="5%" />
-		<col width="*" />
-		<col width="10%" />
-		<col width="15%" />
-	</colgroup>
-	<thead>
-	<tr>
-		<th>#</th>
-		<th>SUBJECT</th>
-		<th>NAME</th>
-		<th>DATE</th>
-	</tr>
-	</thead>
-    <tbody th:with="link = ${pageRequestDTO.getLink()}">
-    <tr th:each="dto:${responseDTO.dtoList}"  >
-        <td>[[${dto.rno}]]</td>
-        <td>
-            <a th:href="|@{/recipe/read(rno =${dto.rno})}&${link}|" class="text-decoration-none"> [[${dto.rname}]] </a>
-            <span class="badge progress-bar-success" style="background-color: #0a53be"></span>
-        </td>
-        <td></td>
-        <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
-    </tr>
-    </tbody>
-	</table>
-	
-	<ul class="pagination">
-		<li class="page-item" th:if="${responseDTO.prev}">
-			<a class="page-link" th:data-num="${responseDTO.start -1}">&lt;</a>
-		</li>
-		<th:block th:each="i:${#numbers.sequence(responseDTO.start, responseDTO.end)}">
-			<li th:class="${responseDTO.page == i}?'page-item active':'page-item'">
-				<a class="page-link" th:data-num="${i}">[[${i}]]</a>
-				
-			</li>	
-		</th:block>
-		<li class="page-item" th:if="${responseDTO.next}">
-			<a class="page-link" th:data-num="${responseDTO.end +1}">&gt;</a>
-		</li>		
-	</ul>
+<div class="row row-cols-1 row-cols-md-4 g-4" th:with="link = ${pageRequestDTO.getLink()}">
+  <a class="col" th:each="dto:${responseDTO.dtoList}" th:href="|@{/recipe/read(rno =${dto.rno})}&${link}|">
+  	<div class="card h-100">
+      <img th:if="${dto.rimg} != '' and ${dto.rimg} != null " th:src="|/view/${dto.rimg}|" class="card-img-top" />
+      <img th:if="${dto.rimg} == '' or ${dto.rimg} == null " src="/img/noimg.jpg" />
+      <div class="card-body">
+        <h5 class="card-title">
+        	<p>[[${dto.rname}]]</p>
+        	<p style="color:#b4b4b4;">[[${dto.reng}]]</p>
+        </h5>
+        <p class="card-text">[[${dto.rdesc}]]</p>
+      </div>
+    </div>
+  </a>
+</div>
+
+<ul class="pagination">
+	<li class="page-item" th:if="${responseDTO.prev}">
+		<a class="page-link" th:data-num="${responseDTO.start -1}">&lt;</a>
+	</li>
+	<th:block th:each="i:${#numbers.sequence(responseDTO.start, responseDTO.end)}">
+		<li th:class="${responseDTO.page == i}?'page-item active':'page-item'">
+			<a class="page-link" th:data-num="${i}">[[${i}]]</a>
+			
+		</li>	
+	</th:block>
+	<li class="page-item" th:if="${responseDTO.next}">
+		<a class="page-link" th:data-num="${responseDTO.end +1}">&gt;</a>
+	</li>		
+</ul>
 	
 	<button class="btn btn-primary" onclick="location.href='register';">Register</button>
 	
@@ -82,7 +80,7 @@
 	</div>
 </div>
 
-
+</main>
 
 
 
