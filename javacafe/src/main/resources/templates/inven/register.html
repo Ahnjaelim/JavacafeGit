@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<!-- Thymeleaf 이용하기위해 네임스페이스 지정하기 -->
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/mainlayout.html}">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/inven.css}">
+<title>자바 카페</title>
+
+
+
+</head>
+<body>
+<!-- ====================================================== -->
+<div layout:fragment="content">
+	
+	<div class="inven-register">
+		<div class="col">
+			<div class="card">
+				<div class="card-header">
+					 <ion-icon name="bag-outline" class="inventory-icon"></ion-icon> Inventory Register
+				</div>
+				<div class="card-body">
+					<form action="/board/register" method="post">
+						<div class="input-group mb-3">
+							<span class="inven-input-group">상품명</span>
+							<input type="text" name="iname" class="form-control" placeholder="상품명을 입력하세요">
+						</div>
+											
+						<div class="input-group mb-3">
+							<span class="input-group-text">상품가격</span>							
+							<input type="text" name="iprice" class="form-control" placeholder="상품가격을 입력하세요">
+						</div>
+						
+						<div class="input-group mb-3">
+							<span class="input-group-text">상품설명</span>
+							<textarea class="form-control col-sm-5" rows="5" name="icontent" placeholder="상품설명을 입력하세요"></textarea>
+						</div>					
+
+
+						<div class="input-group mb-3">
+							<span class="input-group-text">상품재고</span>							
+							<input type="text" name="writer" class="form-control" placeholder="상품재고를 입력하세요">
+						</div>
+						<div class="input-group mb-3">
+							<span class="input-group-text">상품분류</span>							
+							<input type="text" name="writer" class="form-control" placeholder="상품분류를 입력하세요">
+						</div>
+						
+						
+						
+						
+						<!-- 입력form end -->
+						<div class="my-4">
+							<div class="float-end">
+								<button type="submit" class="btn btn-primary">작성완료</button>
+								<button type="reset" class="btn btn-secondary">다시작성</button>
+							</div>
+						</div>					
+					</form>
+						<!-- 등록form 종료 -->						
+				</div>
+			</div> <!-- end card body -->
+		</div><!-- end card -->
+	</div><!-- end col -->
+</div><!-- layout:content End -->
+<!-- ====================================================== -->
+<script layout:fragment="script" th:inline="javascript">
+
+  
+</script>	
+</body>
+</html>
+ 

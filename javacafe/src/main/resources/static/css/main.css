@@ -2,14 +2,17 @@
 
 body{
 	background-color: #ffefd9;
+	overflow-x:hidden;
 }
 
+/*사이드바 : content flex 및 gap띄우기*/
 .main_box{
 	display: flex;
 	gap:50px;
 }	
 
+/*찐 mainbox*/
 .mainbox{
 	flex-grow: 1;
-	padding-top: 40px;
+	padding-right: 50px;
 }
