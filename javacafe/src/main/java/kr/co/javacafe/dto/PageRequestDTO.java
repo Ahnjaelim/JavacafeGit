@@ -22,7 +22,7 @@ public class PageRequestDTO {
 	private int page = 1;
 	
 	@Builder.Default
-	private int size = 10;
+	private int size = 12;
 	
 	private String type;
 	private String keyword;

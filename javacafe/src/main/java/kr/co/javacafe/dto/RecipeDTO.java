@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,5 +40,8 @@ public class RecipeDTO {
 	private int rstate;
 	private LocalDateTime regDate;
 	private Timestamp modDate;
+	
+	// 파일
+	private MultipartFile file;
 	
 }

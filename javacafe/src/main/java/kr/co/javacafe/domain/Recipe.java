@@ -54,10 +54,15 @@ public class Recipe extends BaseEntity{
 	@Column(length = 3, nullable = false)
 	private int rstate;
 	
-	public void change(String rname, String reng, String rdesc, String rtext) {
+	public void change(String rname, String reng, String rdesc, String rtext, int rcost, int rprice, int rkcal, int rstate, String rimg) {
 		this.rname = rname;
 		this.reng = reng;
 		this.rdesc = rdesc;
 		this.rtext = rtext;
+		this.rcost = rcost;
+		this.rprice = rprice;
+		this.rkcal = rkcal;
+		this.rstate = rstate;
+		this.rimg = rimg;
 	}
 }
