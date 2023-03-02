@@ -106,6 +106,7 @@ a {
 }
 
 .nav__link {
+    display: grid;
     align-items: center;
     column-gap: .75rem;
     padding: .75rem;
@@ -126,8 +127,6 @@ a {
 
 .nav_name {
     font-size: var(--small-font-size);
-    position: relative;
-    top: -4px;
 }
 
 /* Expander menu */
