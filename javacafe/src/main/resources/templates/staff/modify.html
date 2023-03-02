@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/mainlayout.html}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Insert title here</title>
+
+<link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+<main class="mainbg" layout:fragment="content">
+		<div class="row mt-3">
+			<div class="col">
+				<div class="card">
+					<div class="card-body">
+						<form th:action="@{/staff/modify}" method="post" id="f1">
+							<div class="input-group mb-3">
+								<span class="input-group-text">사원번호</span>
+								 <input type="text"
+									name="sno" class="form-control" placeholder="사원번호" th:value="${dto.sno}" readonly>
+							</div>
+							<div class="input-group mb-3">
+								<span class="input-group-text">이름</span>
+								 <input type="text"
+									name="sname" class="form-control" placeholder="이름" th:value="${dto.sname}" readonly>
+							</div>
+							<div class="input-group mb-3">
+								<span class="input-group-text">전화번호</span> 
+								<input type="text"
+									name="sphone" class="form-control" th:value="${dto.sphone}" placeholder="전화번호">
+							</div>
+							<div class="input-group mb-3">
+								<span class="input-group-text">주소</span> 
+								<input id="saddre"
+									type="text" name="saddr" class="form-control" th:value="${dto.saddr}" placeholder="주소">
+							</div>
+							<div class="input-group mb-3">
+								<select
+									name="swork" style=" width: 100%;"
+									class="form-select form-select-sm"
+									aria-label=".form-select-sm example" th:value="${dto.swork}">
+									<option>출근가능날짜</option>
+									<option value="오전">오전타임/출근</option>
+									<option value="점심">점심타임/출근</option>
+									<option value="마감">마감타임/출근</option>
+									<option value="false">퇴근</option>
+									</select>
+							</div>
+
+							<div class="float-end">
+								<button type="button" class="btn btn-primary listBtn">List</button>
+								<button type="button" class="btn btn-secondary modBtn">Modify</button>
+								<button type="button" class="btn btn-danger removeBtn">Remove</button>
+							</div>
+						</form>
+					</div>
+					<!-- end card body -->
+				</div>
+				<!-- end card -->
+			</div>
+			<!-- end col -->
+		</div>
+		<!-- end row -->
+
+
+
+	</main>
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script th:src="@{/js/scripts.js}"></script>
+
+	<script layout:fragment="script" th:inline="javascript">
+
+	const errors = [[${errors}]]
+	console.log(errors)
+
+	let errorMsg=''
+
+	if(errors){
+		for(let i = 0; i<errors.length; i++){
+			errorMsg += `${errors[i],field}은(는) ${errors[i].code} \n`
+		
+		}
+		history.replaceState({},null, null)
+		alert(eroorMsg)
+	}
+
+	const link = [[${pageRequestDTO.getLink()}]]
+	const formObj = document.querySelector("#f1")
+
+	document.querySelector(".modBtn").addEventListener("click", function(e){
+		e.preventDefault()
+		e.stopPropagation()
+		
+		formObj.action = `/staff/modify?${link}`
+		formObj.method = 'post'
+		formObj.submit()
+
+	}, false)
+
+	document.querySelector(".removeBtn").addEventListener("click", function(e){
+		e.preventDefault()
+		e.stopPropagation()
+		
+		formObj.action = `/staff/remove`
+		formObj.method = 'post'
+		formObj.submit()
+	}.false)
+
+	  document.querySelector(".listBtn").addEventListener("click", function(e){
+	        e.preventDefault()
+	        e.stopPropagation()
+
+	        formObj.reset()
+	        self.location =`/staff/list?${link}`
+
+	    }, false)
+
+	</script>
+</body>
+</html>
