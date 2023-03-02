@@ -6,14 +6,18 @@
 
 <style>
 .table {background:#ffffff;}
+img {width:400px; height:400px;}
 </style>
 <table width="100%">
 <colgroup>
-	<col width="330px" />
+	<col width="430px" />
 	<col width="*" />	
 </colgroup>
 <tr style="vertical-align:top;">
-	<td><img th:src="|/view/${dto.rimg}|" style="width:300px; height:300px;"/></td>
+	<td>
+		<img th:if="${dto.rimg} != '' and ${dto.rimg} != null " th:src="|/view/${dto.rimg}|" />
+		<img th:if="${dto.rimg} == '' or ${dto.rimg} == null " src="/img/noimg.jpg" />
+	</td>
 	<td>
 		<table class="table table-bordered">
 		<colgroup>
