@@ -50,7 +50,7 @@ public class RecipeController {
 			log.info("<Recipe Controller> recipe register GET");
 			RecipeDTO recipeDTO = RecipeDTO.builder()
 					.rno(0L)
-					.rcate(0)
+					.rcate("0")
 					.rname("")
 					.reng("")
 					.rdesc("")

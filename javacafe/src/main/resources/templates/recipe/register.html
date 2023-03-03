@@ -16,6 +16,15 @@
 		<input th:if="${dto.rno==0}" class="form-check-input" name="rstate" type="checkbox" value="1" id="flexCheckDefault" checked="true" />
 		<label class="form-check-label" for="flexCheckDefault">메뉴 판매 가능</label>
 	</div>
+	<span class="input-group-text">카테고리</span>
+	<select name="rcate" class="form-control">
+		<option value="0" th:selected="${dto.rcate == '0'}">선택</option>
+		<option value="1" th:selected="${dto.rcate == '1'}">커피</option>
+		<option value="2" th:selected="${dto.rcate == '2'}">티</option>
+		<option value="3" th:selected="${dto.rcate == '3'}">에이드&amp;주스</option>
+		<option value="4" th:selected="${dto.rcate == '4'}">스무디&amp;프라페</option>
+		<option value="5" th:selected="${dto.rcate == '5'}">음료</option>
+	</select>	
 </div>
 <div class="input-group mb-1">
 	<span class="input-group-text">메뉴 이름</span>
