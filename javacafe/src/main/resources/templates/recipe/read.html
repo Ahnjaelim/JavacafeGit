@@ -6,14 +6,18 @@
 
 <style>
 .table {background:#ffffff;}
+img {width:400px; height:400px;}
 </style>
 <table width="100%">
 <colgroup>
-	<col width="330px" />
+	<col width="430px" />
 	<col width="*" />	
 </colgroup>
 <tr style="vertical-align:top;">
-	<td><img th:src="|/view/${dto.rimg}|" style="width:300px; height:300px;"/></td>
+	<td>
+		<img th:if="${dto.rimg} != '' and ${dto.rimg} != null " th:src="|/view/${dto.rimg}|" />
+		<img th:if="${dto.rimg} == '' or ${dto.rimg} == null " src="/img/noimg.jpg" />
+	</td>
 	<td>
 		<table class="table table-bordered">
 		<colgroup>
@@ -23,9 +27,18 @@
 			<col width="35%" />
 		</colgroup>
 		<tr>
-			<th>메뉴 상태</th><td colspan="3" th:switch="${dto.rstate}">
+			<th>메뉴 상태</th><td th:switch="${dto.rstate}">
 				<span th:case="0">판매 종료</span>
 				<span th:case="1">판매 가능</span>
+			</td>
+			<th>카테고리</th>
+			<td th:switch="${dto.rcate}">
+				<span th:case="0">선택 안함</span>
+				<span th:case="1">커피</span>
+				<span th:case="2">티</span>
+				<span th:case="3">에이드&amp;주스</span>
+				<span th:case="4">스무디&amp;프라페</span>
+				<span th:case="5">음료</span>
 			</td>
 		</tr>
 		<tr>
