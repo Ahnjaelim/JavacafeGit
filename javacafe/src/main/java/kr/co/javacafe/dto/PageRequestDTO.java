@@ -26,6 +26,7 @@ public class PageRequestDTO {
 	
 	private String type;
 	private String keyword;
+	private String category;
 	
 	public String[] getTypes() {
 		if(type==null || type.isEmpty()) {

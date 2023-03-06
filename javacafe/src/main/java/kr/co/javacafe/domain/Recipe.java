@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,8 +26,9 @@ public class Recipe extends BaseEntity{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long rno;
 	
-	@Column(length = 3, nullable = true)
-	private int rcate;
+	@Column(length = 3, nullable = false)
+	@ColumnDefault("0")
+	private String rcate;
 	
 	@Column(length = 200, nullable = false)
 	private String rname;
@@ -39,13 +42,16 @@ public class Recipe extends BaseEntity{
 	@Column(length = 2000, nullable = false)
 	private String rtext;
 
-	@Column(length = 10, nullable = true)
+	@Column(length = 10, nullable = false)
+	@ColumnDefault("0")
 	private int rcost;
 
-	@Column(length = 10, nullable = true)
+	@Column(length = 10, nullable = false)
+	@ColumnDefault("0")
 	private int rprice;
 
-	@Column(length = 10, nullable = true)
+	@Column(length = 10, nullable = false)
+	@ColumnDefault("0")
 	private int rkcal;
 
 	@Column(length = 200, nullable = true)
@@ -54,7 +60,8 @@ public class Recipe extends BaseEntity{
 	@Column(length = 3, nullable = false)
 	private int rstate;
 	
-	public void change(String rname, String reng, String rdesc, String rtext, int rcost, int rprice, int rkcal, int rstate, String rimg) {
+	public void change(String rcate, String rname, String reng, String rdesc, String rtext, int rcost, int rprice, int rkcal, int rstate, String rimg) {
+		this.rcate = rcate;
 		this.rname = rname;
 		this.reng = reng;
 		this.rdesc = rdesc;

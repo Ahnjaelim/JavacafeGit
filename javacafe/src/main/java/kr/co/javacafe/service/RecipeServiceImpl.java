@@ -60,7 +60,7 @@ public class RecipeServiceImpl implements RecipeService {
 			log.info("Not Exist New File");
 			recipeDTO.setRimg(recipe.getRimg());
 		}
-		recipe.change(recipeDTO.getRname(), recipeDTO.getReng(), recipeDTO.getRdesc(), recipeDTO.getRtext(), recipeDTO.getRcost(), recipeDTO.getRprice(), recipeDTO.getRkcal(), recipeDTO.getRstate(), recipeDTO.getRimg());
+		recipe.change(recipeDTO.getRcate(), recipeDTO.getRname(), recipeDTO.getReng(), recipeDTO.getRdesc(), recipeDTO.getRtext(), recipeDTO.getRcost(), recipeDTO.getRprice(), recipeDTO.getRkcal(), recipeDTO.getRstate(), recipeDTO.getRimg());
 		recipeRepository.save(recipe);
 	}
 
@@ -74,8 +74,9 @@ public class RecipeServiceImpl implements RecipeService {
 	public PageResponseDTO<RecipeDTO> list(PageRequestDTO pageRequestDTO) {
 		String[] types = pageRequestDTO.getTypes();
 		String keyword = pageRequestDTO.getKeyword();
+		String category = pageRequestDTO.getCategory();
 		Pageable pageable = pageRequestDTO.getPageable("rno");
-		Page<Recipe> result = recipeRepository.searchAll(types, keyword, pageable);
+		Page<Recipe> result = recipeRepository.searchAll(types, keyword, category, pageable);
 		List<RecipeDTO> dtoList = result.getContent().stream().map(recipe -> modelMapper.map(recipe, RecipeDTO.class)).collect(Collectors.toList());
 		return PageResponseDTO.<RecipeDTO>withAll()
 				.pageRequestDTO(pageRequestDTO)

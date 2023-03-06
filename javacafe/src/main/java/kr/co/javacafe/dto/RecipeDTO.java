@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class RecipeDTO {
 
 	private Long rno;
-	private int rcate;
+	private String rcate;
 	
 	@NotEmpty
 	@Size(min = 3, max = 200)

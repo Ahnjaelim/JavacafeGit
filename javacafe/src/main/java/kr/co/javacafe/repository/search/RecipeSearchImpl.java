@@ -43,7 +43,7 @@ public class RecipeSearchImpl extends QuerydslRepositorySupport implements Recip
 	}
 
 	@Override
-	public Page<Recipe> searchAll(String[] types, String keyword, Pageable pageable) {
+	public Page<Recipe> searchAll(String[] types, String keyword, String category, Pageable pageable) {
 		
 		QRecipe recipe = QRecipe.recipe; // Q도메인 객체
 		JPQLQuery<Recipe> query = from(recipe); // select from recipe 객체
@@ -66,6 +66,11 @@ public class RecipeSearchImpl extends QuerydslRepositorySupport implements Recip
 			} // end of for
 			query.where(booleanBuilder);
 		}// end of if
+		
+		// 카테고리 검색
+		if(category != null) {
+			query.where(recipe.rcate.contains(category));
+		}
 		
 		// rno > 0
 		query.where(recipe.rno.gt(0L));
