@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/mainlayout.html}">
+  
+<head>
+<meta charset="UTF-8">
+<title>고객 정보 작성</title>
+</head>
+<body>
+<main class="mainbg" layout:fragment="content">
+	
+  <div class="row mt-3">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          고객 정보 작성
+        </div>
+        <div class="card-body">
+          <form action="/customer/register" method="post">
+            <div class="input-group mb-3">
+              <span class="input-group-text">이름</span>
+              <input type="text" name="cname" class="form-control" placeholder="Name">
+            </div>
+
+            <div class="input-group mb-3">
+              <span class="input-group-text">전화번호</span>
+               <input type="text" name="cphone" class="form-control" placeholder="Phone">
+            </div>
+
+            <div class="input-group mb-3">
+              <span class="input-group-text">포인트</span>
+              <input type="text" name="cpoint" class="form-control" placeholder="Point">
+
+            </div>
+
+            <div class="my-4">
+              <div class="float-end">
+              	<a href="customer/list">리스트</a>
+                <button type="submit" class="btn btn-primary">작성</button>
+                <button type="reset" class="btn btn-secondary">초기화</button>
+              </div>
+            </div>
+          </form>
+        </div><!--end card body-->
+
+      </div><!--end card-->
+    </div><!-- end col-->
+  </div><!-- end row-->
+</main>
+
+<script layout:fragment="script" th:inline="javascript">
+
+  const errors = [[${errors}]]
+  console.log(errors)
+
+  let errorMsg = ''
+
+  if(errors){
+    for (let i = 0; i < errors.length; i++) {
+      errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
+    }
+    alert(errorMsg)
+  }
+
+</script>
+</body>
+</html>
