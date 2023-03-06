@@ -54,7 +54,8 @@ public class InvenServiceImpl implements InvenService{
 
         return inventoryDTO;
     }
-
+    
+    //수정
     @Override
     public void modify(InventoryDTO inventoryDTO) {
 

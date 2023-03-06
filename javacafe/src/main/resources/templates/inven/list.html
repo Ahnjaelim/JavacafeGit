@@ -36,11 +36,11 @@
                         	<th scope="col">상품분류(Iclass)</th>
                         	<th scope="col">입고일(Iregdate)</th>
                         	<th scope="col">출고일(Imoddate)</th>
-                        	<th scope="col">상품입/출고상태(Istate)</th>
+                        	<th class="inven-table-item" scope="col">상품입/출고상태(Istate)</th>
                         </tr>
 					</thead>
 					<tbody>								
-                        <tr class="inven-table" th:each="dto:${responseDTO.dtoList}">
+                        <tr class="inven-table" th:each="dto:${dto.dtoList}">
                             <th class="inven-table-item" scope="row">[[${dto.ino}]]</th>
                             <td>
                                 <a th:href="|@{/inven/read(ino =${dto.ino})}&${link}|"> [[${dto.iname}]] </a>
@@ -53,10 +53,10 @@
                             <td>[[${#temporals.format(dto.imodDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
                             
                             
-                            <td th:if="${dto.istate}== 1">입고됨</td>
-                            <td th:if="${dto.istate} == 0">출고됨</td>
+                            <td class="inven-table-item" th:if="${dto.istate}== 1">입고됨</td>
+                            <td class="inven-table-item" th:if="${dto.istate} == 0">출고됨</td>
                         </tr>
-                       	<tr th:if="${responseDTO.dtoList}==null">
+                       	<tr th:if="${dto.dtoList}==null">
                        		<td colspan="9" class="inven-search-null"> 검색결과가 없습니다. <br>상품명과 상품분류를 확인해주세요.</td>
                        	</tr>
                        	<tr>
@@ -75,16 +75,16 @@
 	<div class="inven-paging"> <!-- 페이징처리 start -->
     	<ul class="inven-pagination" >
 
-        	<th:block  class="" th:if="${responseDTO.prev}">
-            	<a class="btn btn-outline-primary " th:data-num="${responseDTO.start -1}"><</a>
+        	<th:block  class="" th:if="${dto.prev}">
+            	<a class="btn btn-outline-primary " th:data-num="${dto.start -1}"><</a>
             </th:block>
 
-            <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
-            	<a th:class="${responseDTO.page == i}?'btn btn-primary active ':'btn btn-outline-primary '"  th:data-num="${i}">[[${i}]]</a>
+            <th:block th:each="i: ${#numbers.sequence(dto.start, dto.end)}">
+            	<a th:class="${dto.page == i}?'btn btn-primary active ':'btn btn-outline-primary '"  th:data-num="${i}">[[${i}]]</a>
             </th:block>
 
-            <th:block class="" th:if="${responseDTO.next}">
-            	<a class="btn btn-outline-primary "  th:data-num="${responseDTO.end + 1}">></a>
+            <th:block class="" th:if="${dto.next}">
+            	<a class="btn btn-outline-primary "  th:data-num="${dto.end + 1}">></a>
             </th:block>
 		</ul>
 	</div><!-- 페이징처리end -->
@@ -123,60 +123,50 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Modal body text goes here.</p>
+                    <p>[[${result1}]]번 상품이 등록/삭제</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+          
                 </div>
             </div>
         </div>
     </div><!-- modal알림창 종료 -->
-    
+
     
 </div><!-- layout:content End -->
  <!-- ====================================================== -->
 <script layout:fragment="script" th:inline="javascript">
-
-    document.querySelector(".inven-pagination").addEventListener("click", function (e) {
-        e.preventDefault()
-        e.stopPropagation()
-
-        const target = e.target
-
-        if(target.tagName !== 'A') {
-            return
-        }
-
-        const num = target.getAttribute("data-num")
-
-        const formObj = document.querySelector("form")
-
-        formObj.innerHTML += `<input type='hidden' name='page' value='${num}'>`
-
-        formObj.submit();
-
-    },false)
-
-    document.querySelector(".clearBtn").addEventListener("click", function (e){
-        e.preventDefault()
-        e.stopPropagation()
-
-        self.location ='/inven/list'
-
-    },false)
-
-    //show modal
-    const result = [[${result}]]
-
-    const modal = new bootstrap.Modal(document.querySelector(".modal"))
-
-    if(result){
-        modal.show()
-    }
-
-
-
+	document.querySelector(".inven-pagination").addEventListener("click",function (e) {
+		e.preventDefault()
+		e.stopPropagation()
+		const target = e.target
+		if(target.tagName !== 'A'){
+		return
+		}
+		
+		const num = target.getAttribute("data-num")
+		const formObj = document.querySelector("form")
+		formObj.innerHTML += `<input type='hidden' name='page' value='${num}'>`
+		formObj.submit();
+	},false)
+	
+	//검색 기능초기화(첫페이지로 가기)
+	document.querySelector(".clearBtn").addEventListener("click",function (e){
+	e.preventDefault()
+	e.stopPropagation()
+	
+	self.location ='/board/list'
+	},false)
+	
+	//show moda
+	const result = [[${result1}]]
+	const modal = new bootstrap.Modal(document.querySelector(".modal"))
+	if(result){
+		modal.show()
+	}
+	
+	
 </script>	
 </body>
 </html>

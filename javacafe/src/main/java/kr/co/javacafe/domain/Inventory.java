@@ -45,6 +45,7 @@ public class Inventory extends InvenBaseEntity  {
 	@Column(nullable = false)
 	private long istate;				//입출고 상태
 
+	
 	public void change(String iname, long iprice, String iclass, String icontent, long icount, long istate) {
 		this.iname = iname;
 		this.iprice = iprice;

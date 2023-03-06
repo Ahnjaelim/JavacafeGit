@@ -1,6 +1,6 @@
 package kr.co.javacafe.domain;
 
-import java.sql.Timestamp;
+
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -24,5 +24,5 @@ abstract class InvenBaseEntity {
 	
 	@LastModifiedDate
 	@Column(name = "imoddate")
-	private Timestamp imodDate;
+	private LocalDateTime imodDate;
 }
