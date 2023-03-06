@@ -2,6 +2,7 @@
 
 body{
 	background-color: #ffefd9;
+	overflow-x:hidden;
 }
 
 .main_box{

@@ -14,10 +14,11 @@
 <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link th:href="@{/css/styles.css}" rel="stylesheet" />
+<link th:href="@{/css/staff.css}" rel="stylesheet" />
 </head>
 <body>
 	<main class="mainbg" layout:fragment="content">
-	<div class="row mt-3">
+		<div class="row mt-3">
 			<form action="/staff/list" method="get">
 				<div class="col">
 					<input type="hidden" name="size" th:value="${pageRequestDTO.size}">
@@ -39,81 +40,94 @@
 				</div>
 			</form>
 		</div>
-	<div class="row mt-3">
 		<div class="row mt-3">
-			<div class="col">
-				<div class="card">
-				
-					<div calss="card-body">
-						<h5 class="card-title">출근직원</h5>
-					</div>
-					<table>
-						<thead>
-							<tr>
-								<th scope="col">직원번호</th>
-								<th scope="col">이름</th>
-								<th scope="col">전화번호</th>
-								<th scope="col">주소</th>
-								<th scope="col">출근 시간</th>
-								<th scope="col">출근</th>
-							</tr>
-						</thead>
-						
-						<tbody>
-							<tr th:each="dto:${responseDTO.dtoList}" th:if="${dto.swork} == true" >
-								<th scope ="row">[[${dto.sno}]]</th>								
-								<td><a th:href="|@{/staff/read(sno=${dto.sno})}&${link}|">[[${dto.sname}]]</a></td>
-								<td>[[${dto.saddr}]]</td>
-								<td>[[${dto.sphone}]]</td>
-								<td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd : HH시 mm분')}]]</td>
-								
-								<td th:if="${dto.swork} == false" ></td>
-								<td th:if="${dto.swork} == true"><span style="display: none;">[[${dto.swork}]]</span>출근</td>
-								
-							</tr>
-						</tbody>
-					</table>
-					<div class="float-end">
-						<ul class="pagination flex-wrap">
-							<li class="page-item" th:if="${responseDTO.prev}">
-								<a class="page-link" th:data-num="${responseDTO.start -1}">Previous</a>
-							</li>
-							
-							<th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
-								<li th:class="${responseDTO.page == i}?'page-item active':'page-item'">
-									<a class="page-link" th:data-num="${i}">[[${i}]]</a>
+			<div class="row mt-3">
+				<div class="col">
+					<div class="card">
+
+						<div calss="card-body">
+							<h5 class="card-title">출근직원</h5>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<th scope="col">직원번호</th>
+									<th scope="col">이름</th>
+									<th scope="col">전화번호</th>
+									<th scope="col">주소</th>
+									<th scope="col">출근 시간</th>
+									<th scope="col">출근</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr th:each="dto:${responseDTO.dtoList}"
+									th:if="${dto.swork} == true">
+									<th scope="row">[[${dto.sno}]]</th>
+									<td><a th:href="|@{/staff/read(sno=${dto.sno})}&${link}|">[[${dto.sname}]]</a></td>
+									<td>[[${dto.saddr}]]</td>
+									<td>[[${dto.sphone}]]</td>
+									<td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd : HH시
+										mm분')}]]</td>
+
+									<td th:if="${dto.swork} == false"></td>
+									<td th:if="${dto.swork} == true"><span
+										style="display: none;">[[${dto.swork}]]</span>출근</td>
+
+								</tr>
+							</tbody>
+						</table>
+						<div class="float-end" style="padding: 15px; margin: auto">
+							<ul class="pagination flex-wrap">
+								<li class="page-item" th:if="${responseDTO.prev}"><a
+									class="page-link" th:data-num="${responseDTO.start -1}">Previous</a>
 								</li>
-							</th:block>
-							
-							<li class="page-item" th:if="${responseDTO.next}">
-								<a class="page-link" th:data-num="${responseDTO.end +1}">Next</a>
-							</li>
-						</ul>
+
+								<th:block
+									th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
+									<li
+										th:class="${responseDTO.page == i}?'page-item active':'page-item'">
+										<a class="page-link" th:data-num="${i}">[[${i}]]</a>
+									</li>
+								</th:block>
+
+								<li class="page-item" th:if="${responseDTO.next}"><a
+									class="page-link" th:data-num="${responseDTO.end +1}">Next</a>
+								</li>
+							</ul>
+						</div>
 					</div>
-				</div>			
+				</div>
+				<form th:action="@{/staff/register}" method="get" id="f1">
+				<div class="float-end">
+					<button type="button" class="btn btn-primary modiBtn">입사</button>
+				</div>
+				</form>
 			</div>
-		</div>
-		<div class="modal" tabindex="-1">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">출근완료</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
-					</div>
-					<div class="modal-body">
-						<p>출근완료했습니다.</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
+			<div class="modal" tabindex="-1">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">출근완료</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="close"></button>
+						</div>
+						<div class="modal-body">
+							<p>출근완료했습니다.</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Save
+								changes</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	
-	
+
+
+
 	</main>
 
 	<!-- Bootstrap core JS-->
@@ -151,6 +165,19 @@
 	        self.location ='/staff/list'
 
 	    },false)
+	    
+	    const link = [[${pageRequestDTO.getLink()}]]
+	const formObj = document.querySelector("#f1")
+
+	document.querySelector(".modiBtn").addEventListener("click", function(e){
+		e.preventDefault()
+		e.stopPropagation()
+		
+		formObj.action = `/staff/register?${link}`
+		formObj.method = 'get'
+		formObj.submit()
+
+	}, false)
 	    
 	    
 	    //show modal

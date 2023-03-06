@@ -29,6 +29,8 @@ public class StaffController {
 	@GetMapping("/list")
 	public void list(PageRequestDTO pageRequestDTO, Model model) {
 		PageResponseDTO<StaffDTO> responseDTO = staffService.list(pageRequestDTO);
+		
+		
 		log.info(responseDTO);
 		
 		model.addAttribute("responseDTO" ,responseDTO);
@@ -68,6 +70,7 @@ public class StaffController {
 		}
 		
 		log.info(staffDTO);
+		
 		Long sno = staffService.register(staffDTO);
 		redirectAttributes.addFlashAttribute("result", sno);
 		
