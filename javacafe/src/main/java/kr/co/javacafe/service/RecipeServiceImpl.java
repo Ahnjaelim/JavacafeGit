@@ -72,11 +72,20 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Override
 	public PageResponseDTO<RecipeDTO> list(PageRequestDTO pageRequestDTO) {
-		String[] types = pageRequestDTO.getTypes();
+		// String[] types = pageRequestDTO.getTypes();
+		// 검색 유형
+		String[] types = null;
+		if(pageRequestDTO.getType()!=null) {
+			types = pageRequestDTO.getType().split(",");
+		}
+		String[] states = null;
+		if(pageRequestDTO.getState()!=null) {
+			states = pageRequestDTO.getState().split(",");
+		}		
 		String keyword = pageRequestDTO.getKeyword();
 		String category = pageRequestDTO.getCategory();
 		Pageable pageable = pageRequestDTO.getPageable("rno");
-		Page<Recipe> result = recipeRepository.searchAll(types, keyword, category, pageable);
+		Page<Recipe> result = recipeRepository.searchAll(types, keyword, category, states, pageable);
 		List<RecipeDTO> dtoList = result.getContent().stream().map(recipe -> modelMapper.map(recipe, RecipeDTO.class)).collect(Collectors.toList());
 		return PageResponseDTO.<RecipeDTO>withAll()
 				.pageRequestDTO(pageRequestDTO)

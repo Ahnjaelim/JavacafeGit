@@ -26,7 +26,7 @@ public class RecipeRepositoryTest {
 		public void testInsert() {
 			IntStream.rangeClosed(1, 30).forEach(i -> {
 				Recipe recipe = Recipe.builder()
-						.rcate(0)
+						.rcate("0")
 						.rname("카페 메뉴 "+i)
 						.reng("Cafe Menu "+i)
 						.rdesc("테스트 소개글")
@@ -55,7 +55,7 @@ public class RecipeRepositoryTest {
 			Long rno = 10L;
 			Optional<Recipe> result = recipeRepository.findById(rno);
 			Recipe recipe = result.orElseThrow();
-			recipe.change("Update rname", "Update reng", "Update rdesc", "Update rtext", 0, 0, 0, 0, null);
+			recipe.change("Update rname", "Update reng", "Update rdesc", "Update rtext", null, 0, 0, 0, 0, null);
 			recipeRepository.save(recipe);
 		}
 		
@@ -86,9 +86,11 @@ public class RecipeRepositoryTest {
 		//@Test
 		public void testSearchAll() {
 			String[] types = {"rname", "reng", "rdesc"};
+			String[] states = {"rname", "reng", "rdesc"};
 			String keyword = "1";
+			String category = "0";
 			Pageable pageable = PageRequest.of(0, 10, Sort.by("rno").descending());
-			Page<Recipe> result = recipeRepository.searchAll(types, keyword, pageable);
+			Page<Recipe> result = recipeRepository.searchAll(types, keyword, category, states, pageable);
 			
 			log.info(result.getTotalPages());
 			log.info(result.getSize());
