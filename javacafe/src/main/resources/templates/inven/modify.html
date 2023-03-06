@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<!-- Thymeleaf 이용하기위해 네임스페이스 지정하기 -->
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/mainlayout.html}">
+<head>
+<link rel="stylesheet" th:href="@{/css/inven.css}">
+	<title> 자바 카페 </title>
+</head>
+
+<div layout:fragment="content">
+	<div class="row mt-3">
+		<div class="col">
+			<div class="card">
+				<div class="card-header">
+                  <ion-icon name="bag-outline" class="inventory-icon"></ion-icon> Invetory Read
+                </div>
+				<div class="card-body">
+				<form th:action="@{/inven/modify}" method="post" id="f1">
+						<div class="input-group mb-3">
+							<span class="input-group-text">상품번호</span>						
+							<input type="text" class="form-control" th:value="${dto.ino}" name="ino" readonly>
+						</div>
+						<div class="input-group mb-3">
+							<span class="input-group-text">상품이름</span>
+							<input type="text" class="form-control" name="iname" th:value="${dto.iname}">
+						</div>					
+						<div class="input-group mb-3">
+							<span class="input-group-text">상품가격</span>
+							<input type="text" class="form-control" name="iprice" th:value="${dto.iprice}">
+						</div>					
+						<div class="input-group mb-3">
+							<span class="input-group-text">상품설명</span>
+							<textarea class="form-control col-sm-5" name="icontent" rows="5">[[${dto.icontent}]]</textarea>
+						</div>
+						<div class="input-group mb-3">
+							<span class="input-group-text">상품재고</span>
+							<input type="text" class="form-control" th:value="${dto.icount}" name="icount">
+						</div>
+						<div class="input-group mb-3">
+							<span class="input-group-text">상품분류</span>
+							<input type="text" class="form-control" th:value="${dto.iclass}" name="iclass">
+						</div>
+						<div class="input-group mb-3">
+							<span class="input-group-text">입고일자</span>	
+							<input type="text" class="form-control" 
+							th:value="${#temporals.format(dto.iregDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
+						</div>
+						<div class="input-group mb-3">
+							<span class="input-group-text">출고일자</span>
+							<input type="text" class="form-control" 
+							th:value="${#temporals.format(dto.imodDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
+						</div>
+						<div class="my-4">
+							<div class="float-end">
+								<button type="button" class="bnt btn-primary listBtn">목록</button>
+								<button type="button" class="btn btn-secondary modBtn">수정</button>
+								<button type="button" class="btn btn-danger removeBtn">삭제</button>
+							</div>
+						</div>						
+					</form>				
+				</div><!-- card-body end -->
+			</div> <!-- card end -->
+		</div> <!-- col end -->
+	</div> <!-- row end -->
+</div><!-- end layout:content -->
+
+<script layout:fragment="script" th:inline="javascript">
+
+
+	const errors = [[${errors}]]
+	
+	console.log(errors)
+	
+	let errorMsg = ''
+	
+	if(errors){
+		for(let i=0; i<errors.length; i++){
+			errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
+		}	
+	history.replaceState({},null,null)
+	alert(errorMsg)
+	}
+	
+	
+	//수정
+	const link = [[${pageRequestDTO.getLink()}]]
+	const formObj = document.querySelector("#f1")
+	
+	document.querySelector(".modBtn").addEventListener("click", function(e){
+	e.preventDefault()
+	e.stopPropagation()
+	
+	formObj.action = `/inven/modify?${link}`
+	formObj.method = 'post'
+	formObj.submit()
+	},false)
+	
+	//삭제
+	document.querySelector(".removeBtn").addEventListener("click",function(e){
+	e.preventDefault()
+	e.stopPropagation()
+	
+	formObj.action = `/inven/remove`
+	formObj.method = 'post'
+	formObj.submit()
+	}, false)
+	
+	//목록으로 이동
+	document.querySelector(".listBtn").addEventListener("click", function(e){
+	e.preventDefault()
+	e.stopPropagation()
+	
+	formObj.reset()
+	self.location =`/inven/list?${link}`
+	}, false)
+</script>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<!-- Thymeleaf 이용하기위해 네임스페이스 지정하기 -->
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/mainlayout.html}">
+<head>
+<link rel="stylesheet" th:href="@{/css/inven.css}">
+	<title> 자바 카페 </title>
+</head>
+
+<div layout:fragment="content">
+	<div class="row mt-3">
+		<div class="col">
+			<div class="card">
+				<div class="card-header">
+                  <ion-icon name="bag-outline" class="inventory-icon"></ion-icon> Invetory Read
+                </div>
+				<div class="card-body">
+					<div class="input-group mb-3">
+						<span class="input-group-text">상품번호</span>
+						<input type="text" class="form-control" th:value="${dto.ino}" readonly>
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text">상품이름</span>
+						<input type="text" class="form-control" th:value="${dto.iname}" readonly>
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text">상품가격</span>
+						<input type="text" class="form-control" th:value="${dto.iprice}" readonly>
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text">상품설명</span>
+						<textarea class="form-control col-sm-5" rows="5" readonly>[[${dto.icontent}]]</textarea>
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text">상품재고</span>
+						<input type="text" class="form-control" th:value="${dto.icount}" readonly>
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text">상품분류</span>
+						<input type="text" class="form-control" th:value="${dto.iclass}" readonly>
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text">입고일자</span>
+						<input type="text" class="form-control" th:value="${#temporals.format(dto.iregDate,
+						'yyyy-MM-dd HH:mm:ss')}" readonly>
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text">출고일자</span>
+						<input type="text" class="form-control" th:value="${#temporals.format(dto.imodDate,
+						'yyyy-MM-dd HH:mm:ss')}" readonly>
+					</div>
+						
+						<!-- 페이징 고정처리했던 메소드${link} -->
+					<div class="my-4">
+						<div class="float-end" th:with="link = ${pageRequestDTO.getLink()}">
+							<a th:href="|@{/inven/modify(ino=${dto.ino})}&${link}|" class="text-decoration-none">
+								<button type="button" class="btn btn-secondary" >수정</button>
+							</a>
+							<a th:href="|@{/inven/list}?${link}|" class="text-decoration-none">
+								<button type="button" class="btn btn-primary" >목록</button>							
+							</a>
+						</div>
+					</div>
+					
+				</div><!-- card-body end -->
+			</div> <!-- card end -->
+		</div> <!-- col end -->
+	</div> <!-- row end -->
+</div><!-- end layout:content -->
+
+<script layout:fragment="script" th:inline="javascript">
+
+</script>

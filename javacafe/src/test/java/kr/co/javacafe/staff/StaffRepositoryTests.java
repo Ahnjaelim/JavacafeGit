@@ -2,6 +2,7 @@ package kr.co.javacafe.staff;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import kr.co.javacafe.domain.Staff;
+import kr.co.javacafe.domain.Staffimage;
 import kr.co.javacafe.repository.StaffRepository;
 import lombok.extern.log4j.Log4j2;
 
@@ -126,5 +128,34 @@ public class StaffRepositoryTests {
 		//prev next
 		log.info(result.hasPrevious() + ": " +result.hasNext());
 	}
+	
+	@Test
+	public void testInsertWithImages() {
+		Staff staff = Staff.builder()
+				.sname("name...")
+				.sphone(010)
+				.saddr("파일테스트")
+				.swork(true)
+				.build();
+		
+		for(int i = 0; i<3; i++) {
+			staff.addImage(UUID.randomUUID().toString(), "file"+i+".jpg");
+		}
+		staffRepository.save(staff);
+	}
+	@Test
+	public void testReadWithImages() {
+		Optional<Staff> result = staffRepository.findByIdWithImages(107L);
+		
+		Staff staff = result.orElseThrow();
+		
+		log.info(staff);
+		log.info("----------");
+		for(Staffimage staffimage : staff.getImageSet()) {
+			log.info(staffimage);
+		}
+	} //수정필요
+	
+	
 
 }

@@ -14,12 +14,22 @@
 <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link th:href="@{/css/styles.css}" rel="stylesheet" />
+<style>
+.row {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.card {
+	margin-left: 150px;
+}
+</style>
 </head>
 <body>
 	<main class="mainbg" layout:fragment="content">
 		<div class="row mt-3">
 			<div class="col">
-				<div class="card">
+				<div class="card" style="width: 600px;">
 					<div class="card-body">
 						<form action="/staff/register" method="post">
 							<div class="input-group mb-3">
@@ -61,6 +71,12 @@
 					<!-- end card body -->
 				</div>
 				<!-- end card -->
+				
+				<div class="col">
+					<div class="card" th:if="${dto.fileNames != null && dto.fileNames.size() > 0}">
+						<img class="card-img-top" th:each="fileName: ${dto.fileNames}" th:src="|/view/${fileName}|">
+					</div>
+				</div>
 			</div>
 			<!-- end col -->
 		</div>
