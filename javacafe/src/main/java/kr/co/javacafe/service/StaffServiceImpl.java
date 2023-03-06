@@ -15,6 +15,7 @@ import kr.co.javacafe.domain.Staff;
 import kr.co.javacafe.dto.PageRequestDTO;
 import kr.co.javacafe.dto.PageResponseDTO;
 import kr.co.javacafe.dto.StaffDTO;
+import kr.co.javacafe.dto.StaffImageDTO;
 import kr.co.javacafe.repository.StaffRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -83,6 +84,12 @@ public class StaffServiceImpl implements StaffService{
 				.dtoList(dtoList)
 				.total((int)result.getTotalElements())
 				.build();
+	}
+
+	@Override
+	public PageResponseDTO<StaffImageDTO> listWithAll(PageRequestDTO pageRequestDTO) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
