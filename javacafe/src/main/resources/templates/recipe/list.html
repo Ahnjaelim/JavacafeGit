@@ -2,6 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/mainlayout.html}">
        
 <main class="mainbg" layout:fragment="content">
+<!-- ================================================================================ -->
 
 <style>
 .col {display:block; color:#1e1e1e; position:relative;}
@@ -36,7 +37,6 @@
 
 <form action="/recipe/list" method="get">
 <input type="hidden" name="size" th:value="${pageRequestDTO.size}" />
-
 <div class="search">
 	<div>
 		<select name="type">
@@ -54,13 +54,6 @@
 		<input type="checkbox" name="state" value="0" th:checked="${pageRequestDTO.state=='0' or pageRequestDTO.state==null or pageRequestDTO.state=='1,0'}" /> 판매 중단
 	</div>	
 </div>
-
-
-
-
-
-
-
 </form>
 
 <div class="row row-cols-1 row-cols-md-4 g-4" th:with="link = ${pageRequestDTO.getLink()}">
@@ -123,6 +116,7 @@
 	</div>
 </div>
 
+<!-- ================================================================================ -->
 </main>
 
 
