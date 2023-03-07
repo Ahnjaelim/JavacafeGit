@@ -20,9 +20,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                         <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
 
                         <ul class="collapse__menu">
-                            <li><a href="@{/staff/list}" class="collapse__sublink">전체 인원</a></li>
-                            <li><a href="@{/staffin/list}" class="collapse__sublink">출근 인원</a></li>
-                            <li><a href="@{/staffout/list}" class="collapse__sublink">퇴근 인원</a></li>
+                            <li><a href="/staff/list" class="collapse__sublink">전체 인원</a></li>
+                            <li><a href="/staff/listin" class="collapse__sublink">출근 인원</a></li>
+                            <li><a href="/staff/listout" class="collapse__sublink">퇴근 인원</a></li>
                         </ul>
                     </div>
                     <div href="#" class="nav__link collapse1">
@@ -33,9 +33,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                         <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
 
                         <ul class="collapse__menu">
-                            <a href="#" class="collapse__sublink">INVENTORY1</a>
-                            <a href="#" class="collapse__sublink">INVENTORY2</a>
-                            <a href="#" class="collapse__sublink">INVENTORY3</a>
+                            <li><a href="#" class="collapse__sublink">INVENTORY1</a></li>
+                            <li><a href="#" class="collapse__sublink">INVENTORY2</a></li>
+                            <li><a href="#" class="collapse__sublink">INVENTORY3</a></li>
                         </ul>
                     </div>
                     <div href="/recipe/list" class="nav__link collapse1">
@@ -46,22 +46,24 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                         <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
 
                         <ul class="collapse__menu">
-                            <a href="/recipe/list" class="collapse__sublink">RECIPE1</a>
-                            <a href="/recipe/list" class="collapse__sublink">RECIPE2</a>
-                            <a href="/recipe/list" class="collapse__sublink">RECIPE3</a>
+                            <li><a href="/recipe/list" class="collapse__sublink">RECIPE1</a></li>
+                            <li><a href="/recipe/list" class="collapse__sublink">RECIPE2</a></li>
+                            <li><a href="/recipe/list" class="collapse__sublink">RECIPE3</a></li>
                         </ul>
                     </div>
 					<div href="#" class="nav__link collapse1">
                         <ion-icon name="people-sharp" class="nav__icon"></ion-icon>
-                        <span class="nav_name">고객 관리</span>
+                        <span class="nav_name">USER</span>
 						
 						
                         <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
 
                         <ul class="collapse__menu">
+
                             <li><a href="/customer/list" class="collapse__sublink">회원 정보</a></li>
                             <li><a href="/customer/register" class="collapse__sublink">신규 가입</a></li>
                             <li><a href="/customer/list2" class="collapse__sublink">포인트 적립</a></li>
+
                         </ul>
                     </div>
                     
@@ -73,8 +75,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                         <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
 
                         <ul class="collapse__menu">
-                            <a href="#" class="collapse__sublink">JBOARD</a>
+
+                            <a href="/fboard/flist" class="collapse__sublink">카페 규정</a>
                             <a href="#" class="collapse__sublink">YBOARD</a>
+
                         </ul>
                     </div>
                 </div>

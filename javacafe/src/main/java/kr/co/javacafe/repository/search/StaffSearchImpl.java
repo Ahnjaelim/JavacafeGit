@@ -12,6 +12,7 @@ import com.querydsl.jpa.JPQLQuery;
 
 import kr.co.javacafe.domain.QStaff;
 import kr.co.javacafe.domain.Staff;
+import kr.co.javacafe.dto.StaffListAllDTO;
 
 public class StaffSearchImpl extends QuerydslRepositorySupport implements
 StaffSearch{
@@ -84,6 +85,13 @@ StaffSearch{
 		
 		long count = query.fetchCount();
 		return new PageImpl<>(list, pageable, count);
+	}
+
+	@Override
+	public Page<StaffListAllDTO> searchWithAll(String[] types, String keyword, Pageable pageable) {
+		
+		
+		return null;
 	}
 
 	

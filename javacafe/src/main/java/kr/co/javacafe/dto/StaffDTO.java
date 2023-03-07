@@ -1,6 +1,7 @@
 package kr.co.javacafe.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -28,6 +29,8 @@ public class StaffDTO {
 	private String saddr; // 주소
 	@NotNull
 	private Boolean swork; // 출근여부
+	
+	private List<String> fileNames;
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
 }
