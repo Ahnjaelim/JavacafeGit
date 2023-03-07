@@ -57,14 +57,14 @@ public class SalesController {
 						redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
 						//error가 발생할경우 error라는 이름으로 RedirectAtrributes에 추가해서 전송한다 라는 코드
 						
-						return "redirect:/salse/register";
+						return "redirect:/sales/register";
 					}
 					
 					//정상적으로 생성될경우
 					log.info(salesDTO);
 					long sno = salesService.register(salesDTO);
 					redirectAttributes.addFlashAttribute("result1",sno);
-					return "redirect:/salse/list";
+					return "redirect:/sales/list";
 				}
 				
 				//게시글 상세보기(조회) + 수정
@@ -96,7 +96,7 @@ public class SalesController {
 						redirectAttributes.addAttribute("sno", salesDTO.getSno());
 						
 						//link를 통해 기존의 모든 조건(url)을 붙여서 redirect
-						return "redirect:/salse/modify?"+link;
+						return "redirect:/sales/modify?"+link;
 						
 					} //errors if end
 						
@@ -106,7 +106,7 @@ public class SalesController {
 					redirectAttributes.addFlashAttribute("result2", "modified");
 					redirectAttributes.addAttribute("sno",salesDTO.getSno());
 					
-					return "redirect:/salse/read";
+					return "redirect:/sales/read";
 				}
 				
 				
@@ -116,6 +116,6 @@ public class SalesController {
 					log.info("remove post================== " + sno);
 					salesService.remove(sno);
 					redirectAttributes.addFlashAttribute("result3","removed");
-					return "redirect:/salse/list";
+					return "redirect:/sales/list";
 				}
 }

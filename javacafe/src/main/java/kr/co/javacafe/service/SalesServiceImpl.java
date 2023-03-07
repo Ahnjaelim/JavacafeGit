@@ -15,8 +15,11 @@ import kr.co.javacafe.domain.Inventory;
 import kr.co.javacafe.domain.Sales;
 import kr.co.javacafe.dto.InventoryDTO;
 import kr.co.javacafe.dto.PageRequestDTO;
+import kr.co.javacafe.dto.SalesPageRequestDTO;
 import kr.co.javacafe.dto.PageResponseDTO;
+import kr.co.javacafe.dto.SalesPageResponseDTO;
 import kr.co.javacafe.dto.SalesDTO;
+
 import kr.co.javacafe.repository.InventoryRepository;
 import kr.co.javacafe.repository.SalesRepository;
 import lombok.RequiredArgsConstructor;
@@ -84,5 +87,27 @@ public class SalesServiceImpl implements SalesService {
 	                .build();
 
 	}
+
+	@Override
+	public SalesPageResponseDTO<SalesDTO> list2(SalesPageRequestDTO pageRequestDTO2) {
+		String[] types = pageRequestDTO2.getTypes();
+        String keyword = pageRequestDTO2.getKeyword();
+        Pageable pageable = pageRequestDTO2.getPageable("sno");
+
+        Page<Sales> result = salesRepository.SsearchAll(types, keyword, pageable);
+
+        List<SalesDTO> dtoList = result.getContent().stream()
+                .map(sales -> modelMapper.map(sales,SalesDTO.class)).collect(Collectors.toList());
+
+
+        return SalesPageResponseDTO.<SalesDTO>withAll()
+                .pageRequestDTO2(pageRequestDTO2)
+                .dtoList(dtoList)
+                .total((int)result.getTotalElements())
+                .build();
+		
+	}
+
+	
 
 }

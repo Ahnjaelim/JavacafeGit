@@ -17,8 +17,8 @@
 <div layout:fragment="content">
 	
 	<div class="row mt-3">
-    	<div class="col">
-			<div class="card">
+    	<div class="col" >
+			<div class="card" style="width: 50%; margin: 0 auto;">
 				<div class="card-header">
                   <ion-icon name="bag-outline" class="inventory-icon"></ion-icon> Sales List
                 </div>
@@ -29,37 +29,45 @@
 					<thead>
                     	<tr class="inven-table">
                         <th style="display: none" class="inven-table-item" scope="col">매출번호 (Ino)</th>
-							<th scope="col">연도</th>
-							<th scope="col">월</th>
+							<th style="width: 20%" scope="col">연도</th>
+							<th style="width: 20%" scope="col">월</th>
 							<th scope="col">매출</th>
+							<th scope="col">상세보기</th>
                         </tr>
 					</thead>
 					<tbody>								
                         <tr class="inven-table" th:each="dto:${dto.dtoList}">
-                        <th:block><th class="inven-table-item" scope="row">[[${dto.sno}]]</th></th:block>
-                            <td>
+                        <th style="display:none" class="inven-table-item" scope="row">[[${dto.sno}]]</th>
+                            
                         	<td>[[${dto.year}]]</td>
                         	<td>[[${dto.month}]]</td>
-                        	<td>[[${dto.sales}]]</td>
+                        	<td th:text="|${#numbers.formatInteger(dto.sales, 0, 'COMMA')}원|">[[${dto.sales}]]</td>
+                        	<td>
+                        	<a th:href="|@{/sales/read(sno=${dto.sno})}&${link}|" class="text-decoration-none">
+								<button type="button" class="btn btn-secondary btn-sm" >해당 월 이동</button>
+							</a>
+                        	</td>
                         </tr>
                        	<tr th:if="${dto.dtoList}==null">
-                       		<td colspan="3" class="inven-search-null"> 검색결과가 없습니다. <br>연도와 월을 확인해주세요.</td>
+                       		<td colspan="4" class="inven-search-null"> 검색결과가 없습니다. <br>연도와 월을 확인해주세요.</td>
                        	</tr>
                        	<tr>
-							<td colspan="3" style="text-align: right;">
+							<td colspan="4" style="text-align: right;">
 							<button type="button" class="inven-register-btn" th:onclick="'location.href=\''+@{/sales/register}+'\''">매출등록</button>
 							</td>		
                        	</tr>
 												                           	
 					</tbody>
+
 				</table>
+				
 			</div> <!-- invenlist end -->
 		</div><!-- card end -->
 	</div><!-- col end -->
 
 </div><!-- row end -->
 	<div class="inven-paging"> <!-- 페이징처리 start -->
-    	<ul class="inven-pagination" >
+    	<ul class="Sales-pagination" >
 
         	<th:block  class="" th:if="${dto.prev}">
             	<a class="btn btn-outline-primary " th:data-num="${dto.start -1}"><</a>
@@ -83,9 +91,9 @@
 				<div>
 					<select class="inven-search-type" name="type" id="searchtype">
 						<option value="">선택</option>
-						<option value="n" th:selected="${pageRequestDTO.type =='y'}">연도</option>
-						<option value="c" th:selected="${pageRequestDTO.type =='m'}">월</option>                            
-						<option value="nc" th:selected="${pageRequestDTO.type =='ym'}">전체</option>                            
+						<option value="y" th:selected="${pageRequestDTO.type =='y'}">연도</option>
+						<option value="m" th:selected="${pageRequestDTO.type =='m'}">월</option>                            
+						<option value="tm" th:selected="${pageRequestDTO.type =='ym'}">전체</option>                            
 					</select>
 				</div>
 				<input type="text" class="inven-search-keyword" name="keyword" th:value="${pageRequestDTO.keyword}" autocomplete="off" placeholder="검색할 상품명 또는 상품분류를 입력하세요">
@@ -121,9 +129,13 @@
 
     
 </div><!-- layout:content End -->
+
+ 
  <!-- ====================================================== -->
 <script layout:fragment="script" th:inline="javascript">
-	document.querySelector(".inven-pagination").addEventListener("click",function (e) {
+
+	
+	document.querySelector(".Sales-pagination").addEventListener("click",function (e) {
 		e.preventDefault()
 		e.stopPropagation()
 		const target = e.target

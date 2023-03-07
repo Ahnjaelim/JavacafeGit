@@ -10,54 +10,31 @@
 </head>
 
 <div layout:fragment="content">
-	<div class="inven-modify">
+	<div class="sales-modify">
 		<div class="col">
-			<div class="card">
+			<div class="card" style="width: 50%; margin: 0 auto;">
 				<div class="card-header">
-                  <ion-icon name="bag-outline" class="inventory-icon"></ion-icon> Invetory Read
+                  <ion-icon name="bag-outline" class="inventory-icon"></ion-icon> Sales Read
                 </div>
 				<div class="card-body">
-				<form action="/inven/modify" method="post" id="f1" enctype="multipart/form-data">
+				<form action="/sales/modify" method="post" id="f1">
 						<div class="input-group mb-3">
-							<span class="input-group-text">상품번호</span>						
-							<input type="text" class="form-control" th:value="${dto.ino}" name="ino" readonly>
+							<span class="inven-input-group">매출번호</span>						
+							<input type="text" class="form-control" th:value="${dto.sno}" name="sno" readonly>
 						</div>
 						<div class="input-group mb-3">
-							<span class="input-group-text">상품이름</span>
-							<input type="text" class="form-control" name="iname" th:value="${dto.iname}">
+							<span class="inven-input-group">연도</span>
+							<input type="text" class="form-control" name="year" th:value="${dto.year}">
 						</div>					
 						<div class="input-group mb-3">
-							<span class="input-group-text">상품가격</span>
-							<input type="text" id="iprice" class="form-control" name="iprice" th:value="|${#numbers.formatInteger(dto.iprice, 3, 'COMMA')}|">							
+							<span class="inven-input-group">월</span>
+							<input type="text" id="month" class="form-control" name="month" th:value="${dto.month}">							
 						</div>					
 						<div class="input-group mb-3">
-							<span class="input-group-text">상품설명</span>
-							<textarea class="form-control col-sm-5" name="icontent" rows="5">[[${dto.icontent}]]</textarea>
+							<span class="inven-input-group">매출</span>
+							<input type="text" id="sales" class="form-control" name="sales" th:value="|${#numbers.formatInteger(dto.sales, 3, 'COMMA')}|">							
 						</div>
-						<div class="input-group mb-3">
-							<span class="input-group-text">상품재고</span>
-							<input type="text" class="form-control" th:value="${dto.icount}" name="icount">
-						</div>
-						<div class="input-group mb-3">
-							<span class="input-group-text">상품분류</span>
-							<input type="text" class="form-control" th:value="${dto.iclass}" name="iclass">
-						</div>
-						<div class="input-group mb-3">
-							<span class="input-group-text">입고일자</span>	
-							<input type="text" class="form-control" 
-							th:value="${#temporals.format(dto.iregDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
-						</div>
-						<div class="input-group mb-3">
-							<span class="input-group-text">출고일자</span>
-							<input type="text" class="form-control" 
-							th:value="${#temporals.format(dto.imodDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
-						</div>
-						<div class="input-group mb-1">							
-							<input  type="file" id="image" name="file" class="form-control" onchange="setThumbnail(event);" />
-						</div>
-						<img class="inven-img-box" id="profileImg" >
-							
-						    
+						
 						<div class="my-4">
 							<div class="float-end">
 								<button type="button" class="btn btn-primary listBtn">목록</button>
@@ -104,7 +81,7 @@
 	
 	
 	// ,로 보여지는 iprice 값 찾아서 uncomma에 담기
-	 var input_value = document.getElementById('iprice');
+	 var input_value = document.getElementById('sales');
 	 input_value.value = uncomma(input_value.value);
 	 
 	 //uncomma에 담긴 str -> int로 변환하기
@@ -114,7 +91,7 @@
 	    return (new Number(str));//문자열을 숫자로 반환
 	}
 	
-	formObj.action = `/inven/modify?${link}`
+	formObj.action = `/sales/modify?${link}`
 	formObj.method = 'post'
 	formObj.submit()
 	},false)
@@ -126,7 +103,7 @@
 	e.preventDefault()
 	e.stopPropagation()
 	
-	formObj.action = `/inven/remove`
+	formObj.action = `/sales/remove`
 	formObj.method = 'post'
 	formObj.submit()
 	}, false)
@@ -137,36 +114,13 @@
 	e.stopPropagation()
 	
 	formObj.reset()
-	self.location =`/inven/list?${link}`
+	self.location =`/sales/list?${link}`
 	}, false)
 	
-	//이미지 미리보기
-	let fileTag = document.querySelector("input[name=file]"); //input태그 name이 file을 가져옴
-								
-	fileTag.onchange = function(){
-								
-		let imgTag = document.querySelector("#profileImg");
-									
-		//파일이 있는지 확인
-		if(fileTag.files.length >0){
-			//파일을 선택한경우 미리보기 생성 == 이미지 태그 src에 데이터를 넣어줌
-			let reader = new FileReader();
-									
-			//reader를 읽어들이는 작업(onload)이후 함수 실행, 읽어온 데이터를 함수의 매개변수 파라미터로 줄수 있다
-			reader.onload = function(data){
-			console.log(data);
-			imgTag.src = data.target.result;
-			imgTag.width = 250;
-			imgTage.height = 150;
-			}
-			reader.readAsDataURL(fileTag.files[0]);
-			}	else {
-			imgTag.src="";
-		}
-	}
+	
 															 
 	  //1000단위 콤마찍어주기
-		document.getElementById("iprice").addEventListener('input', (e) => {
+		document.getElementById("sales").addEventListener('input', (e) => {
 		  const i = e.target;
 		  const startPosition = i.value.length - i.selectionEnd;
 		  i.value = i.value.replace(/^0+|\D+/g, '').replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');

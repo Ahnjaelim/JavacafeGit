@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -70,7 +72,7 @@ public class InventoryTests {
 			Optional<Inventory> result = inventoryRepository.findById(ino); //ino찾아오기
 			
 			Inventory inventory = result.orElseThrow(); //Otional에서 원하는 객체를 바로 얻거나 오류발생시 예외를 던지게하는 메소드
-			inventory.change("update iname", 12345, "update..class 99", "content update ", 123, 1); //board에 작성된 update메소드 실행
+			inventory.change("11",1234, "123", "234",5, 1,null);; //board에 작성된 update메소드 실행
 			inventoryRepository.save(inventory); //board에 저장하기
 			
 		}
@@ -132,7 +134,7 @@ public class InventoryTests {
 		}
 		
 		@Test
-		public void testRegister() {
+		public void testRegister(HttpServletRequest request) {
 			log.info(invenService.getClass().getName()); 
 			
 			InventoryDTO inventoryDTO = InventoryDTO.builder()
@@ -143,12 +145,12 @@ public class InventoryTests {
 					.icount(100)
 					.istate(1)
 					.build();
-			long ino = invenService.register(inventoryDTO);
+			long ino = invenService.register(inventoryDTO, request);
 			log.info("ino : " + ino);
 		}
 		
 		@Test
-		public void testmodify() {
+		public void testmodify(HttpServletRequest request) {
 			//변경에 필요한 데이터만
 			InventoryDTO inventoryDTO = InventoryDTO.builder()
 					.ino(101)
@@ -160,7 +162,7 @@ public class InventoryTests {
 					.istate(0)
 					.build();
 			
-			invenService.modify(inventoryDTO);
+			invenService.modify(inventoryDTO, request);
 		}
 		
 		@Test

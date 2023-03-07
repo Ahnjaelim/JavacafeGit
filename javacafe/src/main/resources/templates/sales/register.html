@@ -23,7 +23,7 @@
 					 <ion-icon name="bag-outline" class="inventory-icon"></ion-icon> Inventory Register
 				</div>
 				<div class="card-body">
-					<form action="/sales/register" method="post" >
+					<form action="/sales/register" method="post" id="f1" >
 						<div class="input-group mb-3">
 							<span class="inven-input-group">연도</span>
 							<select name="year" id="year" class="form-control">
@@ -47,7 +47,7 @@
 						<!-- 입력form end -->
 						<div class="my-4">
 							<div class="float-end">
-								<button type="submit" class="btn btn-primary">작성완료</button>
+								<button type="submit" class="btn btn-primary regBtn">작성완료</button>
 								<button type="button" class="btn btn-secondary listBtn">목록</button>
 							</div>
 						</div>					
@@ -71,13 +71,37 @@
     }
     alert(errorMsg)
   }
-  
+  	//등록	
+	const formObj = document.querySelector("#f1")
+
+	
+	document.querySelector(".regBtn").addEventListener("click", function(e){
+	e.preventDefault()
+	e.stopPropagation()
+	
+	
+	// ,로 보여지는 iprice 값 찾아서 uncomma에 담기
+	 var input_value = document.getElementById('sales');
+	 input_value.value = uncomma(input_value.value);
+	 
+	 //uncomma에 담긴 str -> int로 변환하기
+	function uncomma(str) { 
+	    str = "" + str.replace(/,/gi, ''); // 콤마 제거 
+	    str = str.replace(/(^\s*)|(\s*$)/g, ""); // trim()공백,문자열 제거 
+	    return (new Number(str));//문자열을 숫자로 반환
+	}
+	
+	formObj.action = `/sales/register`
+	formObj.method = 'post'
+	formObj.submit()
+	},false)
+  	
   	//목록으로 이동
 	document.querySelector(".listBtn").addEventListener("click", function(e){
 	e.preventDefault()
 	e.stopPropagation()
 
-	self.location =`/inven/list`
+	self.location =`/sales/list`
 	}, false)
   
   
@@ -92,8 +116,7 @@ document.getElementById("sales").addEventListener('input', (e) => {
 
 
 //페이지 로드될시 연/월 나타내기
-window.onload = function(){
- 
+window.onload = function(){ 
 	setDateBox1();
 };
 
