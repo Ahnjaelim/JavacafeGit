@@ -10,7 +10,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
             <div>
                 <div class="nav__brand">
                  	<ion-icon name="cafe-sharp"></ion-icon><br>
-                    <a href="#" class="nav__logo">JavaCafe</a>
+                    <a href="/" class="nav__logo">JavaCafe</a>
                 </div>
                 <div href="#" class="nav__link collapse1 sidemenu">
                         <ion-icon name="person-sharp" class="nav__icon "></ion-icon>
@@ -33,9 +33,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                         <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
 
                         <ul class="collapse__menu">
-                            <li><a href="#" class="collapse__sublink">INVENTORY1</a></li>
-                            <li><a href="#" class="collapse__sublink">INVENTORY2</a></li>
-                            <li><a href="#" class="collapse__sublink">INVENTORY3</a></li>
+
+                          <li><a th:href="@{/inven/list}" class="collapse__sublink">물품리스트</a></li>
+                          <li><a th:href="@{/inven/register}" class="collapse__sublink">물품 등록</a></li>
+                          <li><a href="#" class="collapse__sublink">입/출고 처리</a></li>
+
+
                         </ul>
                     </div>
                     <div href="/recipe/list" class="nav__link collapse1">

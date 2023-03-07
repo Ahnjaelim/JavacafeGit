@@ -2,6 +2,7 @@ package kr.co.javacafe.repository.search;
 
 import java.util.List;
 
+import org.hibernate.dialect.pagination.SQL2008StandardLimitHandler;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -10,9 +11,11 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQuery;
 
-
+import ch.qos.logback.core.joran.conditional.Condition;
 import kr.co.javacafe.domain.Inventory;
 import kr.co.javacafe.domain.QInventory;
+import kr.co.javacafe.domain.QSales;
+import kr.co.javacafe.domain.Sales;
 
 
 public class InvenSearchImpl extends QuerydslRepositorySupport implements InvenSearch {
@@ -20,7 +23,8 @@ public class InvenSearchImpl extends QuerydslRepositorySupport implements InvenS
     public InvenSearchImpl(){
         super(Inventory.class);
     }
-
+    
+    
     @Override
     public Page<Inventory> isearch(Pageable pageable) {
 
@@ -87,6 +91,10 @@ public class InvenSearchImpl extends QuerydslRepositorySupport implements InvenS
         return new PageImpl<>(list, pageable, count);
 
     }
+
+
+
+
 
 
 }

@@ -2,42 +2,85 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
        layout:decorate="~{layout/mainlayout.html}">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/css/home.css}">
+	<title>자바 카페</title>
+</head>	
 	
 
-		
+	
 		
 	<main class="mainbg" layout:fragment="content">
 
-		<div   style="width:1000px; height: 300px">
+	<div class="main-list">
+		<div class="home-table" >
+			 <div th:each="dto:${dto.dtoList}">  
+				
+				<div>연도</div>
+				<div>[[${dto.year}]]년</div>	<br>		
+				
+				<div>월</div>
+				<div>[[${dto.month}]]월</div> <br>
+				
+				<div>매출</div>
+				<div th:text="|${#numbers.formatInteger(dto.sales, 3, 'COMMA')}원|"></div>	
+				 		<a th:href="|@{/sales/list}" class="text-decoration-none">
+							<button type="button" class="btn btn-secondary btn-sm" >매출 리스트보기</button>
+						</a>
+				
+			</div>				
+		</div>
+		
+		
+	
+		<div class="home-chart">
 			<canvas id="myChart"></canvas>
 		</div>
+	</div>
 		
 		<div>
 		두번째 컨텐츠
+		
 		</div>
 		
 		<div>
-		세번째 컨텐츠
+		3번
 		</div>
 		
 	</main>
 	    
-	    
-	 
-	  
 
 	<script layout:fragment="script" th:inline="javascript">
-	console.log('script')		
-	var ctx = document.getElementById("myChart").getContext('2d');
+	
 
-	var myChart = new Chart(ctx, {
+	
+	
+	console.log('script')		
+	var chart = document.getElementById("myChart").getContext('2d');
+	var data = [[${salesDTO.dtoList}]]
+	
+	console.log(data)
+	
+	var myChart = new Chart(chart, {
 	    type: 'line',
 	    data: {
-	        labels: ["1월", "2월", "3월", "4월", "5월", "6월","7월", "8월", "9월", "10월", "11월", "12월"],
+	        labels: [	      	        
+	        data[11].month+"월",	        data[10].month+"월",	        data[9].month+"월",	        data[8].month+"월",
+	        data[7].month+"월",	        data[6].month+"월",	        data[5].month+"월",	        data[4].month+"월",
+	        data[3].month+"월",	        data[2].month+"월",	        data[1].month+"월",	        data[0].month+"월",
+	       ],
 	        datasets: [{
+	        
 	            label: '매출', //차트이름
 	            fill:false, //채우기
-	            data: [12, 19, 3, 5, 2, 3,4,8,9,7,15,16],
+	            
+	            
+	            data: [
+	            data[11].sales,	            data[10].sales,	            data[9].sales,	            data[8].sales,
+	            data[7].sales,	            data[6].sales,	            data[5].sales,	            data[4].sales,
+	            data[3].sales,	            data[2].sales,	            data[1].sales,	            data[0].sales,	            
+	            ],
 	            backgroundColor: [
 	                'rgba(0, 0, 0)',
 	                'rgba(0, 0, 0)',
@@ -62,14 +105,26 @@
 	    },
 	    options: {
 	        maintainAspectRatio: false, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
-	        scales: {
-	            yAxes: [{
-	                ticks: {
-	                    beginAtZero:true
-	                }
-	            }]
-	        }
-	    }
+	        scales:{
+				yAxes: [{//y축콤마
+					ticks:{
+						beginAtZero: true,
+						callback: function(value, index) {
+							return value.toLocaleString("ko-KR");
+						}
+					}
+				}]
+			},
+			tooltips:{
+				callbacks:{
+					label:function(tooltipItem, data){//그래프 콤마
+						return tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
+					}
+				},
+			},	    
+			
+	    },
+			
 	});
 	</script>
 </html>

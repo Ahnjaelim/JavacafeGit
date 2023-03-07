@@ -40,6 +40,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class UpDownController {
 
+
 	@Value("${upload.path}")
 	private String uploadPath;
 	
