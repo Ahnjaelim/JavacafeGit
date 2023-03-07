@@ -10,7 +10,7 @@
 	
 <!-- 검색 기능 start -->
     <div class="row mt-3">
-        <form action="/customer/list" method="get">
+        <form action="/customer/list2" method="get">
             <div class="col">
                 <input type="hidden" name="size" th:value="${pageRequestDTO.size}">
                 <div class="input-group">
@@ -55,7 +55,7 @@
                         <tr th:each="dto:${responseDTO.dtoList}"  >
                             <th scope="row">[[${dto.cno}]]</th>
                             <td>
-                                <a th:href="|@{/customer/read(cno =${dto.cno})}&${link}|"> [[${dto.cname}]] </a>
+                                <a th:href="|@{/customer/read2(cno =${dto.cno})}&${link}|"> [[${dto.cname}]] </a>
                             </td>
                             <td>[[${dto.cphone}]]</td>
                         </tr>
@@ -97,11 +97,11 @@
                     <h5 class="modal-title"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body text-left">
-                    <h5 style="color:#333333;"><b>완료하였습니다.</b></h5>
+                <div class="modal-body">
+                    <p>완료하였습니다.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                 </div>
             </div>
         </div>
@@ -136,7 +136,7 @@
 	        e.preventDefault()
 	        e.stopPropagation()
 	
-	        self.location ='/customer/list'
+	        self.location ='/customer/list2'
 	
 	    },false)
 	

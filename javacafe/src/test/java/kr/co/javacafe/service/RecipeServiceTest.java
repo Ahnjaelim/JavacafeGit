@@ -22,7 +22,7 @@ public class RecipeServiceTest {
 	public void testRegister() {
 		log.info(recipeService.getClass().getName());
 		RecipeDTO recipeDTO = RecipeDTO.builder()
-				.rcate(0)
+				.rcate("0")
 				.rname("서비스 테스트")
 				.reng("Service Test")
 				.rdesc("테스트 소개글")
