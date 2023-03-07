@@ -46,19 +46,17 @@ public class EventController {
 	@PostMapping("/register")
 	public String registerPost(@Valid EventDTO eventDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		log.info("event POST register.....");
-		
 		if(bindingResult.hasErrors()) {
 			log.info("errors.....");
 			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-			
 			return "redirect:/event/register";
 		}
 		
 		log.info(eventDTO);
 		
-		Long bno = eventService.register(eventDTO);
+		Long eno = eventService.register(eventDTO);
 		
-		redirectAttributes.addFlashAttribute("result", bno);
+		redirectAttributes.addFlashAttribute("result", eno);
 		
 		return "redirect:/event/list";
 	}

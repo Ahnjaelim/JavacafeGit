@@ -30,10 +30,11 @@ public class EventDTO {
 	//작성자
 	@NotEmpty
 	private String ewriter;
-	
+		
 	//작성일
 	private LocalDateTime regDate;
 	
 	//수정일
 	private LocalDateTime modDate;
+
 }
