@@ -113,5 +113,14 @@ public class RecipeController {
 		model.addAttribute("nlString", nlString);
 	}
 	
+	@PostMapping("/remove")
+	public String remove(Long rno, RedirectAttributes redirectAttributes) {
+		log.info("remove record : "+rno);
+		recipeService.remove(rno);
+		redirectAttributes.addFlashAttribute("result", "removed");
+		return "redirect:/recipe/list";
+		
+	}
+	
 
 }

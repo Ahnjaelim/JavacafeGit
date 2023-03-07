@@ -8,6 +8,8 @@
 .table {background:#ffffff;}
 img {width:400px; height:400px;}
 </style>
+<form th:action="@{/recipe/remove}" method="post" id="f1">
+<input type="hidden" name="rno" th:value="${dto.rno}" />
 <table width="100%">
 <colgroup>
 	<col width="430px" />
@@ -66,6 +68,7 @@ img {width:400px; height:400px;}
 	</td>
 </tr>
 </table>
+</form>
 
 <div th:with="link = ${pageRequestDTO.getLink()}">
 <a th:href="|@{/recipe/list}?${link}|" class="text-decoration-none">
@@ -74,10 +77,36 @@ img {width:400px; height:400px;}
 <a th:href="|@{/recipe/register(rno=${dto.rno})}&${link}|" class="text-decoration-none">
     <button type="button" class="btn btn-secondary">Modify</button>
 </a>
+<button type="button" class="btn btn-danger removeBtn">삭제</button>
 </div>
 
 <!-- ================================================================================ -->
 </main>
 
 <script layout:fragment="script" th:inline="javascript">
+const errors = [[${errors}]]
+console.log(errors)
+
+let errorMsg = ''
+
+if(errors){
+    for (let i = 0; i < errors.length; i++) {
+        errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
+    }
+    history.replaceState({}, null, null)
+    alert(errorMsg)
+}
+
+const link = [[${pageRequestDTO.getLink()}]]
+const formObj = document.querySelector("#f1")
+
+document.querySelector(".removeBtn").addEventListener("click", function(e){
+    e.preventDefault()
+    e.stopPropagation()
+
+    formObj.action = `/recipe/remove`
+    formObj.method ='post'
+    formObj.submit()
+}, false)
+
 </script>

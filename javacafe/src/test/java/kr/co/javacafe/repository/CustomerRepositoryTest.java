@@ -31,7 +31,7 @@ public class CustomerRepositoryTest {
 			Customer customer = Customer.builder()
 					.cname("강감찬")
 					.cphone("017-576-3122")
-					.cpoint("0")
+					.cpoint((long) 0)
 					.build();
 			Customer result = customerRepository.save(customer);
 			log.info("cno : " + result.getCno());	
@@ -52,7 +52,7 @@ public class CustomerRepositoryTest {
 		Long cno = 10L;
 		Optional<Customer> result = customerRepository.findById(cno);
 		Customer customer = result.orElseThrow();
-		customer.change("서궁성","010-6666-6666","250000");
+		customer.change("서궁성","010-6666-6666",(long) 250000);
 		customerRepository.save(customer);
 		log.info("수정된 고객 정보 : " + customer);
 	}

@@ -14,10 +14,11 @@
                 	<h3>" [[${dto.cname}]] " 님의 정보</h3>
                 	
                 </div>
+					<form action="/customer/modify2" method="post">
                 <div class="card-body">
                     <div class="input-group mb-3">
                         <span class="input-group-text">회원 번호</span>
-                        <input type="text" class="form-control" th:value="${dto.cno}" readonly>
+                        <input type="text" name="cno" class="form-control" th:value="${dto.cno}" readonly>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">이름</span>
@@ -48,9 +49,23 @@
 						<input id="pt"></input>
 					</div>
                         <div class="float-end" th:with="link = ${pageRequestDTO.getLink()}">
+					<div class="input-group mb-3">
+                  		<span class="input-group-text" >결제 금액을 입력하세요</span>
+                 		<input id="point" type="text"/>
+                  		<button type="button" onclick="pointadd()">포인트적립</button>
+                  		               		</div>
+            	    <div>
+                  	<span>적립될 포인트</span>
+                  	<input id="pt" name="cpoint"/>
+                  	<button type="submit">포인트적용</button>             		
+                  	</div>
+					</form>
                             <a th:href="|@{/customer/list2}?${link}|" class="text-decoration-none">
                                 <button type="button" class="btn btn-primary">돌아가기</button>
                             </a>
+                    <div class="my-4">
+                     <iframe src="/customer/modify2.html"></iframe> 
+                        <div class="float-end" th:with="link = ${pageRequestDTO.getLink()}">
                         </div> 
 
 					<!-- 포인트 적립 include --> <!-- 
@@ -59,6 +74,8 @@
                     </div> 
                     -->
                     
+                    </div>
+                -->
                 </div><!--end card body-->
             </div><!--end card-->
         </div><!-- end col-->
@@ -79,6 +96,18 @@
 		  i.setSelectionRange(len, len);
 		});	
 */
+	
+		function pointadd(){
+        var pointadd = 0.05;
+        var point = document.getElementById("point").value;
+        var result = (point)*(pointadd);
+        document.getElementById("pt").value = result;
+		a       
+        
+		}
+	 
+	
+	
 
 
 		function pointadd(){
