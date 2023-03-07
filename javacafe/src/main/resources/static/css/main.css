@@ -16,3 +16,10 @@ body{
 	flex-grow: 1;
 	padding-right: 50px;
 }
+
+
+/*메인 container 꾸미기*/
+.main-list{
+	display: flex;
+	
+}

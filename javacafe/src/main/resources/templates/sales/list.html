@@ -20,7 +20,7 @@
     	<div class="col">
 			<div class="card">
 				<div class="card-header">
-                  <ion-icon name="bag-outline" class="inventory-icon"></ion-icon> Invetory List
+                  <ion-icon name="bag-outline" class="inventory-icon"></ion-icon> Sales List
                 </div>
                 
                 <!-- invenList start -->
@@ -28,48 +28,26 @@
 				<table class="table">
 					<thead>
                     	<tr class="inven-table">
-                        	<th class="inven-table-item" scope="col">상품번호(Ino)</th>
-							<th scope="col">상품사진(Iimg)</th>
-							<th scope="col">상품명(Iname)</th>
-                        	<th scope="col">상품가격(Iprice)</th>
-                        	<th scope="col">상품설명(Icontent)</th>
-                        	<th scope="col">상품재고(Icount)</th>
-                        	<th scope="col">상품분류(Iclass)</th>
-                        	<th scope="col">입고일(Iregdate)</th>
-                        	<th scope="col">출고일(Imoddate)</th>
-                        	<th class="inven-table-item" scope="col">상품입/출고상태(Istate)</th>
+                        <th style="display: none" class="inven-table-item" scope="col">매출번호 (Ino)</th>
+							<th scope="col">연도</th>
+							<th scope="col">월</th>
+							<th scope="col">매출</th>
                         </tr>
 					</thead>
 					<tbody>								
                         <tr class="inven-table" th:each="dto:${dto.dtoList}">
-                            <th class="inven-table-item" scope="row">[[${dto.ino}]]</th>
+                        <th:block><th class="inven-table-item" scope="row">[[${dto.sno}]]</th></th:block>
                             <td>
-                            <img th:if="${dto.iimg} != '' and ${dto.iimg}  != null" th:src="|/view/${dto.iimg}|" class="inven-img"/>
-                           	<img th:if="${dto.iimg} == '' or ${dto.iimg} == null " src="/img/noimg.jpg" class="inven-img" />
-                           		</td>
-                                  
-                            <td>
-                                <a th:href="|@{/inven/read(ino =${dto.ino})}&${link}|"> [[${dto.iname}]] </a>
-                            </td>
-
-							<td th:text="|${#numbers.formatInteger(dto.iprice, 0, 'COMMA')}원|">[[${dto.iprice}]]</td>
-							
-                            <td id="iprice">[[${dto.icontent}]]</td>
-                            <td>[[${dto.icount}]]개</td>
-                            <td>[[${dto.iclass}]]</td>
-                            <td>[[${#temporals.format(dto.iregDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
-                            <td>[[${#temporals.format(dto.imodDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
-                            
-                            
-                            <td class="inven-table-item" th:if="${dto.istate}== 1">입고됨</td>
-                            <td class="inven-table-item" th:if="${dto.istate} == 0">출고됨</td>
+                        	<td>[[${dto.year}]]</td>
+                        	<td>[[${dto.month}]]</td>
+                        	<td>[[${dto.sales}]]</td>
                         </tr>
                        	<tr th:if="${dto.dtoList}==null">
-                       		<td colspan="10" class="inven-search-null"> 검색결과가 없습니다. <br>상품명과 상품분류를 확인해주세요.</td>
+                       		<td colspan="3" class="inven-search-null"> 검색결과가 없습니다. <br>연도와 월을 확인해주세요.</td>
                        	</tr>
                        	<tr>
-							<td colspan="10" style="text-align: right;">
-							<button type="button" class="inven-register-btn" th:onclick="'location.href=\''+@{/inven/register}+'\''">상품등록</button>
+							<td colspan="3" style="text-align: right;">
+							<button type="button" class="inven-register-btn" th:onclick="'location.href=\''+@{/sales/register}+'\''">매출등록</button>
 							</td>		
                        	</tr>
 												                           	
@@ -98,16 +76,16 @@
 	</div><!-- 페이징처리end -->
 	
  <div>
-	<form action="/inven/list" method="get">
+	<form action="/sales/list" method="get">
 		<div class="col">
 			<input type="hidden" name="size" th:value="${pageRequestDTO.size}">
 			<div class="inven-search">
 				<div>
 					<select class="inven-search-type" name="type" id="searchtype">
 						<option value="">선택</option>
-						<option value="n" th:selected="${pageRequestDTO.type =='n'}">상품명</option>
-						<option value="c" th:selected="${pageRequestDTO.type =='c'}">상품분류</option>                            
-						<option value="nc" th:selected="${pageRequestDTO.type =='nc'}">상품명+상품분류</option>                            
+						<option value="n" th:selected="${pageRequestDTO.type =='y'}">연도</option>
+						<option value="c" th:selected="${pageRequestDTO.type =='m'}">월</option>                            
+						<option value="nc" th:selected="${pageRequestDTO.type =='ym'}">전체</option>                            
 					</select>
 				</div>
 				<input type="text" class="inven-search-keyword" name="keyword" th:value="${pageRequestDTO.keyword}" autocomplete="off" placeholder="검색할 상품명 또는 상품분류를 입력하세요">
@@ -131,7 +109,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>[[${result1}]]번 상품이 등록/삭제</p>
+                    <p>[[${result1}]]번 등록/삭제</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
@@ -164,7 +142,7 @@
 	e.preventDefault()
 	e.stopPropagation()
 	
-	self.location ='/inven/list'
+	self.location ='/sales/list'
 	},false)
 	
 	//show moda

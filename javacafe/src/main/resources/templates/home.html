@@ -3,14 +3,17 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
        layout:decorate="~{layout/mainlayout.html}">
 	
+	<link rel="stylesheet" th:href="@{/css/home.css}">
 
 		
 		
 	<main class="mainbg" layout:fragment="content">
-
-		<div   style="width:1000px; height: 300px">
+	<div class="main-list">
+	리스트형
+		<div style="width:1000px; height: 300px">
 			<canvas id="myChart"></canvas>
 		</div>
+	</div>
 		
 		<div>
 		두번째 컨텐츠

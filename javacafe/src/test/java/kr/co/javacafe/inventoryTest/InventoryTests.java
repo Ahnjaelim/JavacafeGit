@@ -13,18 +13,21 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import kr.co.javacafe.domain.Inventory;
+import kr.co.javacafe.domain.Sales;
 import kr.co.javacafe.dto.InventoryDTO;
 import kr.co.javacafe.dto.PageRequestDTO;
 import kr.co.javacafe.dto.PageResponseDTO;
 import kr.co.javacafe.repository.InventoryRepository;
+import kr.co.javacafe.repository.SalesRepository;
 import kr.co.javacafe.service.InvenService;
+import kr.co.javacafe.service.SalesService;
 import lombok.extern.log4j.Log4j2;
 
 @SpringBootTest
 @Log4j2
 public class InventoryTests {
-
 	
+
 	@Autowired
 	private InventoryRepository inventoryRepository;
 	
