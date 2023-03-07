@@ -6,15 +6,15 @@
 <title>회원 정보</title>
 </head>
 <body>
-	<div layout:fragment="content">
+   <div layout:fragment="content">
     <div class="row mt-3">
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                	<h3>" [[${dto.cname}]] " 님의 정보</h3>
-                	
+                   <h3>" [[${dto.cname}]] " 님의 정보</h3>
+                   
                 </div>
-					<form action="/customer/modify2" method="post">
+               <form action="/customer/modify2" method="post">
                 <div class="card-body">
                     <div class="input-group mb-3">
                         <span class="input-group-text">회원 번호</span>
@@ -38,42 +38,25 @@
                         <span class="input-group-text">회원가입 날짜</span>
                         <input type="text" class="form-control" th:value="${#temporals.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
                     </div>
-					
-					<div class="input-group mb-3">
-						<span class="input-group-text" >결제 금액을 입력하세요</span>
-						<input id="point" type="text"/>
-						<button type="button" onclick="pointadd()" >포인트적립</button>
-					</div>
-					<div>
-						<span>적립될 포인트</span>
-						<input id="pt"></input>
-					</div>
-                        <div class="float-end" th:with="link = ${pageRequestDTO.getLink()}">
-					<div class="input-group mb-3">
-                  		<span class="input-group-text" >결제 금액을 입력하세요</span>
-                 		<input id="point" type="text"/>
-                  		<button type="button" onclick="pointadd()">포인트적립</button>
-                  		               		</div>
-            	    <div>
-                  	<span>적립될 포인트</span>
-                  	<input id="pt" name="cpoint"/>
-                  	<button type="submit">포인트적용</button>             		
-                  	</div>
-					</form>
+               <div class="input-group mb-3">
+                        <span class="input-group-text" >결제 금액을 입력하세요</span>
+                       <input id="point" type="text"/>
+                        <button type="button" onclick="pointadd()">포인트적립</button>
+                                             </div>
+                   <div>
+                     <span>적립될 포인트</span>
+                     <input id="pt" name="cpoint"/>
+                     <button type="submit">포인트적용</button>                   
+                     </div>
+               </form>
                             <a th:href="|@{/customer/list2}?${link}|" class="text-decoration-none">
                                 <button type="button" class="btn btn-primary">돌아가기</button>
                             </a>
+               <!-- 
                     <div class="my-4">
                      <iframe src="/customer/modify2.html"></iframe> 
                         <div class="float-end" th:with="link = ${pageRequestDTO.getLink()}">
                         </div> 
-
-					<!-- 포인트 적립 include --> <!-- 
-                    <div class="my-4">
-                     <iframe src="/customer/modify2.html"></iframe> 
-                    </div> 
-                    -->
-                    
                     </div>
                 -->
                 </div><!--end card body-->
@@ -85,39 +68,22 @@
 </div> <!-- end layout Content -->
 
 <!-- script start -->
-	<script layout:fragment="script" th:inline="javascript">
-
-	 /* ///1000단위 콤마찍어주기
-		document.getElementById("point").addEventListener('input', (e) => {
-		  const i = e.target;
-		  const startPosition = i.value.length - i.selectionEnd;
-		  i.value = i.value.replace(/^0+|\D+/g, '').replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-		  const len = Math.max(i.value.length - startPosition, 0);
-		  i.setSelectionRange(len, len);
-		});	
-*/
-	
-		function pointadd(){
+   <script layout:fragment="script" th:inline="javascript">
+   
+      function pointadd(){
         var pointadd = 0.05;
         var point = document.getElementById("point").value;
         var result = (point)*(pointadd);
         document.getElementById("pt").value = result;
-		a       
+      a       
         
-		}
-	 
-	
-	
+      }
+    
+   
+   
 
 
-		function pointadd(){
-			var pointadd = 0.05;
-			var point = document.getElementById("point").value;
-			var result = (point)*(pointadd);
-			document.getElementById("pt").value = result;
-	
-		}
-	</script>
+   </script>
 <!-- end script -->
 </body>
 </html>
