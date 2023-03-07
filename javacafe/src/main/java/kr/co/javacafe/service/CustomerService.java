@@ -1,5 +1,9 @@
 package kr.co.javacafe.service;
 
+
+
+
+
 import kr.co.javacafe.dto.CustomerDTO;
 import kr.co.javacafe.dto.PageRequestDTO;
 import kr.co.javacafe.dto.PageResponseDTO;
@@ -18,4 +22,6 @@ public interface CustomerService {
 	
 //	전체조회 페이징처리
 	PageResponseDTO<CustomerDTO> list(PageRequestDTO pageRequestDTO);
+	
+	
 }

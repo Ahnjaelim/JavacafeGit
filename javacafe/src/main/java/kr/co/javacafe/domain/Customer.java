@@ -50,6 +50,11 @@ public class Customer extends BaseEntity{
 		this.cpoint = cpoint;
 		
 	}
+	public void change2(String cpoint) {
+		
+		this.cpoint = cpoint;
+		
+	}
 	
 
 
