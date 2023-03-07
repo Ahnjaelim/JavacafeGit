@@ -54,8 +54,7 @@ public class CustomerServiceImpl implements CustomerService{
 		
 		Customer customer = result.orElseThrow();
 		
-		customer.change(customerDTO.getCname(), customerDTO.getCphone(),customerDTO.getCpoint());
-		
+		customer.change(customerDTO.getCname(), customerDTO.getCphone(),customerDTO.getCpoint());		
 		customerRepository.save(customer);
 		
 	}
