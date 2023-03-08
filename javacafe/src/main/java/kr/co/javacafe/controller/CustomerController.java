@@ -43,6 +43,14 @@ public class CustomerController {
 		
 		model.addAttribute("responseDTO", responseDTO);
 	}
+//	고객정보 전체 리스트 조회 (포인트 차감용)
+	@GetMapping("/list3")
+	public void list3(PageRequestDTO pageRequestDTO,Model model) {
+		PageResponseDTO<CustomerDTO> responseDTO = customerService.list(pageRequestDTO);
+		log.info(responseDTO);
+		
+		model.addAttribute("responseDTO", responseDTO);
+	}
 	
 //	고객 정보 추가폼으로 이동
 	@GetMapping("/register")
@@ -132,6 +140,15 @@ public class CustomerController {
 		
 		model.addAttribute("dto", customerDTO);
 	}
+//	고객 정보 선택 조회2 , 포인트차감( 수정 )
+	@GetMapping({"/read3", "/modify3"})
+	public void read3(Long cno, PageRequestDTO pageRequestDTO,Model model) {
+		CustomerDTO customerDTO = customerService.readOne(cno);
+		
+		log.info(customerDTO);
+		
+		model.addAttribute("dto", customerDTO);
+	}
 //	고객 포인트 적립 ( 수정 )
 
 	@PostMapping("/modify2")
@@ -158,6 +175,34 @@ public class CustomerController {
 	        redirectAttributes.addAttribute("cno", customerDTO.getCno());
 
 	        return "redirect:/customer/read2";
+	    }
+	
+//	고객 포인트 차감 ( 수정 )
+
+	@PostMapping("/modify3")
+	public String modify3(PageRequestDTO pageRequestDTO,
+                          @Valid CustomerDTO customerDTO,
+                          BindingResult bindingResult,
+                          RedirectAttributes redirectAttributes) {
+		 log.info("Customer modify3 post......." + customerDTO);
+
+	        if(bindingResult.hasErrors()) {
+	            log.info("has errors.......");
+
+	            String link = pageRequestDTO.getLink();
+
+	            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors() );
+
+	            redirectAttributes.addAttribute("cno", customerDTO.getCno());
+		return "redirect:/customer/modify3?"+link;
+	}
+	        customerService.modify3(customerDTO);
+
+	        redirectAttributes.addFlashAttribute("result", "modified");
+
+	        redirectAttributes.addAttribute("cno", customerDTO.getCno());
+
+	        return "redirect:/customer/read3";
 	    }
 
 	
