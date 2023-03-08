@@ -31,7 +31,11 @@
 						<hr><br><br>
 						
 						<div class="sales-body">매출</div>
-						
+						<!-- 페이징:S -->
+	<div id="dataTableBody">
+		data
+	</div>
+	<!-- 페이징:E -->
 											
 					</div>	
 						<a th:href="|@{/sales/list}" class="text-decoration-none">
@@ -99,10 +103,7 @@
 			</table>
 			</div>
 		</div>
-	<!-- 페이징:S -->
-	<div class="paging">
-	</div>
-	<!-- 페이징:E -->
+	
 	</main>
 	    
 	<script layout:fragment="script" th:inline="javascript">
