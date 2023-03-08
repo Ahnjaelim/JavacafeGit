@@ -15,26 +15,26 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EventDTO {
-	//글 번호
+	// 글 번호
 	private Long eno;
-	
+
 	@NotEmpty
 	@Size(min = 3, max = 100)
-	//제목
+	// 제목
 	private String etitle;
-	
-	//내용
+
+	// 내용
 	@NotEmpty
 	private String econtent;
-	
-	//작성자
+
+	// 작성자
 	@NotEmpty
 	private String ewriter;
-		
-	//작성일
+
+	// 작성일
 	private LocalDateTime regDate;
-	
-	//수정일
+
+	// 수정일
 	private LocalDateTime modDate;
 
 }

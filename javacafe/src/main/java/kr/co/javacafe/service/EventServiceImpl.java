@@ -50,7 +50,7 @@ public class EventServiceImpl implements EventService {
 		
 		return eventDTO;
 	}
-	
+		
 	// 수정
 	@Override
 	public void modify(EventDTO eventDTO) {
