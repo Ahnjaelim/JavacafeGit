@@ -1,5 +1,6 @@
 package kr.co.javacafe.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,19 +68,21 @@ public class HomeController {
 		return "/home";
 	}
 	
-	@GetMapping("saleslist")
+	@PostMapping("saleslist")
 	@ResponseBody
-	public void ajaxtest(Model model) {
-		
-		model.addAttribute("test1",salesService.list());		
+	public List<Sales> ajaxtest(Model model) {
+		model.addAttribute("test1",salesService.list());
+		List<Sales> list = salesService.list();
+		return list;
 	}
 	
-	@GetMapping("saleslist1")
-	@ResponseBody
-	public void ajaxtest1(PageRequestDTO pageRequestDTO,Model model) {
-		PageResponseDTO<SalesDTO> pageResponseDTO = salesService.list(pageRequestDTO);
-		model.addAttribute("test2",pageResponseDTO);
-		
-	}
 	
+//	@GetMapping("saleslist")
+//	@ResponseBody
+//	public void ajaxtest(Model model) {
+//		
+//		model.addAttribute("test1",salesService.list());
+//		//전체 list 보내기 확인
+//	}
+		
 }

@@ -1,14 +1,19 @@
 window.addEventListener('load', function(){
-	
-$.ajax({
-    url: 'saleslist1',
-    type: 'GET',
-    success: function onData (data) {
-        console.log(data);
-    },
-    error: function onError (error) {
-        console.error(error);
-    }
-});
-
+	 
+	$.ajax({
+		type : "post",
+		url :"saleslist",
+		data:{
+			
+		},		
+		success : function(data){
+			 
+			console.log(data);
+			
+			
+		},
+		error : function(){
+			alert('불러오기실패')
+		}			
+	})
 }); //window.onload end
