@@ -17,6 +17,9 @@ public interface CustomerService {
 	void modify(CustomerDTO customerDTO);
 //	고객 포인트 수정 (적립)
 	void modify2(CustomerDTO customerDTO);
+//	고객 포인트 수정 (차감)
+	void modify3(CustomerDTO customerDTO);
+
 //	고객정보 삭제
 	void remove(Long cno);
 	

@@ -97,6 +97,18 @@ public class CustomerServiceImpl implements CustomerService{
 				.total((int)result.getTotalElements())
 				.build();
 	}
+//	고객 포인트 수정 ( 차감 )
+	@Override
+	public void modify3(CustomerDTO customerDTO) {
+		Optional<Customer> result = customerRepository.findById(customerDTO.getCno());
+		
+		Customer customer = result.orElseThrow();
+		
+		customer.change3(customerDTO.getCpoint());
+		
+		customerRepository.save(customer);
+		
+	}
 
 
 }
