@@ -23,36 +23,26 @@
 					 <ion-icon name="bag-outline" class="inventory-icon"></ion-icon> Inventory Register
 				</div>
 				<div class="card-body">
-					<form action="/inven/register" method="post" id="f1" enctype="multipart/form-data">
+					<form action="/sales/register" method="post" id="f1" >
 						<div class="input-group mb-3">
-							<span class="inven-input-group">상품명</span>
-							<input type="text" name="iname" class="form-control" placeholder="상품명을 입력하세요">
+							<span class="inven-input-group">연도</span>
+							<select name="year" id="year" class="form-control">
+							</select>						
 						</div>
+					
 											
 						<div class="input-group mb-3">
-							<span class="input-group-text">상품가격</span>							
-							<input type="text" id="iprice" name="iprice" class="form-control" placeholder="상품가격을 입력하세요">
+							<span class="input-group-text">월</span>							
+							<select name="month" id="month" class="form-control">
+					
+							</select>
 						</div>
 						
 						<div class="input-group mb-3">
-							<span class="input-group-text">상품설명</span>
-							<textarea class="form-control col-sm-5" rows="5" name="icontent" placeholder="상품설명을 입력하세요"></textarea>
-						</div>					
+							<span class="input-group-text">매출</span>							
+							<input type="text"  id="sales" name="sales" class="form-control" placeholder="매출을 입력하세요">
+						</div>
 
-
-						<div class="input-group mb-3">
-							<span class="input-group-text">상품재고</span>							
-							<input type="text" name="icount" class="form-control" placeholder="상품재고를 입력하세요">
-						</div>
-						<div class="input-group mb-3">
-							<span class="input-group-text">상품분류</span>							
-							<input type="text" name="iclass" class="form-control" placeholder="상품분류를 입력하세요">
-						</div>
-						<div class="input-group mb-1">							
-							<input  type="file" id="image" name="file" class="form-control" onchange="setThumbnail(event);" />
-						</div>
-						<img class="inven-img-box" id="profileImg" >
-						
 						
 						<!-- 입력form end -->
 						<div class="my-4">
@@ -81,8 +71,7 @@
     }
     alert(errorMsg)
   }
-  
-  //등록	
+  	//등록	
 	const formObj = document.querySelector("#f1")
 
 	
@@ -92,7 +81,7 @@
 	
 	
 	// ,로 보여지는 iprice 값 찾아서 uncomma에 담기
-	 var input_value = document.getElementById('iprice');
+	 var input_value = document.getElementById('sales');
 	 input_value.value = uncomma(input_value.value);
 	 
 	 //uncomma에 담긴 str -> int로 변환하기
@@ -102,46 +91,22 @@
 	    return (new Number(str));//문자열을 숫자로 반환
 	}
 	
-	formObj.action = `/inven/register`
+	formObj.action = `/sales/register`
 	formObj.method = 'post'
 	formObj.submit()
 	},false)
-  
+  	
   	//목록으로 이동
 	document.querySelector(".listBtn").addEventListener("click", function(e){
 	e.preventDefault()
 	e.stopPropagation()
 
-	self.location =`/inven/list`
+	self.location =`/sales/list`
 	}, false)
   
-	//이미지 미리보기
-	let fileTag = document.querySelector("input[name=file]"); //input태그 name이 file을 가져옴
-								
-	fileTag.onchange = function(){
-								
-		let imgTag = document.querySelector("#profileImg");
-									
-		//파일이 있는지 확인
-		if(fileTag.files.length >0){
-			//파일을 선택한경우 미리보기 생성 == 이미지 태그 src에 데이터를 넣어줌
-			let reader = new FileReader();
-									
-			//reader를 읽어들이는 작업(onload)이후 함수 실행, 읽어온 데이터를 함수의 매개변수 파라미터로 줄수 있다
-			reader.onload = function(data){
-			console.log(data);
-			imgTag.src = data.target.result;
-			imgTag.width = 250;
-			imgTage.height = 150;
-			}
-			reader.readAsDataURL(fileTag.files[0]);
-			}	else {
-			imgTag.src="";
-		}
-	}
   
   //1000단위 콤마찍어주기
-document.getElementById("iprice").addEventListener('input', (e) => {
+document.getElementById("sales").addEventListener('input', (e) => {
   const i = e.target;
   const startPosition = i.value.length - i.selectionEnd;
   i.value = i.value.replace(/^0+|\D+/g, '').replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
@@ -149,6 +114,37 @@ document.getElementById("iprice").addEventListener('input', (e) => {
   i.setSelectionRange(len, len);
 });
 
+
+//페이지 로드될시 연/월 나타내기
+window.onload = function(){ 
+	setDateBox1();
+};
+
+//해당년도 이상으로 안나오게 설정하기
+function setDateBox1(){
+    var dt = new Date();
+    var year = dt.getFullYear();
+    var month = dt.getMonth()+1;
+
+    for(var y = year; y >= year-5; y--){
+        var option = document.createElement("option");
+        option.value = y;
+        option.textContent = y + "년";
+        if(year == y) {
+            option.selected = true;
+        }
+        document.querySelector("#year").appendChild(option);
+    }
+    for(var i = 1; i <= 12; i++){
+        var option = document.createElement("option");
+        option.value = i;
+        option.textContent = i + "월";
+        if(month == i) {
+            option.selected = true;
+        }
+        document.querySelector("#month").appendChild(option);
+    }
+}
 
 </script>	
 </body>
