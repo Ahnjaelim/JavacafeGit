@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/mainlayout.html}">
 
+<head>
+	<title>자바 카페 - 이벤트</title>
+</head>
+
 <!-- 레이아웃용 -->
 <div layout:fragment="content">
 	<div class="row mt-3">
@@ -27,10 +31,11 @@
 				</div><!-- 검색 화면 추가 끝 -->
 
 				<div class="card">
-					
+					<div class="card-header" align="center">
+						♬ 이벤트 게시판입니다. 제목 클릭시 상세한 내용 확인이 가능합니다 ♬
+					</div>
 					<div class="card-body">
-						<h5 class="card-title">이벤트 게시글 목록 </h5>
-
+						
 						<table class="table">
 							<thead>
 								<tr>

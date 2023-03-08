@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/mainlayout.html}">
+    
+<head>
+<meta charset="UTF-8">
+<title>회원 정보</title>
+</head>
+<body>
+	<div layout:fragment="content">
+    <div class="row mt-3">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                	<h3>" [[${dto.cname}]] " 님의 정보</h3>
+                	
+                </div>
+					<form action="/customer/modify3" method="post">
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">회원 번호</span>
+                        <input type="text" name="cno" class="form-control" th:value="${dto.cno}" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">이름</span>
+                        <input type="text" class="form-control" th:value="${dto.cname}" readonly>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">전화번호</span>
+                        <input type="text" class="form-control" th:value="${dto.cphone}" readonly>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">포인트</span>
+                        <input type="text" class="form-control" th:value="${dto.cpoint}" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">회원가입 날짜</span>
+                        <input type="text" class="form-control" th:value="${#temporals.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
+                    </div>
+					<div class="input-group mb-3">
+                  		<span class="input-group-text" >차감 금액을 입력하세요</span>
+                 		<input id="point" type="text"/>
+                  		<button type="button" onclick="pointsub()">포인트차감</button>
+                  		               		</div>
+            	    <div>
+                  	<span>차감후 포인트</span>
+                  	<input id="pt" name="cpoint"/>
+                  	<button type="submit">포인트적용</button>             		
+                  	</div>
+					</form>
+                            <a th:href="|@{/customer/list3}?${link}|" class="text-decoration-none">
+                                <button type="button" class="btn btn-primary">돌아가기</button>
+                            </a>
+             
+                </div><!--end card body-->
+            </div><!--end card-->
+        </div><!-- end col-->
+    </div><!-- end row-->
+    
+    
+</div> <!-- end layout Content -->
+
+<!-- script start -->
+	<script layout:fragment="script" th:inline="javascript">
+		
+		function pointsub(){
+        var cpoint = [[${dto.cpoint}]]
+        var point = document.getElementById("point").value;
+        var result = (cpoint)-(point);
+        document.getElementById("pt").value = result;
+		   
+        
+		}
+	</script>
+<!-- end script -->
+</body>
+</html>
