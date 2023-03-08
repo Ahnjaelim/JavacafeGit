@@ -1,5 +1,6 @@
 package kr.co.javacafe.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,9 +16,9 @@ import kr.co.javacafe.domain.Inventory;
 import kr.co.javacafe.domain.Sales;
 import kr.co.javacafe.dto.InventoryDTO;
 import kr.co.javacafe.dto.PageRequestDTO;
-import kr.co.javacafe.dto.SalesPageRequestDTO;
+import kr.co.javacafe.dto.HomePageRequestDTO;
 import kr.co.javacafe.dto.PageResponseDTO;
-import kr.co.javacafe.dto.SalesPageResponseDTO;
+import kr.co.javacafe.dto.HomePageResponseDTO;
 import kr.co.javacafe.dto.SalesDTO;
 
 import kr.co.javacafe.repository.InventoryRepository;
@@ -89,7 +90,7 @@ public class SalesServiceImpl implements SalesService {
 	}
 
 	@Override
-	public SalesPageResponseDTO<SalesDTO> list2(SalesPageRequestDTO pageRequestDTO2) {
+	public HomePageResponseDTO<SalesDTO> list2(HomePageRequestDTO pageRequestDTO2) {
 		String[] types = pageRequestDTO2.getTypes();
         String keyword = pageRequestDTO2.getKeyword();
         Pageable pageable = pageRequestDTO2.getPageable("sno");
@@ -100,12 +101,20 @@ public class SalesServiceImpl implements SalesService {
                 .map(sales -> modelMapper.map(sales,SalesDTO.class)).collect(Collectors.toList());
 
 
-        return SalesPageResponseDTO.<SalesDTO>withAll()
+        return HomePageResponseDTO.<SalesDTO>withAll()
                 .pageRequestDTO2(pageRequestDTO2)
                 .dtoList(dtoList)
                 .total((int)result.getTotalElements())
                 .build();
 		
+	}
+
+	@Override
+	public List<Sales> list() {
+
+		return salesRepository.findAll();
+		
+		 
 	}
 
 	

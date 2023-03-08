@@ -2,9 +2,13 @@ package kr.co.javacafe.service;
 
 
 import kr.co.javacafe.dto.PageRequestDTO;
-import kr.co.javacafe.dto.SalesPageRequestDTO;
+
+import java.util.List;
+
+import kr.co.javacafe.domain.Sales;
+import kr.co.javacafe.dto.HomePageRequestDTO;
 import kr.co.javacafe.dto.PageResponseDTO;
-import kr.co.javacafe.dto.SalesPageResponseDTO;
+import kr.co.javacafe.dto.HomePageResponseDTO;
 import kr.co.javacafe.dto.SalesDTO;
 
 
@@ -21,7 +25,9 @@ public interface SalesService {
     //검색 / 리스트처리
     PageResponseDTO<SalesDTO> list(PageRequestDTO pageRequestDTO);
     
+    List<Sales> list();
+    
     //홈페이지용
-    SalesPageResponseDTO<SalesDTO> list2(SalesPageRequestDTO pageRequestDTO2);
+    HomePageResponseDTO<SalesDTO> list2(HomePageRequestDTO pageRequestDTO2);
 
 }

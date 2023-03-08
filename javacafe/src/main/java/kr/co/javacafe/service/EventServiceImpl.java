@@ -16,6 +16,8 @@ import kr.co.javacafe.domain.Event;
 import kr.co.javacafe.dto.PageRequestDTO;
 import kr.co.javacafe.dto.PageResponseDTO;
 import kr.co.javacafe.dto.EventDTO;
+import kr.co.javacafe.dto.HomePageRequestDTO;
+import kr.co.javacafe.dto.HomePageResponseDTO;
 import kr.co.javacafe.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -90,6 +92,26 @@ public class EventServiceImpl implements EventService {
 				.dtoList(dtoList)
 				.total((int)result.getTotalElements())
 				.build();
+	}
+
+	@Override
+	public HomePageResponseDTO<EventDTO> list2(HomePageRequestDTO pageRequestDTO2) {
+		String[] types = pageRequestDTO2.getTypes();
+		String keyword = pageRequestDTO2.getKeyword();
+		Pageable pageable = pageRequestDTO2.getPageable("eno");
+		
+		Page<Event> result = eventRepository.searchAll(types, keyword, pageable);
+		
+		List<EventDTO> dtoList = result.getContent().stream()
+				.map(event -> modelMapper.map(event, EventDTO.class))
+				.collect(Collectors.toList());
+		
+		return HomePageResponseDTO.<EventDTO>withAll()
+				.pageRequestDTO2(pageRequestDTO2)
+				.dtoList(dtoList)
+				.total((int)result.getTotalElements())
+				.build();
+	
 	}
 	
 //	// 이미지 업로드

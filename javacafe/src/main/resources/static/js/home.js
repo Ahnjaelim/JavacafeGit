@@ -1,12 +1,14 @@
-async function get1(sno){
-	const result = await axios.get(`/`)
-	return result.data
-	console.log(data)
+window.addEventListener('load', function(){
+	
+$.ajax({
+    url: 'saleslist1',
+    type: 'GET',
+    success: function onData (data) {
+        console.log(data);
+    },
+    error: function onError (error) {
+        console.error(error);
+    }
+});
 
-}
-
-
-async function getList({sno, page, size, goLast}){
-	const result = await axios.get(`/sales/read?sno=2`,{params:{page,size}})
-	return result.data
-}
+}); //window.onload end

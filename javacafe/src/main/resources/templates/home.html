@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" th:href="@{/css/home.css}">
+	<script src="/js/home.js"></script>
 	<title>자바 카페</title>
 </head>	
 	
@@ -14,53 +15,101 @@
 	<main class="mainbg" layout:fragment="content">
 
 	<div class="main-list">
-		<div class="home-table" >
-			 <div th:each="dto:${dto.dtoList}">  
-				
-				<div>연도</div>
-				<div>[[${dto.year}]]년</div>	<br>		
-				
-				<div>월</div>
-				<div>[[${dto.month}]]월</div> <br>
-				
-				<div>매출</div>
-				<div th:text="|${#numbers.formatInteger(dto.sales, 3, 'COMMA')}원|"></div>	
-				 		<a th:href="|@{/sales/list}" class="text-decoration-none">
-							<button type="button" class="btn btn-secondary btn-sm" >매출 리스트보기</button>
+		<div class="card sales-box">
+			<div class="card-header">
+                  <ion-icon name="bag-outline" class="home-icon"></ion-icon> Sales
+            </div>
+				<div class="home-table" >
+					 <div>
+						<div class="sales-head"> 날짜 </div>	
+						
+							<button class="sales-button"><</button>
+					
+							<button class="sales-button">></button>
+						
+						
+						<hr><br><br>
+						
+						<div class="sales-body">매출</div>
+						
+											
+					</div>	
+						<a th:href="|@{/sales/list}" class="text-decoration-none">
+							<button  type="button" class="btn btn-secondary btn-sm" >매출 리스트 전체보기</button>
 						</a>
-				
-			</div>				
+				</div>
 		</div>
-		
-		
-	
-		<div class="home-chart">
-			<canvas id="myChart"></canvas>
+		<div class="card sales-box">	
+			<div class="card-header">
+                  <ion-icon name="trending-up-outline" class="home-icon"></ion-icon> Chart.Sales
+            </div>
+			<div class="home-chart">
+				<canvas id="myChart"></canvas>
+			</div>
 		</div>
 	</div>
-		
-		<div>
-		두번째 컨텐츠
-		
+		<div class="main-list middlebox">
+			<div class="card">
+			<div class="card-header">
+                  <ion-icon name="megaphone-outline" class="home-icon"></ion-icon> cafeRule
+            </div>
+			<table class="cafeRule">
+				<tr class="table-title">
+					<th>카페규정</th>
+					
+					<th>작성일</th>
+				</tr>
+				<tr class="table-content" th:each="dto:${fboardDTO.dtoList}">
+					<th>
+						<a class="home-text" th:href="|@{/fboard/fread(fno =${dto.fno})}&${link}|"> [[${dto.ftitle}]] </a>
+					</th>        
+					<th>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd' )}]]</th>					
+				</tr>
+			</table>			
+			</div>
+			
+			<div class="card event-box">
+			<div class="card-header">
+                  <ion-icon name="cube-outline" class="home-icon"></ion-icon> EventList
+                  
+            </div>
+			<table class="cafeevent">
+				<tr class="table-title">
+					<th>이벤트</th>					
+					<th>작성일</th>				
+				</tr>
+				
+				<tr class="table-content" th:each="dto:${eventDTO.dtoList}">
+					<th>
+						<a class="home-text" th:href="|@{/event/read(eno =${dto.eno})}&${link}|">[[${dto.etitle}]]</a>						
+					</th>					
+					<th>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd' )}]]</th>
+				</tr>
+			</table>
+			</div>
+			
+			<div class="card recipe-box">
+			<div class="card-header">
+                  <ion-icon name="newspaper-outline" class="home-icon"></ion-icon> Today Recipe
+            </div>
+			<table class="today-recipe">
+				<tbody class="table_body">
+					
+				</tbody>
+			</table>
+			</div>
 		</div>
-		
-		<div>
-		3번
-		</div>
-		
+	<!-- 페이징:S -->
+	<div class="paging">
+	</div>
+	<!-- 페이징:E -->
 	</main>
 	    
-
 	<script layout:fragment="script" th:inline="javascript">
-	
-
-	
-	
-	console.log('script')		
+		
+	//차트만들기
 	var chart = document.getElementById("myChart").getContext('2d');
 	var data = [[${salesDTO.dtoList}]]
-	
-	console.log(data)
 	
 	var myChart = new Chart(chart, {
 	    type: 'line',
@@ -126,5 +175,9 @@
 	    },
 			
 	});
-	</script>
+
+	
+	
+	
+</script>
 </html>

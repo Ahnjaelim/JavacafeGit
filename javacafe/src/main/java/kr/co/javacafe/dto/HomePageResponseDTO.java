@@ -8,7 +8,7 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class SalesPageResponseDTO<E> {
+public class HomePageResponseDTO<E> {
 	private int page;
 	private int size;
 	private int total;
@@ -26,7 +26,7 @@ public class SalesPageResponseDTO<E> {
 	
 	
 	@Builder(builderMethodName = "withAll")
-	public SalesPageResponseDTO(SalesPageRequestDTO pageRequestDTO2, List<E> dtoList, int total) {
+	public HomePageResponseDTO(HomePageRequestDTO pageRequestDTO2, List<E> dtoList, int total) {
 		if(total <= 0) {
 			return;
 		}
@@ -35,8 +35,8 @@ public class SalesPageResponseDTO<E> {
 		this.size = pageRequestDTO2.getSize();
 		this.total = total;
 		this.dtoList = dtoList;
-		this.end = (int)(Math.ceil(this.page/10.0))*10;
-		this.start = this.end - 9;
+		this.end = (int)(Math.ceil(this.page/4.0))*4;
+		this.start = this.end - 4;
 		int last = (int)(Math.ceil((total/(double)size)));	
 		this.end = end > last ? last : end;
 		this.prev = this.start > 1;

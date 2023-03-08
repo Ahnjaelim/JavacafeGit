@@ -6,6 +6,7 @@ import kr.co.javacafe.dto.PageRequestDTO;
 import kr.co.javacafe.dto.PageResponseDTO;
 import kr.co.javacafe.dto.RecipeDTO;
 
+
 public interface RecipeService {
 
 	Long register(RecipeDTO recipeDTO, HttpServletRequest request);
@@ -13,4 +14,5 @@ public interface RecipeService {
 	void modify(RecipeDTO recipeDTO, HttpServletRequest request);
 	void remove(Long rno);
 	PageResponseDTO<RecipeDTO> list(PageRequestDTO pageRequestDTO);
+
 }
