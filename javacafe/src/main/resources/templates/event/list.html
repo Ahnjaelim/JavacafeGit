@@ -59,9 +59,9 @@
 							<div class="card-body">
 								<h5 class="card-title">
 									<p>♥[[${dto.eno}]]번 게시글♥</p>
-									<p style="color:#b4b4b4;">[[${dto.econtent}]]</p>
+									<p style="color:#b4b4b4;">제목 : [[${dto.etitle}]]</p>
 								</h5>
-								<p class="card-text">[[${dto.econtent}]]</p>
+								<p class="card-text">작성일 : <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
 							</div> <!-- card-body end -->			
 						</div> <!-- h-100 end -->
 					</a>	
