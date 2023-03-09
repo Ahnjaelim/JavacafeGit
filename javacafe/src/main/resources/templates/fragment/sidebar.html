@@ -41,6 +41,15 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
                         </ul>
                     </div>
+                    <div href="#" class="nav__link collapse1">
+                        <ion-icon name="cash-outline" class="nav__icon"></ion-icon>                       
+                        <span class="nav_name">Sales</span>
+                        <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
+                        <ul class="collapse__menu">
+                          <li><a th:href="@{/sales/list}" class="collapse__sublink">매출리스트</a></li>
+						</ul>
+                    </div>
+                    
                     <div href="/recipe/list" class="nav__link collapse1">
                         <ion-icon name="file-tray-full-sharp" class="nav__icon"></ion-icon>
                         <span class="nav_name">RECIPE</span>

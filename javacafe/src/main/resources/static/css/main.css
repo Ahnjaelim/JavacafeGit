@@ -2,19 +2,19 @@
 
 body{
 	background-color: #ffefd9;
-	overflow-x:hidden;
+overflow-x:auto;
 }
 
 /*사이드바 : content flex 및 gap띄우기*/
 .main_box{
 	display: flex;
-	gap:50px;
+	gap:80px;
 }	
 
 /*찐 mainbox*/
 .mainbox{
 	flex-grow: 1;
-	padding-right: 50px;
+
 }
 
 

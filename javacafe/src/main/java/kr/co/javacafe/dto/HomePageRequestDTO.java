@@ -16,13 +16,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SalesPageRequestDTO {
+public class HomePageRequestDTO {
 
 	@Builder.Default
 	private int page = 1;
 	
 	@Builder.Default
-	private int size = 1;
+	private int size = 5;
 	
 	private String type;
 	private String keyword;
