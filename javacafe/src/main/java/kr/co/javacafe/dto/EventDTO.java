@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,6 +32,10 @@ public class EventDTO {
 	// 작성자
 	@NotEmpty
 	private String ewriter;
+	
+	private String eimg;
+	
+	private MultipartFile file;
 
 	// 작성일
 	private LocalDateTime regDate;
