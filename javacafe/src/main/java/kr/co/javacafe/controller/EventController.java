@@ -1,5 +1,6 @@
 package kr.co.javacafe.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -38,13 +39,28 @@ public class EventController {
 	
 	// 게시글 작성
 	@GetMapping("/register")
-	public void registerGET() {
-		
+	public void registerGET(Long eno, Model model) {
+		if(eno == null) {
+			log.info("<Event Controller> event register GET");
+			EventDTO eventDTO = EventDTO.builder()
+					.eno(0L)
+					.etitle("")
+					.econtent("")
+					.ewriter("")
+					.eimg("")
+					.build();
+			model.addAttribute("dto", eventDTO);
+		}else {
+			log.info("<Event Controller> event modify GET");
+			EventDTO eventDTO = eventService.readOne(eno);
+			log.info(eventDTO);
+			model.addAttribute("dto", eventDTO);
+		}
 	}
 	
 	// 게시글 작성
 	@PostMapping("/register")
-	public String registerPost(@Valid EventDTO eventDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	public String registerPost(@Valid EventDTO eventDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 		log.info("event POST register.....");
 		if(bindingResult.hasErrors()) {
 			log.info("errors.....");
@@ -54,7 +70,7 @@ public class EventController {
 		
 		log.info(eventDTO);
 		
-		Long eno = eventService.register(eventDTO);
+		Long eno = eventService.register(eventDTO, request);
 		
 		redirectAttributes.addFlashAttribute("result", eno);
 		
@@ -76,7 +92,7 @@ public class EventController {
 	// - 수정 작업 또한 @valid를 이용하고 문제가 있다면 다시 수정화면으로 돌려 보낼 필요가 있다.
 	@PostMapping("/modify")
 	public String modify(PageRequestDTO pageRequestDTO, @Valid EventDTO eventDTO, 
-			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+			BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 		log.info("event modify post....." + eventDTO);
 		if(bindingResult.hasErrors()) {
 			String link = pageRequestDTO.getLink();
@@ -84,7 +100,7 @@ public class EventController {
 			redirectAttributes.addAttribute("eno", eventDTO.getEno());
 			return "redirect:/event/modify?"+link;
 		}
-		eventService.modify(eventDTO);
+		eventService.modify(eventDTO, request);
 		redirectAttributes.addAttribute("eno", eventDTO.getEno());
 		return "redirect:/event/read";
 	}
