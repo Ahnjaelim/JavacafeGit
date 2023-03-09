@@ -29,7 +29,4 @@ public interface SalesService {
     
     List<Sales> list();
     
-    //홈페이지용
-    HomePageResponseDTO<SalesDTO> list2(HomePageRequestDTO pageRequestDTO2);
-
 }

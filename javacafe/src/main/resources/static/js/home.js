@@ -1,9 +1,10 @@
 window.addEventListener('load', function(){
  	
- 	 totalCount = 0;
- 	 cnt=1;
+ //========================Sales ajax 받기
+ 	totalCount = 0;
+ 	cnt=1;
 	var chartdata;
-
+	
 	$.ajax({
 		type : "post",
 		url :"saleslist",
@@ -121,12 +122,43 @@ window.addEventListener('load', function(){
 	
 	});	
 	
-	
-	
+//=====================================recipe ajax 받기
+
+	$.ajax({
+		type:"post",
+		url:"recipelist",
+		async: false,
+		dataType:"json",
+		success : function(result){
+		
+		totalcnt = result.length-1 //총 갯수 저장하기
+		
+		const rnum = Math.floor(Math.random()*totalcnt+1);
+		//console.log(rnum)	
+		
+		str = '<div class="rdata">';
+		if(result[rnum].rimg == null){
+		str += '<img class="today-img" src="/img/noimg.jpg"/>';
+		} else{
+		str += '<img class="today-img" src="/view/'+result[rnum].rimg + '"></img>';
+		}
+		 
+		str += '<div>' + result[rnum].rname +'</div>';
+		str += '<div>' + result[rnum].rdesc +'</div>'; 
+		str += '</div>';
+		$('.today_recipe').append(str);
+		},
+		error:function(){
+			alert('ajax레시피불러오기 실패')
+		}
+	})//recipe ajax end
+
+
 	
 }); //window.onload end
 
 
+//좌우버튼 클릭시 sales데이터 다시받아서 뿌려주기
 function getlist(){
 		$.ajax({
 		type : "post",
@@ -156,4 +188,6 @@ function getlist(){
 			alert('error');
 		}
 	}) //ajax end
+	
+	
 }

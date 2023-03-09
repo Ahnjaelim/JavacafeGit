@@ -116,5 +116,11 @@ public class RecipeServiceImpl implements RecipeService {
 		return fileName;
 	}
 
+	@Override
+	public List<Recipe> recipeList() {
+		
+		return recipeRepository.findAll();
+	}
+
 
 }

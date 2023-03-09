@@ -91,25 +91,6 @@ public class SalesServiceImpl implements SalesService {
 
 	}
 
-	@Override
-	public HomePageResponseDTO<SalesDTO> list2(HomePageRequestDTO pageRequestDTO2) {
-		String[] types = pageRequestDTO2.getTypes();
-        String keyword = pageRequestDTO2.getKeyword();
-        Pageable pageable = pageRequestDTO2.getPageable("sno");
-
-        Page<Sales> result = salesRepository.SsearchAll(types, keyword, pageable);
-
-        List<SalesDTO> dtoList = result.getContent().stream()
-                .map(sales -> modelMapper.map(sales,SalesDTO.class)).collect(Collectors.toList());
-
-
-        return HomePageResponseDTO.<SalesDTO>withAll()
-                .pageRequestDTO2(pageRequestDTO2)
-                .dtoList(dtoList)
-                .total((int)result.getTotalElements())
-                .build();
-		
-	}
 
 	@Override
 	public List<Sales> list() {

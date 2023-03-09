@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.co.javacafe.domain.Recipe;
 import kr.co.javacafe.domain.Sales;
 import kr.co.javacafe.dto.EventDTO;
 import kr.co.javacafe.dto.FBoardDTO;
@@ -53,12 +55,7 @@ public class HomeController {
 	public String home(Locale locale, Model model,
 						PageRequestDTO pageRequestDTO,
 						HomePageRequestDTO HomePageRequestDTO) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-			//매출 데이터 가져오기 (차트 만들기용도)
-			PageResponseDTO<SalesDTO> pageResponseDTO = salesService.list(pageRequestDTO);
-			model.addAttribute("salesDTO",pageResponseDTO);
-			log.info("매출 데이터 불러오기 성공==============");	
-			
+		logger.info("Welcome home! The client locale is {}.", locale);	
 			//카페규정 리스트불러오기
 			HomePageResponseDTO<FBoardDTO> fbresponseDTO = fBoardService.list2(HomePageRequestDTO);
 			model.addAttribute("fboardDTO",fbresponseDTO);
@@ -68,26 +65,21 @@ public class HomeController {
 			model.addAttribute("eventDTO", eventresponseDTO);
 			log.info("이벤트 리스트 불러오기 성공=======================");
 		
-			
 		return "/home";
 	}
-	
+	//ajax saleslist받기
 	@PostMapping("saleslist")
 	@ResponseBody
-	public List<Sales> ajaxtest(Model model) {
-		
-		List<Sales> list = salesService.list();
-		return list;
+	public List<Sales> saleslist(Model model) {		
+		List<Sales> saleslist = salesService.list();
+		return saleslist;		
+	}
+	//ajax recipelist받기
+	@PostMapping("recipelist")
+	@ResponseBody
+	public List<Recipe> recipelist(Model model){
+		List<Recipe> recipelist = recipeService.recipeList();
+		return recipelist;
 	}
 	
- 
-	
-//	@GetMapping("saleslist")
-//	@ResponseBody
-//	public void ajaxtest(Model model) {
-//		
-//		model.addAttribute("test1",salesService.list());
-//		//전체 list 보내기 확인
-//	}
-		
-}
+ }

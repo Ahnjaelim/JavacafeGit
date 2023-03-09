@@ -22,7 +22,12 @@
 	<div class="main-list">
 		<div class="card sales-box">
 			<div class="card-header">
-                  <ion-icon name="cash-outline" class="home-icon"></ion-icon> Sales
+                  <ion-icon name="cash-outline" class="home-icon"></ion-icon>
+                  Sales
+                
+                  <a th:href="|@{/sales/list}" class="home-text">
+                  <ion-icon name="file-tray-stacked-outline" class="home-icon" id="more" ></ion-icon>
+                  </a>  
             </div>
 				<div class="home-table" >
 					<div class="data-head">
@@ -52,7 +57,11 @@
 		<div class="main-list middlebox">
 			<div class="card">
 			<div class="card-header">
-                  <ion-icon name="megaphone-outline" class="home-icon"></ion-icon> cafeRule
+                  <ion-icon name="megaphone-outline" class="home-icon"></ion-icon>
+                  cafeRule
+                  <a class="home-text" th:href="|@{/fboard/flist}|">
+                  <ion-icon name="file-tray-stacked-outline" class="home-icon" id="more"></ion-icon>
+                  </a>  
             </div>
 			<table class="cafeRule">
 				<tr class="table-title">
@@ -71,7 +80,11 @@
 			
 			<div class="card event-box">
 			<div class="card-header">
-                  <ion-icon name="cube-outline" class="home-icon"></ion-icon> EventList
+                  <ion-icon name="cube-outline" class="home-icon"></ion-icon>
+                  EventList
+                   <a class="home-text" th:href="|@{/event/list}|">
+                  <ion-icon name="file-tray-stacked-outline" class="home-icon" id="more"></ion-icon>
+                  </a>  
                   
             </div>
 			<table class="cafeevent">
@@ -90,14 +103,17 @@
 			</div>
 			
 			<div class="card recipe-box">
-			<div class="card-header">
-                  <ion-icon name="newspaper-outline" class="home-icon"></ion-icon> Today Recipe
-            </div>
-			<table id="table" class="today-recipe">
-				<tbody class="table_body">
+				<div class="card-header">
+                	<ion-icon name="dice-outline" class="home-icon"></ion-icon>
+                	Random Recipe  
+                	 <a class="home-text" th:href="|@{/recipe/list}|">
+                	<ion-icon name="file-tray-stacked-outline" class="home-icon" id="more"></ion-icon>
+                	</a>                	
+            	</div>
+				<div class="today_recipe"> </div>
+			
 					
-				</tbody>
-			</table>
+			
 			</div>
 		</div>
 		
@@ -105,7 +121,7 @@
 	</main>
 	    
 <script layout:fragment="script" th:inline="javascript">
-	
+
 	console.log("스크립트 쓰는곳")	
 </script>
 </html>
