@@ -5,6 +5,8 @@ import kr.co.javacafe.dto.PageRequestDTO;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import kr.co.javacafe.domain.Sales;
 import kr.co.javacafe.dto.HomePageRequestDTO;
 import kr.co.javacafe.dto.PageResponseDTO;

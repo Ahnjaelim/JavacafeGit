@@ -9,7 +9,9 @@ import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kr.co.javacafe.domain.Inventory;
@@ -116,6 +118,8 @@ public class SalesServiceImpl implements SalesService {
 		
 		 
 	}
+
+	
 
 	
 

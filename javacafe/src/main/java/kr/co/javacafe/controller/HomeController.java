@@ -1,9 +1,13 @@
 package kr.co.javacafe.controller;
 
+ 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,11 +75,12 @@ public class HomeController {
 	@PostMapping("saleslist")
 	@ResponseBody
 	public List<Sales> ajaxtest(Model model) {
-		model.addAttribute("test1",salesService.list());
+		
 		List<Sales> list = salesService.list();
 		return list;
 	}
 	
+ 
 	
 //	@GetMapping("saleslist")
 //	@ResponseBody

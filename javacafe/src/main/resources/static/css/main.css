@@ -2,7 +2,7 @@
 
 body{
 	background-color: #ffefd9;
-	overflow-x:hidden;
+overflow-x:auto;
 }
 
 /*사이드바 : content flex 및 gap띄우기*/
