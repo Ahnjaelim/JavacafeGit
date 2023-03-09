@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/mainlayout.html}">
 <head>
-	<title>게시글 작성</title>
+	<title>자바 카페 - 이벤트 글 작성</title>
 </head>
 
 <div layout:fragment="content">
 	<div class="row mt-3">
 		<div class="col">
 			<div class="card">
-				
+				<div class="card-header" align="center">
+						♬ 이벤트 게시글 작성 페이지입니다 ♬
+					</div>
 				<div class="card-body">
-					<form action="/event/register" method="post">
+					<form action="/event/register" method="post" enctype="multipart/form-data"> 
+					<!-- ↑ enctype="multipart/form-data" 이 코드를 추가해줘야 이미지 업로드가 가능함 ↑ -->
 						
 						<div class="input-group mb-3">
 							<span class="input-group-text">제목</span>
@@ -25,6 +28,11 @@
 						<div class="input-group mb-3">
 							<span class="input-group-text">작성자</span>
 							<input type="text" name="ewriter" class="form-control" placeholder="Writer">
+						</div>
+						
+						<div class="input-group mb-3">
+							<span class="input-group-text">이미지</span>
+							<input type="file" name="file" class="form-control" />
 						</div>
 						
 						<div class="my-4">

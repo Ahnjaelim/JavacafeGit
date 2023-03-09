@@ -41,6 +41,15 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
                         </ul>
                     </div>
+                    <div href="#" class="nav__link collapse1">
+                        <ion-icon name="cash-outline" class="nav__icon"></ion-icon>                       
+                        <span class="nav_name">Sales</span>
+                        <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
+                        <ul class="collapse__menu">
+                          <li><a th:href="@{/sales/list}" class="collapse__sublink">매출리스트</a></li>
+						</ul>
+                    </div>
+                    
                     <div href="/recipe/list" class="nav__link collapse1">
                         <ion-icon name="file-tray-full-sharp" class="nav__icon"></ion-icon>
                         <span class="nav_name">RECIPE</span>
@@ -66,6 +75,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                             <li><a href="/customer/list" class="collapse__sublink">회원 정보</a></li>
                             <li><a href="/customer/register" class="collapse__sublink">신규 가입</a></li>
                             <li><a href="/customer/list2" class="collapse__sublink">포인트 적립</a></li>
+                            <li><a href="/customer/list3" class="collapse__sublink">포인트 차감</a></li>
 
                         </ul>
                     </div>

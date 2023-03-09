@@ -1,17 +1,26 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/mainlayout.html}">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+layout:decorate="~{layout/mainlayout.html}">
 
 <head>
-<title>상세페이지</title>
+<title>자바 카페 - 이벤트 상세 페이지</title>
 </head>
 
-<div layout:fragment="content">
+<main class="mainbg" layout:fragment="content">
 	<div class="row mt-3">
 		<div class="col">
 			<div class="card">
-				
-				<div class="card-body">
-					
+				<div class="card-header" align="center">
+						♬ 이벤트 게시판 상세 페이지입니다 ♬<br>
+						↓ 이벤트 상품 이미지 입니다 ↓						
+					</div>
+				<div class="card-body"  align="center">
+					<tr>
+					<td>
+						<img style="width:250px; heigth:250px;" th:if="${dto.eimg} != '' and ${dto.eimg} != null " th:src="|/view/${dto.eimg}|" />
+						<img style="width:250px; height:250px;"th:if="${dto.eimg} == '' or ${dto.eimg} == null " src="/img/noimg.jpg" />
+					</td>
+					</tr>
 					<div class="input-group mb-3">
 						<span class="input-group-text">글번호</span>
 						<input type="text" class="form-control" th:value="${dto.eno}" readonly>
@@ -44,6 +53,7 @@
 						'yyyy-MM-dd HH:mm:ss')}" readonly>
 					</div>
 					
+										
 				 <!-- 목록으로 가기, 수정화면 이동하기 
 					- 조회(read)화면에서 목록 화면으로 이동하는 작업과 반대로 목록화면에서
 					  게시물을 선택해 이동할 수 있도록 처리.
@@ -66,7 +76,7 @@
 		</div><!-- end col  -->
 	</div><!-- end row -->
 	
-</div><!-- end layout:fragment  -->
+</main><!-- end main  -->
 
 <script layout:fragment="script" th:inline="javascript">
 // show modal
