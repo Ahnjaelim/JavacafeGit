@@ -145,4 +145,14 @@ public class InvenServiceImpl implements InvenService{
 		return fileName;
 	}
 
+
+
+	@Override
+	public List<InventoryDTO> getAll() {
+		List<InventoryDTO> dtolist = inventoryRepository.findAll().stream()
+				.map(data -> modelMapper.map(data, InventoryDTO.class))
+				.collect(Collectors.toList());
+		return dtolist;
+	}
+
 }

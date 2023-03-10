@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/mainlayout.html}">
-       
+
+<div layout:fragment="header">
+	<h2>
+		<ion-icon name="home"></ion-icon><span>HOME</span><ion-icon name="chevron-forward"></ion-icon>
+		<span>RECIPE</span><ion-icon name="chevron-forward"></ion-icon>
+		<span>레시피 목록</span>
+	</h2>
+</div>
+
 <main class="mainbg" layout:fragment="content">
 <!-- ================================================================================ -->
 
@@ -22,7 +30,7 @@
 .search select {border:1px solid #c8c8c8; width:150px; height:36px;}
 .search .keyword {border:1px solid #c8c8c8; width:250px; height:36px; border-radius:5px;}
 .search button {height:36px; margin:-3px 0px 0px 0px;}
-.boardlist-tail {padding:40px 0px 120px 0px; position:relative;}
+.boardlist-tail {padding:40px 0px 0px 0px; position:relative;}
 .boardlist-tail .btnlist {text-align:right; margin:-36px 0px 0px 0px;}
 </style>
 
@@ -122,6 +130,10 @@
 
 
 <script layout:fragment="script" th:inline="javascript">
+$(document).ready(function(){
+	menuActive(3);
+});
+
 console.log("script...............")
 document.querySelector(".pagination").addEventListener("click", function(e){
 	e.preventDefault()
