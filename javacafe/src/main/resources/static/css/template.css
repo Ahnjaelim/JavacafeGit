@@ -9,3 +9,11 @@ a:active {text-decoration: none;}
 a:visited {text-decoration: none;}
 
 ol, ul, li {list-style:none;}
+
+.btn-primary {background-color:#78513e; border-color:#78513e;}
+.btn-primary:hover {background-color:#5a4135; border-color:#78513e;}
+.btn-primary:active {background-color:#5a4135; border-color:#78513e;}
+.btn-outline-primary {color:#78513e; border-color:rgba(120, 80, 60, 0.3); background:#ffffff;}
+.btn-outline-primary:hover {background-color:#78513e; border-color:#78513e;}
+.page-item.active {background:transparent;}
+.page-item.active a {background-color:#78513e; border-color:#78513e;} 

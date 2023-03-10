@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/mainlayout.html}">
-       
+
+<div layout:fragment="header">
+	<h2>
+		<ion-icon name="home"></ion-icon><span>HOME</span><ion-icon name="chevron-forward"></ion-icon>
+		<span>RECIPE</span><ion-icon name="chevron-forward"></ion-icon>
+		<span>레시피 목록</span>
+	</h2>
+</div>
+      
 <main class="mainbg" layout:fragment="content">
 <!-- ================================================================================ -->
 
@@ -84,6 +92,11 @@ img {width:400px; height:400px;}
 </main>
 
 <script layout:fragment="script" th:inline="javascript">
+
+$(document).ready(function(){
+	menuActive(3);
+});
+
 const errors = [[${errors}]]
 console.log(errors)
 

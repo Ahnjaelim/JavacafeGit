@@ -68,9 +68,12 @@
 
 .table-content{
 	
-	text-align: center;
+	text-align: left;
 }
-
+.table-content {}
+.card table {margin:18px 10px 0px 10px;}
+.table-content td {padding:10px 0px 0px 10px;}
+.table-content .date {text-align:right; padding:10px 10px 0px 0px; color:#b4b4b4;}
 .home-text{
 	color: black;
 }

@@ -5,13 +5,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
       	  
 <head>
-	<meta charset="UTF-8"> 
-    
+	<meta charset="UTF-8">
 	<title>자바 카페</title> 
     <th:block th:include="@{common/include-link}"></th:block>
-
-<!-- header -->
-
 </head>
 <body>
 	
@@ -20,12 +16,13 @@
 	<!-- 사이드바 넣는 곳 -->
 	<div class="sidebox" th:replace="fragment/sidebar  :: sidebar"></div>
 	
+	<!-- <div th:replace="fragment/header">header가 들어갈 자리입니다.</div> -->
+	<div id="header" class="clearfix" layout:fragment="header"><h2><ion-icon name="home"></ion-icon><span>HOME</span></h2></div>
 	<div id="body">
 		<!-- 본문 컨텐츠 넣는곳 -->
-		<div th:replace="fragment/header">header가 들어갈 자리입니다.</div>
-		<div layout:fragment="content">콘텐츠 넣으셈</div>
-		<div th:replace="fragment/footer"></div>
+		<main layout:fragment="content">콘텐츠 넣으셈</main>
 	</div>
+	<div th:replace="fragment/footer"></div>
 
 </div>
 

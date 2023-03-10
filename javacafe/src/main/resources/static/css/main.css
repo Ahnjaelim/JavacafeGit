@@ -1,3 +1,11 @@
 @charset "UTF-8";
 
-#body {padding:0px 60px 0px 360px;}
+#body {padding:60px 60px 60px 360px;}
+
+#header {background:#eddfd7; text-align:left; padding:0px 0px 0px 360px; height:50px;}
+#header h2 {font-size:20px; padding:13px 0px 0px 0px; vertical-align:top;}
+#header ion-icon,
+#header span {float:left;}
+#header ion-icon {font-size:22px; color:#a98a7b; position:relative;}
+#header ion-icon:nth-child(1) {top:-1px;}
+#header span {position:relative; top:-2px; display:inline-block; padding:0px 10px 0px 10px;}

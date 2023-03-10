@@ -55,51 +55,51 @@
 		</div>
 	</div>
 		<div class="main-list middlebox">
+		
 			<div class="card">
-			<div class="card-header">
-                  <ion-icon name="megaphone-outline" class="home-icon"></ion-icon>
-                  cafeRule
-                  <a class="home-text" th:href="|@{/fboard/flist}|">
-                  <ion-icon name="file-tray-stacked-outline" class="home-icon" id="more"></ion-icon>
-                  </a>  
-            </div>
-			<table class="cafeRule">
-				<tr class="table-title">
-					<th>카페규정</th>
-					
-					<th>작성일</th>
-				</tr>
-				<tr class="table-content" th:each="dto:${fboardDTO.dtoList}">
-					<th>
-						<a class="home-text" th:href="|@{/fboard/fread(fno =${dto.fno})}&${link}|"> [[${dto.ftitle}]] </a>
-					</th>        
-					<th>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd' )}]]</th>					
-				</tr>
-			</table>			
+				<div class="card-header">
+	                  <ion-icon name="megaphone-outline" class="home-icon"></ion-icon>
+	                  cafeRule
+	                  <a class="home-text" th:href="|@{/fboard/flist}|">
+	                  <ion-icon name="file-tray-stacked-outline" class="home-icon" id="more"></ion-icon>
+	                  </a>  
+	            </div>
+				<table class="cafeRule">
+				<colgroup>
+					<col width="80%" />
+					<col width="20%" />
+				</colgroup>			
+					<tr class="table-content" th:each="dto, i :${fboardDTO.dtoList}" th:if="${i.index<6}">
+						<td>
+							 <a class="home-text" th:href="|@{/fboard/fread(fno =${dto.fno})}&${link}|"> [[${dto.ftitle}]] </a>
+						</td>        
+						<td class="date">[[${#temporals.format(dto.regDate, 'yyyy-MM-dd' )}]]</td>					
+					</tr>
+				</table>			
 			</div>
 			
 			<div class="card event-box">
-			<div class="card-header">
-                  <ion-icon name="cube-outline" class="home-icon"></ion-icon>
-                  EventList
-                   <a class="home-text" th:href="|@{/event/list}|">
-                  <ion-icon name="file-tray-stacked-outline" class="home-icon" id="more"></ion-icon>
-                  </a>  
-                  
-            </div>
-			<table class="cafeevent">
-				<tr class="table-title">
-					<th>이벤트</th>					
-					<th>작성일</th>				
-				</tr>
-				
-				<tr class="table-content" th:each="dto:${eventDTO.dtoList}">
-					<th>
+				<div class="card-header">
+	                  <ion-icon name="cube-outline" class="home-icon"></ion-icon>
+	                  EventList
+	                   <a class="home-text" th:href="|@{/event/list}|">
+	                  <ion-icon name="file-tray-stacked-outline" class="home-icon" id="more"></ion-icon>
+	                  </a>  
+	                  
+	            </div>
+	            
+				<table class="cafeevent">
+				<colgroup>
+					<col width="80%" />
+					<col width="20%" />
+				</colgroup>
+				<tr class="table-content" th:each="dto, i :${eventDTO.dtoList}" th:if="${i.index<6}">
+					<td>
 						<a class="home-text" th:href="|@{/event/read(eno =${dto.eno})}&${link}|">[[${dto.etitle}]]</a>						
-					</th>					
-					<th>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd' )}]]</th>
+					</td>					
+					<td class="date">[[${#temporals.format(dto.regDate, 'yyyy-MM-dd' )}]]</td>
 				</tr>
-			</table>
+				</table>
 			</div>
 			
 			<div class="card recipe-box">
@@ -111,10 +111,8 @@
                 	</a>                	
             	</div>
 				<div class="today_recipe"> </div>
-			
-					
-			
 			</div>
+			
 		</div>
 		
 		
