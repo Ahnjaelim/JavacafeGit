@@ -1,6 +1,8 @@
 package kr.co.javacafe.service;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import kr.co.javacafe.dto.InventoryDTO;
@@ -18,4 +20,6 @@ public interface InvenService {
     void remove(Long ino);    
     //검색 / 리스트처리
     PageResponseDTO<InventoryDTO> list(PageRequestDTO pageRequestDTO);
+    
+    List<InventoryDTO> getAll();
 }

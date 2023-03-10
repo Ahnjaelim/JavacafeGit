@@ -88,6 +88,43 @@ img {width:400px; height:400px;}
 <button type="button" class="btn btn-danger removeBtn">삭제</button>
 </div>
 
+<button class="btn btn-info addStockBtn">재료 추가</button>
+
+<ul class="list-group stockList">
+</ul>
+
+<!-- Modal -->
+<div class="modal registerModal" id="registerModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Action Result</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+        	<span class="input-group-text">Stock Number</span>
+        	<input type="text" class="form-control rsnumber" />
+        </div>
+        <div class="input-group">
+        	<span class="input-group-text">Inventory Item</span>
+        	<select class="form-control ino" name="ino">
+        	<option th:each="dto:${invenlist}" th:value="${dto.ino}">[[${dto.iname}]]<option>
+        	</select>
+        </div>               
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary registerBtn">Register</button>
+        <button type="button" class="btn btn-secondary closeRegisterBtn">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button>-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/recipe.js"></script>
+
 <!-- ================================================================================ -->
 </main>
 
@@ -120,6 +157,73 @@ document.querySelector(".removeBtn").addEventListener("click", function(e){
     formObj.action = `/recipe/remove`
     formObj.method ='post'
     formObj.submit()
+}, false)
+
+/* ================================================================================ 재고 목록 */
+
+const rno = [[${dto.rno}]]
+const reviewList = document.querySelector('.stockList')
+
+// 댓글 목록 출력
+function printList(dtoList){
+	let str = '';
+	if(dtoList && dtoList.length > 0){
+		for(const dto of dtoList){
+			str += `<li class="list-group-item d-flex reviewItem">
+				<span class="col-2">${dto.rsno}</span>
+				<span class="col-2">${dto.iname}</span>
+				<span class="col-2">${dto.icount}</span>
+				<span class="col-2">${dto.istate}</span>
+				<span class="col-2">${dto.rsnumber}</span>
+				</li>`
+		}
+	}
+	reviewList.innerHTML = str
+}
+
+// axios로 데이터 불러오기 => 댓글 목록, 페이징 출력
+function printStocks(){
+	getList(rno).then(
+			data => {
+				console.log(data)
+				printList(data)
+			}).catch(e => {
+				console.error(e)
+			})
+}
+
+printStocks()
+
+/* ================================================================================ 재고 등록 */
+
+const registerModal = new bootstrap.Modal(document.querySelector(".registerModal"))
+const rsnumber = document.querySelector(".rsnumber")
+const ino = document.querySelector(".ino")
+const registerBtn = document.querySelector(".registerBtn")
+const closeRegisterBtn = document.querySelector(".closeRegisterBtn")
+
+document.querySelector(".addStockBtn").addEventListener("click", function (e){
+    registerModal.show()
+},false)
+
+closeRegisterBtn.addEventListener("click", function(e){
+	registerModal.hide()
+},false)
+
+registerBtn.addEventListener("click", function(e){
+	const stockObj = {
+			rno : rno,
+			rsnumber : rsnumber.value,
+			ino : ino.value}
+	addStock(stockObj).then(result => {
+		alert(result.rsno)
+		registerModal.hide()
+		rsnumber.value=''
+		ino.value=''
+			printStocks()
+	}).catch(e => {
+		alert("Exception...")
+	})
 }, false)
 
 </script>
