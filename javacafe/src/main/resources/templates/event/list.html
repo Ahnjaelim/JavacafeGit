@@ -54,8 +54,8 @@
 					<a class="col" th:each="dto:${responseDTO.dtoList}" th:href="|@{/event/read(eno =${dto.eno})}&${link}|">
 						
 						<div class="card h-100">
-							<img th:if="${dto.eimg} != '' and ${dto.eimg} != null " th:src="|/view/${dto.eimg}|" class="card-img-top" />
-							<img th:if="${dto.eimg} == '' or ${dto.eimg} == null " src="/img/noimg.jpg" />
+							<img style="height:250px;" th:if="${dto.eimg} != '' and ${dto.eimg} != null " th:src="|/view/${dto.eimg}|" class="card-img-top" />
+							<img style="height:250px;" th:if="${dto.eimg} == '' or ${dto.eimg} == null " src="/img/noimg.jpg" />
 							<div class="card-body">
 								<h5 class="card-title">
 									<p>♥[[${dto.eno}]]번 게시글♥</p>
