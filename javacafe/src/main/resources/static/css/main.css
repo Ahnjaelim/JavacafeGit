@@ -1,21 +1,3 @@
 @charset "UTF-8";
 
-body{
-	background-color: #ffefd9;
-overflow-x:auto;
-}
-
-/*사이드바 : content flex 및 gap띄우기*/
-.main_box{
-	display: flex;
-	gap:80px;
-}	
-
-/*찐 mainbox*/
-.mainbox{
-	flex-grow: 1;
-
-}
-
-
-
+#body {padding:0px 60px 0px 360px;}

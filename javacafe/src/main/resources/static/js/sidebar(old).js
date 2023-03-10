@@ -31,7 +31,7 @@ for(i=0 ; i<linkCollapse.length ; i++) {
     linkCollapse[i].addEventListener('click', function(){
         const collapseMenu = this.nextElementSibling
         collapseMenu.classList.toggle('showCollapse')
-        const rotate = $(this).find("ion-icon").toggleClass('rotate')
+        const rotate = collapseMenu.previousElementSibling
         rotate.classList.toggle('rotate')
     });
 }

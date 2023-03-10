@@ -4,9 +4,21 @@
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<div th:fragment="sidebar" id="layoutSidenav" >
+<div th:fragment="sidebar" id="layoutSidenav">
+
+<link rel="stylesheet" th:href="@{/css/jquery.mCustomScrollbar.min.css}" />
+<script>
+</script>
+<style>
+.nav__link {position:relative; z-index:1;} 
+.collapse__link {display:block; position:absolute; width:100%; top:31px; left:-9px; height:45px; color:#ffffff; text-align:right; margin-top:-27px; padding:5px 0px 0px 0px;}
+.collapse__link:hover {color:#ffffff;}
+.collapse__link:active {color:#ffffff;}
+.collapse__link:link {color:#ffffff;}
+.collapse__link ion-icon {font-size:20px;}
+</style>
     <div class="l-navbar" id="navbar">
-        <nav class="nav">
+        <nav class="nav overflow-auto" style="height:100%;" >
             <div>
                 <div class="nav__brand">
                  	<ion-icon name="cafe-sharp"></ion-icon><br>
@@ -15,10 +27,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                 <div href="#" class="nav__link collapse1 sidemenu">
                         <ion-icon name="person-sharp" class="nav__icon "></ion-icon>
                         <span class="nav_name">STAFF</span>
-						
-						
-                        <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
-
+                        <a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
                         <ul class="collapse__menu">
                             <li><a href="/staff/list" class="collapse__sublink">전체 인원</a></li>
                             <li><a href="/staff/listin" class="collapse__sublink">출근 인원</a></li>
@@ -28,10 +37,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                     <div href="#" class="nav__link collapse1">
                         <ion-icon name="bag-sharp" class="nav__icon"></ion-icon>
                         <span class="nav_name">INVENTORY</span>
-						
-						
-                        <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
-
+                        <a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
                         <ul class="collapse__menu">
 
                           <li><a th:href="@{/inven/list}" class="collapse__sublink">물품리스트</a></li>
@@ -44,7 +50,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                     <div href="#" class="nav__link collapse1">
                         <ion-icon name="cash-outline" class="nav__icon"></ion-icon>                       
                         <span class="nav_name">Sales</span>
-                        <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
+                        <a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
                         <ul class="collapse__menu">
                           <li><a th:href="@{/sales/list}" class="collapse__sublink">매출리스트</a></li>
 						</ul>
@@ -53,9 +59,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                     <div href="/recipe/list" class="nav__link collapse1">
                         <ion-icon name="file-tray-full-sharp" class="nav__icon"></ion-icon>
                         <span class="nav_name">RECIPE</span>
-						
-						
-                        <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
+                        <a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
 
                         <ul class="collapse__menu">
                             <li><a href="/recipe/list" class="collapse__sublink">RECIPE1</a></li>
@@ -68,7 +72,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                         <span class="nav_name">USER</span>
 						
 						
-                        <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
+                        <a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
 
                         <ul class="collapse__menu">
 
@@ -85,7 +89,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                         <span class="nav_name">BOARD</span>
 						
 						
-                        <ion-icon name="chevron-down-sharp" class="collapse__link"></ion-icon>
+                        <a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
 
                         <ul class="collapse__menu">
 
@@ -97,7 +101,23 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                 </div>
             </div>
         </nav>
+
+<script th:src="@{/js/jquery.mCustomScrollbar.concat.min.js}"></script>
+<script>
+$(document).ready(function () {
+	if ($('body').width() > "960") {
+		$(".nav").mCustomScrollbar({
+			theme: "minimal-dark",
+			autoHideScrollbar: "true"
+		});
+	};
+});
+</script>
+        
     </div>
+
+
+
 </div><!-- sidebar end -->   
 
 

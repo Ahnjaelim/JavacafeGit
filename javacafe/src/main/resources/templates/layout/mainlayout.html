@@ -15,31 +15,19 @@
 </head>
 <body>
 	
+<div id="container">
 
-<!-- 사이드바 & 본문컨텐츠 -->
-<div class="container1">
-	<section class="main_box">
-	
 	<!-- 사이드바 넣는 곳 -->
 	<div class="sidebox" th:replace="fragment/sidebar  :: sidebar"></div>
- 
-<!-- 본문 컨텐츠 넣는곳 -->		
-	<div class="mainbox">
-	<div th:replace="fragment/header">header가 들어갈 자리입니다.</div>
-		<main layout:fragment="content">콘텐츠 넣으셈</main>
 	
+	<div id="body">
+		<!-- 본문 컨텐츠 넣는곳 -->
+		<div th:replace="fragment/header">header가 들어갈 자리입니다.</div>
+		<div layout:fragment="content">콘텐츠 넣으셈</div>
+		<div th:replace="fragment/footer"></div>
 	</div>
-	
-	</section>
-	
-</div> <!-- 사이드바 & 본문컨텐츠 END -->
-	
-	
 
-
-
-
-<div th:replace="fragment/footer"></div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>  
