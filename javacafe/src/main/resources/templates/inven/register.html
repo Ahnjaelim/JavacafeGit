@@ -48,6 +48,11 @@
 							<span class="input-group-text">상품분류</span>							
 							<input type="text" name="iclass" class="form-control" placeholder="상품분류를 입력하세요">
 						</div>
+						<div class="input-group mb-3">
+							<span class="input-group-text">상품상태</span>							
+							<label class="state-radio"><input type="radio" name="istate" value="1"> 입고됨</label>
+							<label class="state-radio"><input type="radio" name="istate" value="0"> 출고됨</label>
+						</div>
 						<div class="input-group mb-1">							
 							<input  type="file" id="image" name="file" class="form-control" onchange="setThumbnail(event);" />
 						</div>
@@ -70,7 +75,7 @@
 </div><!-- layout:content End -->
 <!-- ====================================================== -->
 <script layout:fragment="script" th:inline="javascript">
-  const errors = [[${errors}]]
+  const errors = /*[[${errors}]]*/'기본값';
   console.log(errors)
 
   let errorMsg = ''

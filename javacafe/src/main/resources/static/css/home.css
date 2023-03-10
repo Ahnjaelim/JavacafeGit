@@ -1,4 +1,22 @@
 @charset "UTF-8";
+/*로그인박스*/
+.pwbutton{
+	height: 66px;
+}
+.pwmain{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 85vh;
+}
+.pwbox{
+	border: 1px solid;
+	border-right-style : none;
+	padding: 10px;
+}
+.pwinput{
+	width: 95px;
+}
 
 /*메인 container 꾸미기*/
 .main-list{

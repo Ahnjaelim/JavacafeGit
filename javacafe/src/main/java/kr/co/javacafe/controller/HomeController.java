@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.javacafe.domain.Recipe;
 import kr.co.javacafe.domain.Sales;
+import kr.co.javacafe.dto.AdminDTO;
 import kr.co.javacafe.dto.EventDTO;
 import kr.co.javacafe.dto.FBoardDTO;
 import kr.co.javacafe.dto.PageRequestDTO;
@@ -50,6 +51,9 @@ public class HomeController {
 	private final FBoardService fBoardService;
 	private final EventService eventService;
 	private final RecipeService recipeService;
+
+ 
+	
 	
 	@GetMapping(value={"/",""})
 	public String home(Locale locale, Model model,

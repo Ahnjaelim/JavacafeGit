@@ -43,6 +43,11 @@
 							<input type="text" class="form-control" th:value="${dto.iclass}" name="iclass">
 						</div>
 						<div class="input-group mb-3">
+							<span class="input-group-text">상품상태</span>							
+							<label class="state-radio"><input type="radio" name="istate" value="1"> 입고됨</label>
+							<label class="state-radio"><input type="radio" name="istate" value="0"> 출고됨</label>
+						</div>
+						<div class="input-group mb-3">
 							<span class="input-group-text">입고일자</span>	
 							<input type="text" class="form-control" 
 							th:value="${#temporals.format(dto.iregDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>

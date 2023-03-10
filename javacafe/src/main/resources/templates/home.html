@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
        layout:decorate="~{layout/mainlayout.html}">
 <head>
 	<meta charset="UTF-8">
@@ -44,6 +45,15 @@
 						</a>
 					
 				</div>
+				
+				  <ul sec:authorize="!isAuthenticated()" class="navbar-nav" > 
+				  <p> 로그인</p>
+				  </ul>
+				  <ul sec:authorize="isAuthenticated()" class="navbar-nav" > 
+				  <p> 로그아웃</p>
+				  </ul>
+				
+				
 		</div>
 		<div class="card sales-box">	
 			<div class="card-header">

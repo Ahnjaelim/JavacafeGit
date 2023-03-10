@@ -8,6 +8,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <div class="l-navbar" id="navbar">
         <nav class="nav">
             <div>
+            <!-- <a th:href="|@{/admin/main(ano =${dto.ano})}&${link}|" style="color: white;"> -->
+            	<a th:href="|@{/admin/main}" style="color: white;">
+            		<ion-icon name="build" class="nav__icon" style="float:right;"></ion-icon>
+            	</a>
+            	<br>
                 <div class="nav__brand">
                  	<ion-icon name="cafe-sharp"></ion-icon><br>
                     <a href="/" class="nav__logo">JavaCafe</a>

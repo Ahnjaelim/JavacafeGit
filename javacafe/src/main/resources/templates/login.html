@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<!-- Thymeleaf 이용하기위해 네임스페이스 지정하기 -->
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  >
+<head>
+<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/css/home.css}">
+<title>JAVA CAFE ERP SYSTEM</title>
+</head>
+<body>
+	<form action="/login" method="post">
+		<div class="pwmain">
+			<div class="pwbox">
+		
+				<div>비밀번호 입력</div>
+				<input class="pwinput" name="pw" type="password"/>
+			</div>
+			<div>
+			<button class="pwbutton" type="submit">접속</button>
+			</div>		
+		</div>
+	</form>
+</body>
+</html>
+ 
