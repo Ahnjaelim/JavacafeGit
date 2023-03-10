@@ -28,7 +28,7 @@
     background-color: var(--bg-color);
     color: var(--white-color);
     transition: .5s;
-    z-index: var(--z-fixed);
+    z-index: 9000;
 }
 
 .l-navbar a:link {color:#ffffff;}

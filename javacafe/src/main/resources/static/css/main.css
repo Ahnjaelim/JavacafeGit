@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
-#body {padding:60px 60px 60px 360px;}
+#body {padding:100px 60px 60px 360px;}
 
-#header {background:#eddfd7; text-align:left; padding:0px 0px 0px 360px; height:50px;}
+#header {background:#eddfd7; text-align:left; padding:0px 0px 0px 360px; height:50px; position:fixed; width:100%; z-index:8000;}
 #header h2 {font-size:20px; padding:13px 0px 0px 0px; vertical-align:top;}
 #header ion-icon,
 #header span {float:left;}
