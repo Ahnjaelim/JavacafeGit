@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/mainlayout.html}">
+
+<div layout:fragment="header">
+	<h2>
+		<ion-icon name="home"></ion-icon><span>HOME</span><ion-icon name="chevron-forward"></ion-icon>
+		<span>ORDER</span><ion-icon name="chevron-forward"></ion-icon>
+		<span>주문하기</span>
+	</h2>
+</div>
+
+<main class="mainbg" layout:fragment="content">
+<!-- ========================================================================================== -->
+
+<style>
+.col {cursor:pointer;}
+.modal-dialog {margin-top:100px;}
+.orderList li {border:1px solid #ff0000;}
+</style>
+
+<div>
+	<button class="btn btn-primary" onclick="printMenus(1)">커피</button>
+	<button class="btn btn-primary" onclick="printMenus(2)">티</button>
+	<button class="btn btn-primary" onclick="printMenus(3)">에이드&amp;주스</button>
+	<button class="btn btn-primary" onclick="printMenus(4)">스무디&amp;프라페</button>
+	<button class="btn btn-primary" onclick="printMenus(5)">음료</button>
+	<button class="btn btn-primary" onclick="printMenus(0)">분류 없음</button>
+</div>
+
+<table class="table">
+<colgroup>
+	<col width="*" />
+	<col width="300px" />
+</colgroup>
+<tr>
+	<td>
+		<div class="row row-cols-1 row-cols-md-4 g-2 menuList">
+		</div>
+	</td>
+	<td>
+		<ul class="orderList">
+		</ul>
+		<input type="text" class="totalPrice" value="0" />
+	</td>
+</tr>
+</table>
+
+<!-- ========================================================================================== 주문 모달 -->
+
+<div class="modal orderModal" id="orderModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 orderModalTitle" id="exampleModalLabel">Action Result</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+      	<button type="button" class="btn btn-secondary btn-lg" onclick="countMinus()">-</button>
+      	<input type="text" class="ocount" value="1" />  
+      	<button type="button" class="btn btn-primary btn-lg" onclick="countPlus()">+</button>
+      	<p><input type="text" class="price" value="0" /></p>
+      	<p><input type="text" class="priceSum" value="0" /></p>
+      	<p><input type="text" class="rno" value="" /></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary orderBtn">주문</button>
+        <button type="button" class="btn btn-secondary closeOrderBtn">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/order.js"></script>
+
+<!-- ========================================================================================== -->
+</main>
+
+<script layout:fragment="script" th:inline="javascript">
+/* ================================================================================ 카테고리별 목록 불러오기 */
+
+const rcate = 0
+const menuList = document.querySelector('.menuList')
+
+// 댓글 목록 출력
+function printList(dtoList){
+	let str = '';
+	if(dtoList && dtoList.length > 0){
+		for(const dto of dtoList){
+			str += `<div class="col">
+			    <p><img src="/view/${dto.rimg}" class="card-img-top" style="width:200px; height:200px;" /></p>
+			    <p data-rno="${dto.rno}">${dto.rname}</p>
+			    <p class="rprice">${dto.rprice}</p>
+			    <p>${dto.rdesc}</p>
+			</div>`
+		}
+	}
+	menuList.innerHTML = str
+}
+
+// axios로 데이터 불러오기 => 댓글 목록, 페이징 출력
+function printMenus(rcate){
+	getList(rcate).then(
+			data => {
+				console.log(data)
+				printList(data)
+			}).catch(e => {
+				console.error(e)
+			})
+}
+
+printMenus(rcate)
+
+/* ================================================================================ 주문하기 */
+
+const orderModal = new bootstrap.Modal(document.querySelector(".orderModal"))
+const orderModalTitle = document.querySelector(".orderModalTitle")
+const ocount = document.querySelector(".ocount")
+const price = document.querySelector(".price")
+const priceSum = document.querySelector(".priceSum")
+const closeOrderBtn = document.querySelector(".closeOrderBtn")
+const orderBtn = document.querySelector(".orderBtn")
+const orderList = document.querySelector(".orderList")
+const totalPrice = document.querySelector(".totalPrice")
+const orderArray = []
+index = 0
+
+
+function countPlus(){
+	ocount.value = parseInt(ocount.value)+1;
+	priceSum.value = parseInt(price.value)*ocount.value;
+}
+function countMinus(){
+	if(parseInt(ocount.value)>1){
+		ocount.value = parseInt(ocount.value)-1;
+	}else{
+		ocount.value = 1;
+	}
+	priceSum.value = parseInt(price.value)*ocount.value;
+}
+
+menuList.addEventListener("click", function (e){
+	e.preventDefault()
+	e.stopPropagation()
+	const target = e.target
+	console.log(target)
+	
+	if(!target || target.tagName != 'P'){
+		return
+	}
+	const rno = target.getAttribute("data-rno")
+	if(!rno){
+		return
+	}
+	getOne(rno).then(dto => {
+		console.log(dto)
+		document.querySelector(".rno").value = dto.rno
+		orderModalTitle.innerHTML = dto.rname
+		price.value = dto.rprice
+		priceSum.value = dto.rprice
+		orderModal.show()
+	}).catch(e => alert('error'))
+},false)
+
+orderBtn.addEventListener("click", function(e) {
+	orderArray[index] = [document.querySelector(".rno").value, price.value, ocount.value, priceSum.value]
+	console.log(orderArray)
+	ocount.value = 1
+	price.value = 0
+	priceSum.value = 0
+	index++
+	orderModal.hide()
+	printOrders()
+}, false)
+
+function printOrders(){
+	let str = ''
+	for(var i = 0; i<orderArray.length; i++){
+		str += '<li>'
+		str += '<p>'+orderArray[i][0]+'</p>'
+		str += '<p>'+orderArray[i][1]+'</p>'
+		str += '<p>'+orderArray[i][2]+'</p>'
+		str += '<p>'+orderArray[i][3]+'</p>'
+		str += '</li>'
+	}
+	orderList.innerHTML = str
+}
+
+closeOrderBtn.addEventListener("click", function(e) {
+	orderModal.hide()
+}, false)
+</script>

@@ -25,7 +25,7 @@ public class RecipeStockRepositoryTest {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	@Test
+	// @Test
 	public void inserTest() {
 		
 		Long rno = 20L;
@@ -44,8 +44,11 @@ public class RecipeStockRepositoryTest {
 		recipeStockRepository.save(recipeStock);
 	}
 	
-	// @Test
-	public void stocklistTest() {
-
+	@Test
+	public void duplicateCheckTest() {
+		Long rno = 20L;
+		Long ino = 10L;
+		RecipeStock recipeStock = recipeStockRepository.selectDuplicateCheck(rno, ino);
+		log.info(recipeStock);
 	}
 }

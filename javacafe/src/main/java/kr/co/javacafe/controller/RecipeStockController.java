@@ -45,6 +45,18 @@ public class RecipeStockController {
 		resultMap.put("rsno", rsno);
 		return resultMap;
 	}
+	@ApiOperation(value = "RecipeStock POST", notes = "POST 방식으로 중복 확인")
+	@PostMapping(value = "/check", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Long> check(@RequestBody RecipeStockDTO recipeStockDTO){
+		Map<String, Long> resultMap = new HashMap<>();
+		RecipeStockDTO checkDTO = recipeStockService.getDuplicateCheck(recipeStockDTO);
+		if(checkDTO!=null) {
+			resultMap.put("rsno", checkDTO.getRsno());
+		}else {
+			resultMap.put("rsno", 0L);
+		}
+		return resultMap;
+	}
 	
 	@ApiOperation(value = "RecipeStock List", notes = "GET 방식으로 특정 재료 목록 조회")
 	@GetMapping(value = "list/{rno}")

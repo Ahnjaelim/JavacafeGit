@@ -98,4 +98,13 @@ public class RecipeRepositoryTest {
 			log.info(result.hasPrevious()+" : "+result.hasNext());
 			result.getContent().forEach(data -> log.info(data));
 		}
+		
+		@Test
+		public void findByRcateTest() {
+			String rcate = "0";
+			Pageable pageable = PageRequest.of(1, 10, Sort.by("rno").descending());
+			Page<Recipe> dtolist = recipeRepository.findByRcate(rcate, pageable);
+			List<Recipe> datalist = dtolist.getContent();
+			datalist.forEach(dto -> log.info(dto));
+		}
 }

@@ -13,4 +13,7 @@ public interface RecipeStockRepository extends JpaRepository<RecipeStock, Long>,
 
 	@Query("select rs from RecipeStock rs where rs.recipe.rno = :rno")
 	List<RecipeStock> listOfBoard(@Param("rno") Long rno);
+	
+	@Query("select rs from RecipeStock rs where rs.recipe.rno = :rno and rs.ino =:ino")
+	RecipeStock selectDuplicateCheck(@Param("rno") Long rno, @Param("ino") Long ino);
 }

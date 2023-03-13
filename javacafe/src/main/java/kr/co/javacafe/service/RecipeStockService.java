@@ -17,5 +17,8 @@ public interface RecipeStockService {
 	
 	List<RecipeStockDTO> getAll(Long rno);
 	List<RecipeStockListDTO> getJoinList(Long rno);
+	
+	// 중복 확인
+	RecipeStockDTO getDuplicateCheck(RecipeStockDTO recipeStockDTO);
 
 }

@@ -21,4 +21,6 @@ public interface RecipeService {
 	//홈페이지용
 	List<Recipe> recipeList();
 	
+	List<RecipeDTO> getByRcate(String rcate);
+	
 }

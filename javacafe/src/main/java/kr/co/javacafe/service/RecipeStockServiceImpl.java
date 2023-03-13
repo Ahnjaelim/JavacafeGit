@@ -67,4 +67,15 @@ public class RecipeStockServiceImpl implements RecipeStockService {
 		return dtolist;
 	}
 
+	@Override
+	public RecipeStockDTO getDuplicateCheck(RecipeStockDTO recipeStockDTO) {
+		RecipeStock recipeStock = null;
+		RecipeStockDTO dto = null;
+		recipeStock = recipeStockRepository.selectDuplicateCheck(recipeStockDTO.getRno(), recipeStockDTO.getIno());
+		if(recipeStock != null) {
+			dto = modelMapper.map(recipeStock, RecipeStockDTO.class);
+		}
+		return dto;
+	}
+
 }

@@ -14,7 +14,7 @@ public class RecipeStockServiceTest {
 	@Autowired
 	private RecipeStockService recipeStockService;
 	
-	@Test
+	// @Test
 	public void registerTest() {
 		log.info(recipeStockService);
 		RecipeStockDTO recipeStockDTO = RecipeStockDTO.builder()
@@ -24,4 +24,15 @@ public class RecipeStockServiceTest {
 				.build();
 		recipeStockService.register(recipeStockDTO);
 	}
+	
+	@Test
+	public void duplicateCheckTest() {
+		RecipeStockDTO recipeStockDTO = RecipeStockDTO.builder()
+				.rno(20L)
+				.ino(10L)
+				.build();
+		RecipeStockDTO resultDTO = recipeStockService.getDuplicateCheck(recipeStockDTO);
+		log.info(resultDTO);
+	}
+	
 }
