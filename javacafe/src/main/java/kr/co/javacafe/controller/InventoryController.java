@@ -3,6 +3,7 @@ package kr.co.javacafe.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -71,6 +72,7 @@ public class InventoryController {
 		}
 		
 		//게시글 상세보기(조회) + 수정
+		@PreAuthorize("isAuthenticated()")
 		@GetMapping({"/read","/modify"})
 		public void read(long ino, PageRequestDTO pageRequestDTO, Model model) {
 			

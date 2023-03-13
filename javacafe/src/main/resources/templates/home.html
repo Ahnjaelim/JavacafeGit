@@ -19,7 +19,7 @@
 	
 		
 	<main class="mainbg" layout:fragment="content">
-
+  
 	<div class="main-list">
 		<div class="card sales-box">
 			<div class="card-header">
@@ -45,14 +45,7 @@
 						</a>
 					
 				</div>
-				
-				  <ul sec:authorize="!isAuthenticated()" class="navbar-nav" > 
-				  <p> 로그인</p>
-				  </ul>
-				  <ul sec:authorize="isAuthenticated()" class="navbar-nav" > 
-				  <p> 로그아웃</p>
-				  </ul>
-				
+	 
 				
 		</div>
 		<div class="card sales-box">	
@@ -129,7 +122,8 @@
 	</main>
 	    
 <script layout:fragment="script" th:inline="javascript">
-
-	console.log("스크립트 쓰는곳")	
+ 
+	
+		
 </script>
 </html>

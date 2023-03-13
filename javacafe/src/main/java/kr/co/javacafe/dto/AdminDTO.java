@@ -1,24 +1,35 @@
 package kr.co.javacafe.dto;
 
+import java.util.Collection;
+
 import javax.validation.constraints.NotEmpty;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class AdminDTO {
+import lombok.Data;
+import lombok.Getter;
+
+import lombok.Setter;
+import lombok.ToString;
+@Getter
+@Setter 
+@ToString
+public class AdminDTO extends User{
 	
-	private Long ano;
-	
+ 
 	@NotEmpty
 	private String id;
 	
 	@NotEmpty
 	private String pw;
+ 
 	
+	
+	public AdminDTO(String username, String password,Collection<? extends GrantedAuthority> authorities) {
+		super(username, password,authorities);
+		this.id = username;
+		this.pw = password;
+		
+	}
 }

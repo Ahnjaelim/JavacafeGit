@@ -3,6 +3,7 @@
 <!-- Thymeleaf 이용하기위해 네임스페이스 지정하기 -->
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	  layout:decorate="~{layout/mainlayout.html}">
 <head>
 <link rel="stylesheet" th:href="@{/css/inven.css}">
@@ -16,7 +17,8 @@
 				<div class="card-header">
                   <ion-icon name="bag-outline" class="inventory-icon"></ion-icon> Invetory Read
                 </div>
-				<div class="card-body">
+                
+				<div class="card-body" >
 				<table class="inven-table">
 				<tr>
 					<td rowspan="8" class="inven-read-imgbox">
@@ -63,7 +65,7 @@
 					</tr>
 				</table>
 						<!-- 페이징 고정처리했던 메소드${link} -->
-					<div class="my-4">
+					<div class="my-4">					
 						<div class="float-end" th:with="link = ${pageRequestDTO.getLink()}">
 							<a th:href="|@{/inven/modify(ino=${dto.ino})}&${link}|" class="text-decoration-none">
 								<button type="button" class="btn btn-secondary" >수정</button>
@@ -73,7 +75,7 @@
 							</a>
 						</div>
 					</div>
-					
+				  
 				</div><!-- card-body end -->
 			</div> <!-- card end -->
 		</div> <!-- col end -->
