@@ -61,12 +61,19 @@ public class CustomSeurityConfig {
 				 "/admin/**").hasRole("ADMIN"); //AdminRole = ADMIN일 경우에 허락
 		 
 		 
-		 http.rememberMe()
+		 http.rememberMe() //자동로그인 기능
 	     		.key("12345678")
 	            .tokenRepository(persistentTokenRepository())
 	            .userDetailsService(userDetailsService)
 	            .tokenValiditySeconds(60*60*24*30);
 		 http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+		 
+		 http.logout() //로그아웃 기능넣기
+		 	.logoutUrl("/logout") //로그아웃 처리url default : /logout, 원칙적으로 post만 지원
+		 	.logoutSuccessUrl("/login") //로그아웃 성공시 이동할곳
+		 	.deleteCookies("JSESSIONID","remember-me"); //쿠키/자동로그인쿠키 지우기
+		 	// .addLogoutHandler()
+		 	// .logoutSuccessHandler() 
 		 
 		return http.build();
 	}

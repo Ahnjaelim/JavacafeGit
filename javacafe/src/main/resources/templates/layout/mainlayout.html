@@ -18,7 +18,22 @@
 	<div class="sidebox" th:replace="fragment/sidebar  :: sidebar"></div>
 	
 	<!-- <div th:replace="fragment/header">header가 들어갈 자리입니다.</div> -->
-	<div id="header" class="clearfix" layout:fragment="header"><h2><ion-icon name="home"></ion-icon><span>HOME</span></h2></div>
+	<div id="header" class="clearfix " layout:fragment="header">
+	<h2> 
+	<a th:href="|@{/}" style="color: black;">
+	<ion-icon name="home"></ion-icon> <span>HOME </span> 
+	</a>
+		<form class="logoutform" method="post" action="/logout">
+		<button sec:authorize="isAuthenticated()" class="logoutbtn" type="submit">로그아웃</button>
+	</form>
+	<p class="logindisplay">[[${#authentication.principal.username}]] 로그인중</p>
+
+	<!-- th:value="${#authentication.principal.username}" readonly>
+							[[${#authentication.principal.username}]] -->
+	</h2>
+	
+	</div>
+	 
 	<div id="body">
 		<!-- 본문 컨텐츠 넣는곳 -->
 		<main layout:fragment="content">콘텐츠 넣으셈</main>
