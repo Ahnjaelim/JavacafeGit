@@ -3,6 +3,7 @@
 <!-- Thymeleaf 이용하기위해 네임스페이스 지정하기 -->
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	  layout:decorate="~{layout/mainlayout.html}">
 <head>
 <meta charset="UTF-8">
@@ -36,7 +37,10 @@
 						
 						<div class="input-group mb-3">
 							<span class="input-group-text">상품설명</span>
-							<textarea class="form-control col-sm-5" rows="5" name="icontent" placeholder="상품설명을 입력하세요"></textarea>
+							<textarea class="form-control col-sm-5" rows="5" name="icontent" placeholder="상품설명을 입력하세요"
+							th:value="${#authentication.principal.username}" readonly>
+							[[${#authentication.principal.username}]]</textarea>
+							
 						</div>					
 
 
@@ -47,6 +51,11 @@
 						<div class="input-group mb-3">
 							<span class="input-group-text">상품분류</span>							
 							<input type="text" name="iclass" class="form-control" placeholder="상품분류를 입력하세요">
+						</div>
+						<div class="input-group mb-3">
+							<span class="input-group-text">상품상태</span>							
+							<label class="state-radio"><input type="radio" name="istate" value="1"> 입고됨</label>
+							<label class="state-radio"><input type="radio" name="istate" value="0"> 출고됨</label>
 						</div>
 						<div class="input-group mb-1">							
 							<input  type="file" id="image" name="file" class="form-control" onchange="setThumbnail(event);" />
@@ -70,8 +79,16 @@
 </div><!-- layout:content End -->
 <!-- ====================================================== -->
 <script layout:fragment="script" th:inline="javascript">
-  const errors = [[${errors}]]
-  console.log(errors)
+  
+  const auth=[[${#authentication.principal}]]
+	console.log(auth)
+	const errors =[[${errors}]]
+	console.log(errors)
+  
+  
+  
+//  const errors = /*[[${errors}]]*/'기본값';
+//  console.log(errors)
 
   let errorMsg = ''
 

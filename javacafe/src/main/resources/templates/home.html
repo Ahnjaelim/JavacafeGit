@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
        layout:decorate="~{layout/mainlayout.html}">
 <head>
 	<meta charset="UTF-8">
@@ -18,7 +19,7 @@
 	
 		
 	<main class="mainbg" layout:fragment="content">
-
+  
 	<div class="main-list">
 		<div class="card sales-box">
 			<div class="card-header">
@@ -44,6 +45,8 @@
 						</a>
 					
 				</div>
+	 
+				
 		</div>
 		<div class="card sales-box">	
 			<div class="card-header">
@@ -119,7 +122,8 @@
 	</main>
 	    
 <script layout:fragment="script" th:inline="javascript">
-
-	console.log("스크립트 쓰는곳")	
+ 
+	
+		
 </script>
 </html>
