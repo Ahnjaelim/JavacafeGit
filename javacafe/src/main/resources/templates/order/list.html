@@ -176,6 +176,7 @@ orderBtn.addEventListener("click", function(e) {
 
 function printOrders(){
 	let str = ''
+	totalPrice.value = 0
 	for(var i = 0; i<orderArray.length; i++){
 		str += '<li>'
 		str += '<p>'+orderArray[i][0]+'</p>'
@@ -183,6 +184,7 @@ function printOrders(){
 		str += '<p>'+orderArray[i][2]+'</p>'
 		str += '<p>'+orderArray[i][3]+'</p>'
 		str += '</li>'
+		totalPrice.value = parseInt(totalPrice.value)+parseInt(orderArray[i][3])
 	}
 	orderList.innerHTML = str
 }
