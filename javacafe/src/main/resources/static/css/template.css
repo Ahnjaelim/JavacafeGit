@@ -17,3 +17,4 @@ ol, ul, li {list-style:none;}
 .btn-outline-primary:hover {background-color:#78513e; border-color:#78513e;}
 .page-item.active {background:transparent;}
 .page-item.active a {background-color:#78513e; border-color:#78513e;} 
+.page-link {color:#1e1e1e;}
