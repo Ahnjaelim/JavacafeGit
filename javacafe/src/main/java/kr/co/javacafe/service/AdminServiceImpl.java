@@ -1,12 +1,18 @@
 package kr.co.javacafe.service;
 
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import kr.co.javacafe.domain.Admin;
 import kr.co.javacafe.domain.AdminRole;
+import kr.co.javacafe.domain.Sales;
+import kr.co.javacafe.dto.AdminDTO;
 import kr.co.javacafe.dto.AdminJoinDTO;
+ 
 import kr.co.javacafe.repository.LoginRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -40,6 +46,38 @@ public class AdminServiceImpl implements AdminService {
 		loginRepository.save(admin);
 		
 	}
-	
 
+
+	//삭제
+	@Override
+	public void remove(String id) {
+	 loginRepository.deleteById(id);
+		
+	}
+
+
+	//조회
+	@Override
+	public AdminJoinDTO readOne(String id) {
+		Optional<Admin> result = loginRepository.findById(id);
+		Admin admin = result.orElseThrow();
+		AdminJoinDTO adminJoinDTO = modelMapper.map(admin, AdminJoinDTO.class);
+		 
+		return adminJoinDTO;
+	}
+
+	//수정
+	@Override
+	public void modify(AdminJoinDTO adminJoinDTO) {
+		Optional<Admin> result = loginRepository.findById(adminJoinDTO.getId());
+		Admin admin = result.orElseThrow();
+		
+		admin.change(passwordEncoder.encode(adminJoinDTO.getPw()));
+		loginRepository.save(admin);
+	}
+
+
+
+  
+	
 }

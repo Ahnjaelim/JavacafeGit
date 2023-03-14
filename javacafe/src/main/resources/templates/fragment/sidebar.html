@@ -8,10 +8,14 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <div class="l-navbar" id="navbar">
         <nav class="nav overflow-auto" style="height:100%;" >
             <div>
-            <!-- <a th:href="|@{/admin/main(ano =${dto.ano})}&${link}|" style="color: white;"> -->
-            	<a th:href="|@{/admin/main}" style="color: white;">
-            		<ion-icon name="build" class="nav__icon" style="float:right;"></ion-icon>
-            	</a>
+      
+        	    	   
+                       
+            	
+            	
+            	
+    
+            	
             	<br>
                 <div class="nav__brand">
                  	<ion-icon name="cafe-sharp"></ion-icon><br>
@@ -32,12 +36,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                         <span class="nav_name">INVENTORY</span>
                         <a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
                         <ul class="collapse__menu">
-
                           <li><a th:href="@{/inven/list}" class="collapse__sublink">물품리스트</a></li>
                           <li><a th:href="@{/inven/register}" class="collapse__sublink">물품 등록</a></li>
-                          <li><a href="#" class="collapse__sublink">입/출고 처리</a></li>
-
-
                         </ul>
                     </div>
                     <div href="#" class="nav__link collapse1">
@@ -46,6 +46,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                         <a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
                         <ul class="collapse__menu">
                           <li><a th:href="@{/sales/list}" class="collapse__sublink">매출리스트</a></li>
+                          <li><a th:href="@{/sales/register}" class="collapse__sublink">매출 등록</a></li>
 						</ul>
                     </div>
                     
@@ -59,35 +60,47 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                     </div>
 					<div href="#" class="nav__link collapse1">
                         <ion-icon name="people-sharp" class="nav__icon"></ion-icon>
-                        <span class="nav_name">USER</span>
-						
-						
+                        <span class="nav_name">USER</span>						
                         <a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
-
                         <ul class="collapse__menu">
-
                             <li><a href="/customer/list" class="collapse__sublink">회원 정보</a></li>
                             <li><a href="/customer/register" class="collapse__sublink">신규 가입</a></li>
                             <li><a href="/customer/list2" class="collapse__sublink">포인트 적립</a></li>
                             <li><a href="/customer/list3" class="collapse__sublink">포인트 차감</a></li>
-
                         </ul>
                     </div>
                     
 					<div href="#" class="nav__link collapse1">
                         <ion-icon name="chatbox-sharp" class="nav__icon"></ion-icon>
                         <span class="nav_name">BOARD</span>
-						
-						
-                        <a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
-
+						<a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
                         <ul class="collapse__menu">
-
                           <li><a href="/fboard/flist" class="collapse__sublink">카페 규정</a></li>
                           <li><a href="/event/list" class="collapse__sublink">이벤트</a></li>
+                        </ul>
+                    </div>
+					<div href="#" class="nav__link collapse1">
+                        <ion-icon name="build" class="nav__icon"></ion-icon>
+                        <span class="nav_name">Admin</span>
+						<a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
+                        <ul class="collapse__menu">
+                          <li><a class="collapse__sublink" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                          style=" text-decoration: none;">관리자 등록</a></li>
+                          <!-- Modal불러오기 -->
+							<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								   <th:block th:include="@{admin/join}"></th:block>
+							</div>
+                          
+                          <li><a th:href="|@{/admin/modify(id=${#authentication.principal.username})}|" class="collapse__sublink">관리자정보 수정</a></li>
+                         
 
                         </ul>
                     </div>
+                            	      
+     			  
+	             
+                    
+                    
                 </div>
             </div>
         </nav>

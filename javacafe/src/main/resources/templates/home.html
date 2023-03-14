@@ -122,8 +122,25 @@
 	</main>
 	    
 <script layout:fragment="script" th:inline="javascript">
- 
-	
+ 	//중복id 입력시 alert
+	 var errorid = [[${error}]]
+
+    if(errorid && errorid === 'id'){
+        alert("동일한 ID를 가진 계정이 존재합니다.")
+    }
+    
+    //등록완료 alert
+ 	 var regresult = [[${regresult}]]
+    if(regresult != null){
+        alert("관리자등록이 완료되었습니다")
+        console.log(regresult)
+    } 
+    //수정완료 alert
+ 	 var modresult1 = [[${result1}]]
+    if(modresult1 != null){
+        alert("수정이 완료되었습니다")
+        console.log(modresult1)
+    }
 		
 </script>
 </html>

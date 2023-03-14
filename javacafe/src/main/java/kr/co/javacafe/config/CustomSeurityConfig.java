@@ -46,19 +46,22 @@ public class CustomSeurityConfig {
 				 "/staff/**",
 				 "/sales/**",
 				 "/recipe/**",
-				 "/user/**",
+				 "/customer/**",
 				 "/fboard/**",
 				 "/event/**",
-				 "/admin/**").authenticated()
+				 "/admin/**",
+				 "/join").authenticated()
+		 
 		 .antMatchers("/", 
 				 "/inven/**",
 				 "/staff/**",
 				 "/sales/**",
 				 "/recipe/**",
-				 "/user/**",
+				 "/customer/**",
 				 "/fboard/**",
 				 "/event/**",
-				 "/admin/**").hasRole("ADMIN"); //AdminRole = ADMIN일 경우에 허락
+				 "/admin/**",
+				 "/join").hasRole("ADMIN"); //AdminRole = ADMIN일 경우에 허락
 		 
 		 
 		 http.rememberMe() //자동로그인 기능
@@ -81,8 +84,7 @@ public class CustomSeurityConfig {
 	@Bean
 	public WebSecurityCustomizer webSecurityCustomizer() {
 		log.info("---------------------web configure--------------------");
-		return (web) -> web.ignoring().requestMatchers(PathRequest
-				.toStaticResources().atCommonLocations());
+		return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
 	}
 	
 	@Bean

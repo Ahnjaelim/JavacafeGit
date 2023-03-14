@@ -11,7 +11,8 @@ import kr.co.javacafe.domain.Admin;
 import java.util.Optional;
 
 public interface LoginRepository extends JpaRepository<Admin, String>{
-
+	
+	//중복아이디 찾기
 	@EntityGraph(attributePaths = "roleSet")
 	@Query("select m from Admin m where m.id =:id")
 	Optional<Admin> getWithRoles(@Param("id") String id);

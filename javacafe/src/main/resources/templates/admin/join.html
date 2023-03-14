@@ -1,0 +1,42 @@
+ 
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel" style="color: black;">관리자정보추가</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form id="registerForm" action="/join" method="post">
+				<div class="modal-body">
+					<div class="input-group mb-3">
+						<span class="input-group-text">ID</span>
+						<input type="text" name="id" class="form-control">
+					</div>
+				
+					<div class="input-group mb-3">
+						<span class="input-group-text">PW</span>
+						<input type="password" name="pw" class="form-control">
+					</div> 
+				</div>
+				<div class="modal-footer">
+					<div class="float-end">
+						<button type="submit" class="btn btn-primary submitBtn">등록</button>
+						<button type="button" class="btn btn-secondary mainBtn">취소</button>
+					</div>
+				</div>
+			</form>
+		</div>
+ 	</div>
+<script layout:fragment="script" th:inline="javascript">
+
+    
+    
+//목록으로 이동
+	document.querySelector(".mainBtn").addEventListener("click", function(e){
+	e.preventDefault()
+	e.stopPropagation()
+
+	self.location =`/`
+	}, false)
+  
+   
+</script>
