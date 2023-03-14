@@ -122,7 +122,8 @@
 	</main>
 	    
 <script layout:fragment="script" th:inline="javascript">
- 	//중복id 입력시 alert
+
+		 	//중복id 입력시 alert
 	 var errorid = [[${error}]]
 
     if(errorid && errorid === 'id'){
@@ -141,6 +142,5 @@
         alert("수정이 완료되었습니다")
         console.log(modresult1)
     }
-		
 </script>
 </html>

@@ -41,6 +41,7 @@ public class AdminController {
 		model.addAttribute("dto",adminJoinDTO);
 		
 	}
+	
 	//정보수정
 	@PostMapping("/modify")
 	public String modify(@Valid AdminJoinDTO adminJoinDTO,
@@ -61,7 +62,29 @@ public class AdminController {
 		return "redirect:/";
 	}
 	
-
+	//관리자 아이디 등록하기
+		@GetMapping("/join")
+		public void joinGET() {
+			log.info("join get.....");
+		}
+		
+		@PostMapping("/join")
+		public String joinPOST(AdminJoinDTO joinDTO,RedirectAttributes redirectAttributes) {
+			log.info("join post/......");
+			log.info(joinDTO);
+			
+			try {
+				adminService.join(joinDTO);
+			}catch (AdminServiceImpl.MidExistException e) {
+				redirectAttributes.addFlashAttribute("error","id");
+				 
+				return "redirect:/";
+			} 
+			redirectAttributes.addFlashAttribute("regresult","success");
+			return "redirect:/";
+		}
+		
+		
 	
 	//삭제 처리
 	@PostMapping("/remove")

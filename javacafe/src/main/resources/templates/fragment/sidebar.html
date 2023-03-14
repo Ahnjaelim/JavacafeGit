@@ -8,14 +8,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <div class="l-navbar" id="navbar">
         <nav class="nav overflow-auto" style="height:100%;" >
             <div>
-      
-        	    	   
-                       
-            	
-            	
-            	
-    
-            	
             	<br>
                 <div class="nav__brand">
                  	<ion-icon name="cafe-sharp"></ion-icon><br>
@@ -84,13 +76,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                         <span class="nav_name">Admin</span>
 						<a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
                         <ul class="collapse__menu">
-                          <li><a class="collapse__sublink" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                          style=" text-decoration: none;">관리자 등록</a></li>
-                          <!-- Modal불러오기 -->
-							<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-								   <th:block th:include="@{admin/join}"></th:block>
-							</div>
-                          
+                           <li><a href="/admin/join" class="collapse__sublink">관리자 등록</a></li>
                           <li><a th:href="|@{/admin/modify(id=${#authentication.principal.username})}|" class="collapse__sublink">관리자정보 수정</a></li>
                          
 

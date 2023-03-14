@@ -62,28 +62,6 @@ public class HomeController {
 		}
 	}	
 	
-	//관리자 아이디 등록하기
-	@GetMapping("/join")
-	public void joinGET() {
-		log.info("join get.....");
-	}
-	
-	@PostMapping("/join")
-	public String joinPOST(AdminJoinDTO joinDTO,RedirectAttributes redirectAttributes) {
-		log.info("join post/......");
-		log.info(joinDTO);
-		
-		try {
-			adminService.join(joinDTO);
-		}catch (AdminServiceImpl.MidExistException e) {
-			redirectAttributes.addFlashAttribute("error","id");
-			 
-			return "redirect:/";
-		} 
-		redirectAttributes.addFlashAttribute("regresult","success");
-		return "redirect:/";
-	}
-	
 	
 	
 	 
