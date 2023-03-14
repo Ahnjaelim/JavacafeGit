@@ -13,8 +13,5 @@ public interface InvenSearch {
 
     Page<Inventory> isearchAll(String[] types, String keyword, Pageable pageable);
 
-    Page<Admin> asearch(Pageable pageable);
-
-    Page<Admin> asearchAll(String[] types, String keyword, Pageable pageable);
-
+ 
 }
