@@ -48,7 +48,7 @@ public class SalesController {
 				}
 				
 				@PostMapping("/register")
-				public String registerPost(@Valid SalesDTO salesDTO, BindingResult bindingResult, 
+				public String registerPOST(@Valid SalesDTO salesDTO, BindingResult bindingResult, 
 						RedirectAttributes redirectAttributes, HttpServletRequest request) {
 					log.info("sales POST register==============");
 					
@@ -79,7 +79,7 @@ public class SalesController {
 				
 				//게시글 수정 post
 				@PostMapping("/modify")
-				public String modify(PageRequestDTO pageRequestDTO,
+				public String modifyPOST(PageRequestDTO pageRequestDTO,
 									@Valid SalesDTO salesDTO,
 									BindingResult bindingResult,
 									RedirectAttributes redirectAttributes,
@@ -112,7 +112,7 @@ public class SalesController {
 				
 				//삭제 처리
 				@PostMapping("/remove")
-				public String remove(long sno, RedirectAttributes redirectAttributes) {
+				public String removePOST(long sno, RedirectAttributes redirectAttributes) {
 					log.info("remove post================== " + sno);
 					salesService.remove(sno);
 					redirectAttributes.addFlashAttribute("result3","removed");

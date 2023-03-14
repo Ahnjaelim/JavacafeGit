@@ -52,7 +52,7 @@ public class InventoryController {
 		}
 		
 		@PostMapping("/register")
-		public String registerPost(@Valid InventoryDTO inventoryDTO, BindingResult bindingResult, 
+		public String registerPOST(@Valid InventoryDTO inventoryDTO, BindingResult bindingResult, 
 				RedirectAttributes redirectAttributes, HttpServletRequest request) {
 			log.info("inven POST register==============");
 			
@@ -84,7 +84,7 @@ public class InventoryController {
 		
 		//게시글 수정 post
 		@PostMapping("/modify")
-		public String modify(PageRequestDTO pageRequestDTO,
+		public String modifyPOST(PageRequestDTO pageRequestDTO,
 							@Valid InventoryDTO inventoryDTO,
 							BindingResult bindingResult,
 							RedirectAttributes redirectAttributes,
@@ -117,7 +117,7 @@ public class InventoryController {
 		
 		//삭제 처리
 		@PostMapping("/remove")
-		public String remove(long ino, RedirectAttributes redirectAttributes) {
+		public String removePOST(long ino, RedirectAttributes redirectAttributes) {
 			log.info("remove post================== " + ino);
 			invenService.remove(ino);
 			redirectAttributes.addFlashAttribute("result3","removed");

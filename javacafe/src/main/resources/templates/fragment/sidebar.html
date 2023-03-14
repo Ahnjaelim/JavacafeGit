@@ -75,10 +75,9 @@
                         <span class="nav_name">Admin</span>
 						<a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
                         <ul class="collapse__menu">
-                           <li><a href="/admin/join" class="collapse__sublink">관리자 등록</a></li>
-                          <li><a th:href="|@{/admin/modify(id=${#authentication.principal.username})}|" class="collapse__sublink">관리자정보 수정</a></li>
-							<li><a href="/logout" class="collapse__sublink">로그아웃</a></li>                      
-
+							<li><a href="/admin/join" class="collapse__sublink">관리자 등록</a></li>
+							<li><a th:href="|@{/admin/modify(id=${#authentication.principal.username})}|" class="collapse__sublink">관리자정보 수정</a></li>
+							<li><a href="/logout" class="collapse__sublink">로그아웃</a></li>
                         </ul>
                     </div>
                             	      
