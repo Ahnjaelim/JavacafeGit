@@ -250,7 +250,11 @@ submitBtn.addEventListener("click", function(e) {
 	let year = today.getFullYear()
 	let month = String(today.getMonth() + 1)
 	let date = String(today.getDate())
-	let kid = year+month.padStart(2,'0')+date.padStart(2, '0')
+	let hh = String(today.getHours())
+	let mm = String(today.getMinutes())
+	let ss = String(today.getSeconds())  	
+	let kid = year+month.padStart(2,'0')+date.padStart(2, '0')+"-"+hh.padStart(2, '0')+mm.padStart(2, '0')+ss.padStart(2, '0')
+	
 	for(var i = 0; i<orderArray.length; i++){
 		if(orderArray[i].length>0){
 		    const kioskObj = {
