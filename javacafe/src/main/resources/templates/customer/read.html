@@ -52,6 +52,108 @@
             </div><!--end card-->
         </div><!-- end col-->
     </div><!-- end row-->
+    <!-- 포인트 적립 , 차감 -->
+	    <div class="row mt-3">
+	        <div class="col">
+	            <div class="card">
+				     <form action="/customer/modify2" method="post">
+			                <div class="card-body">
+			                    <div class="input-group mb-3">
+			                        
+			                        <input type="hidden" name="cno" class="form-control" th:value="${dto.cno}" readonly>
+			                    </div>
+			                    <div class="input-group mb-3">
+			                        
+			                        <input type="hidden" class="form-control" th:value="${dto.cname}" readonly>
+			                    </div>
+			
+			                    <div class="input-group mb-3">
+			                        
+			                        <input type="hidden" class="form-control" th:value="${dto.cphone}" readonly>
+			                    </div>
+			
+			                    <div class="input-group mb-3">
+			                        
+			                        <input type="hidden" class="form-control" th:value="${dto.cpoint}" readonly>
+			                    </div>
+			                    <div class="input-group mb-3">
+			                        
+			                        <input type="hidden" class="form-control" th:value="${#temporals.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
+			                    </div>
+			               </div>
+			               <div class="input-group mb-3">
+		                        <span class="input-group-text" >결제 금액을 입력하세요</span>
+			                    <input id="point" type="text"/>
+			                    <button type="button" onclick="pointadd()">포인트적립</button>
+                           </div>
+			               <div>
+								<span>적립될 포인트</span>
+								<input id="pt" name="cpoint"/>
+								<button type="submit">포인트적용</button>                   
+			               </div>
+					</form>
+				
+	
+	
+               <form action="/customer/modify3" method="post">
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        
+                        <input type="hidden" name="cno" class="form-control" th:value="${dto.cno}" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        
+                        <input type="hidden" class="form-control" th:value="${dto.cname}" readonly>
+                    </div>
+
+                    <div class="input-group mb-3">
+                       
+                        <input type="hidden" class="form-control" th:value="${dto.cphone}" readonly>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        
+                        <input type="hidden" class="form-control" th:value="${dto.cpoint}" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        
+                        <input type="hidden" class="form-control" th:value="${#temporals.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
+                    </div>
+				</div>
+					<div class="input-group mb-3">
+                  		<span class="input-group-text" >차감 금액을 입력하세요</span>
+                 		<input id="pointt" type="text"/>
+                  		<button type="button" onclick="pointsub()">포인트차감</button>
+                  		               		</div>
+            	    <div>
+                  	<span>차감후 포인트</span>
+                  	<input id="ptt" name="cpoint"/>
+                  	<button type="submit">포인트적용</button>             		
+                  	</div>
+					</form>
+			</div>
+		</div>
+	</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- end 적립 ,차감 -->
     <!-- 모달 창 start -->    
 	<div class="modal" tabindex="-1">
         <div class="modal-dialog">
@@ -71,7 +173,7 @@
 	</div>
 <!-- end 모달 창 -->    
     
-</div> <!-- end layout Content -->
+</div><!-- end layout Content -->
 
 <!-- script start -->
 	<script layout:fragment="script" th:inline="javascript">
@@ -83,6 +185,23 @@
     if(result){
         modal.show()
     }
+	 
+    function pointadd(){
+        var pointadd = 0.05;
+        var point = document.getElementById("point").value;
+        var result = (point)*(pointadd);
+        document.getElementById("pt").value = result;
+      a       
+        
+    }
+    function pointsub(){
+        var cpoint = [[${dto.cpoint}]]
+        var point = document.getElementById("pointt").value;
+        var result = (cpoint)-(point);
+        document.getElementById("ptt").value = result;
+		   
+        
+	}
 
 
 	</script>

@@ -41,6 +41,8 @@
 		<ul class="orderList">
 		</ul>
 		<input type="text" class="totalPrice" value="0" />
+		<p><button class="btn btn-danger btn-lg paymentBtn">주문하기</button></p>
+		<p><button class="btn btn-danger btn-lg paymentBtn" onclick="orderRemoveAll()">모두 지우기</button></p>
 	</td>
 </tr>
 </table>
@@ -70,9 +72,28 @@
   </div>
 </div>
 
+<!-- ========================================================================================== 결제 모달 -->
+
+<div class="modal payModal" id="payModal" tabindex="-1">
+<div class="modal-dialog">
+<div class="modal-content">
+	<div class="modal-header">
+	<h1 class="modal-title fs-5 orderModalTitle" id="exampleModalLabel">Action Result</h1>
+	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	</div>
+	<div class="modal-body text-center">
+		<p>총 결제 금액</p>
+		<p id="totalPriceTxt"></p>
+		<button type="button" class="btn btn-primary submitBtn">결제하기</button>
+	</div>
+	<div class="modal-footer">
+	</div>
+</div>
+</div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="/js/order.js"></script>
+<script src="/js/kiosk.js"></script>
 
 <!-- ========================================================================================== -->
 </main>
@@ -125,7 +146,9 @@ const orderList = document.querySelector(".orderList")
 const totalPrice = document.querySelector(".totalPrice")
 const orderArray = []
 index = 0
-
+const payModal = new bootstrap.Modal(document.querySelector(".payModal"))
+const paymentBtn = document.querySelector(".paymentBtn")
+const submitBtn =  document.querySelector(".submitBtn")
 
 function countPlus(){
 	ocount.value = parseInt(ocount.value)+1;
@@ -176,18 +199,97 @@ orderBtn.addEventListener("click", function(e) {
 
 function printOrders(){
 	let str = ''
+	totalPrice.value = 0
 	for(var i = 0; i<orderArray.length; i++){
-		str += '<li>'
-		str += '<p>'+orderArray[i][0]+'</p>'
-		str += '<p>'+orderArray[i][1]+'</p>'
-		str += '<p>'+orderArray[i][2]+'</p>'
-		str += '<p>'+orderArray[i][3]+'</p>'
-		str += '</li>'
+		if(orderArray[i].length>0){
+			str += '<li>'
+			str += "<a href='#' onclick='orderRemove("+i+")'>[X]</a>"
+			str += '<p>'+orderArray[i][0]+'</p>'
+			str += '<p>'+orderArray[i][1]+'</p>'
+			str += '<p>'+orderArray[i][2]+'</p>'
+			str += '<p>'+orderArray[i][3]+'</p>'
+			str += '</li>'
+			totalPrice.value = parseInt(totalPrice.value)+parseInt(orderArray[i][3])
+		}
 	}
 	orderList.innerHTML = str
+}
+
+function orderRemove(no) {
+	orderArray[no].length = 0
+	printOrders()
+}
+
+function orderRemoveAll(){
+	for(var i = 0; i<orderArray.length; i++){
+		orderArray[i].length = 0
+	}
+	index = 0
+	printOrders()
 }
 
 closeOrderBtn.addEventListener("click", function(e) {
 	orderModal.hide()
 }, false)
+
+
+paymentBtn.addEventListener("click", function(e) {
+	if(parseInt(totalPrice.value) <= 0){
+		alert('1개 이상 주문해야 합니다.')
+		return
+	}
+	document.querySelector("#totalPriceTxt").innerHTML = totalPrice.value
+	payModal.show()
+	
+}, false)
+
+submitBtn.addEventListener("click", function(e) {
+
+	// 주문 번호 만들기
+	let today = new Date()
+	let year = today.getFullYear()
+	let month = String(today.getMonth() + 1)
+	let date = String(today.getDate())
+	let hh = String(today.getHours())
+	let mm = String(today.getMinutes())
+	let ss = String(today.getSeconds())  	
+	let kid = year+month.padStart(2,'0')+date.padStart(2, '0')+"-"+hh.padStart(2, '0')+mm.padStart(2, '0')+ss.padStart(2, '0')
+	
+	for(var i = 0; i<orderArray.length; i++){
+		if(orderArray[i].length>0){
+		    const kioskObj = {
+	    		kid : kid,
+	            rno : orderArray[i][0],
+	    		kcount : orderArray[i][2],
+	    		kprice : orderArray[i][3]
+		    }
+			console.log("kioskObj")
+			console.log(kioskObj)
+	        addKiosk(kioskObj).then(result => {
+	            // alert(result.kno)
+	        }).catch(e => {
+	            alert("Exception...")
+	        })
+		} // end of if
+	} // end of for
+	
+	// 주문 상태 저장
+	const kioskStateObj = {
+		kid : kid,
+		ksstate : 0,
+		kstotal : totalPrice.value
+	}
+	console.log("kioskStateObj")
+	console.log(kioskStateObj)
+	addKioskState(kioskStateObj).then(result => {
+	    alert("주문이 완료되었습니다. (주문번호 : "+result.ksno+")")
+	    orderRemoveAll()
+	    payModal.hide()
+	}).catch(e => {
+	    alert("Exception...")
+	})
+
+}, false)
+
+
 </script>

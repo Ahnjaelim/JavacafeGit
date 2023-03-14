@@ -90,10 +90,12 @@
 
 .nav__icon {
     font-size: 1.25rem;
+    margin-right:10px;
 }
 
 .nav_name {
-    font-size: var(--small-font-size);
+    font-size: var(--normal-font-size);
+    font-weight:bold;
     position: relative;
     top: -4px;
 }
@@ -131,9 +133,11 @@
     padding: .75rem 2.25rem;
 }
 
+.collapse__menu a {display:block;}
+
 .collapse__sublink {
     color: var(--sub-color);
-    font-size: var(--small-font-size);
+    font-size: var(--normal-font-size);
 }
 
 .collapse__sublink:hover {
