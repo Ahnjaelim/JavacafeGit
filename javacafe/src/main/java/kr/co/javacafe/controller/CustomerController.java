@@ -174,7 +174,7 @@ public class CustomerController {
 
 	        redirectAttributes.addAttribute("cno", customerDTO.getCno());
 
-	        return "redirect:/customer/read2";
+	        return "redirect:/customer/read";
 	    }
 	
 //	고객 포인트 차감 ( 수정 )
@@ -202,7 +202,7 @@ public class CustomerController {
 
 	        redirectAttributes.addAttribute("cno", customerDTO.getCno());
 
-	        return "redirect:/customer/read3";
+	        return "redirect:/customer/read";
 	    }
 
 	
