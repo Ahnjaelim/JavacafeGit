@@ -4,9 +4,31 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <div th:fragment="sidebar" id="layoutSidenav">
 
+<style>
+.clock{
+text-align: center;
+}
+</style>
+
 <div class="l-navbar" id="navbar">
         <nav class="nav overflow-auto" style="height:100%;" >
             <div>
+            	<div class="clock" id="result"></div>  
+			   	<script>
+	            const time = document.getElementById('result'); // id가 'current-time'인 요소
+	          
+	            function getClock(){
+	            
+	             	var nowtime = new Date();
+	            	time.innerHTML = nowtime.toLocaleTimeString();
+	            	 
+            	}				
+            	getClock(); 
+            	setInterval(getClock, 1000);
+            	</script>
+			
+            	
+            	
             	<br>
                 <div class="nav__brand">
                  	<ion-icon name="cafe-sharp"></ion-icon><br>
@@ -169,4 +191,5 @@
 </div>
 
 </div><!-- end of fragment -->   
+
 </html>
