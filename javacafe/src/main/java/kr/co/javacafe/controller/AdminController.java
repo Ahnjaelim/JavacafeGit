@@ -28,15 +28,10 @@ import lombok.extern.log4j.Log4j2;
 public class AdminController {
 	
 	private final AdminService adminService;
-	
-	//조회 및 수정
-	@GetMapping("/main")
-	public void mainGET() {
-	 
-	}
+ 
 	
 	@GetMapping("/modify")
-	public void modify(String id, Model model){
+	public void modifyGET(String id, Model model){
 		AdminJoinDTO adminJoinDTO=adminService.readOne(id);
 		model.addAttribute("dto",adminJoinDTO);
 		
@@ -44,7 +39,7 @@ public class AdminController {
 	
 	//정보수정
 	@PostMapping("/modify")
-	public String modify(@Valid AdminJoinDTO adminJoinDTO,
+	public String modifyPOST(@Valid AdminJoinDTO adminJoinDTO,
 						BindingResult bindingResult,
 						RedirectAttributes redirectAttributes,
 						HttpServletRequest request) {
@@ -88,7 +83,7 @@ public class AdminController {
 	
 	//삭제 처리
 	@PostMapping("/remove")
-	public String remove(String id, RedirectAttributes redirectAttributes) {
+	public String removePOST(String id, RedirectAttributes redirectAttributes) {
 		log.info("remove post================== " + id);
 		adminService.remove(id);
 		redirectAttributes.addFlashAttribute("result3","removed");
