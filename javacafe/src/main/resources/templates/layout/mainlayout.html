@@ -23,13 +23,7 @@
 	<a th:href="|@{/}" style="color: black;">
 	<ion-icon name="home"></ion-icon> <span>HOME </span> 
 	</a>
-		<form class="logoutform" method="post" action="/logout">
-		<button sec:authorize="isAuthenticated()" class="logoutbtn" type="submit">로그아웃</button>
-	</form>
-	<p class="logindisplay">[[${#authentication.principal.username}]] 로그인중</p>
 
-	<!-- th:value="${#authentication.principal.username}" readonly>
-							[[${#authentication.principal.username}]] -->
 	</h2>
 	
 	</div>
@@ -47,6 +41,7 @@
 <th:block th:include="@{common/include-script}"> </th:block>
 
 <th:block layout:fragment="script">
+
 
 </th:block>
 </body>

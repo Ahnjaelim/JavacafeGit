@@ -1,0 +1,15 @@
+diff a/javacafe/src/main/java/kr/co/javacafe/config/CustomSeurityConfig.java b/javacafe/src/main/java/kr/co/javacafe/config/CustomSeurityConfig.java	(rejected hunks)
+@@ -68,6 +68,13 @@
+ 	            .tokenValiditySeconds(60*60*24*30);
+ 		 http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+ 		 
++		 http.logout() //로그아웃 기능넣기
++		 	.logoutUrl("/logout") //로그아웃 처리url default : /logout, 원칙적으로 post만 지원
++		 	.logoutSuccessUrl("/login") //로그아웃 성공시 이동할곳
++		 	.deleteCookies("JSESSIONID","remember-me"); //쿠키/자동로그인쿠키 지우기
++		 	// .addLogoutHandler()
++		 	// .logoutSuccessHandler() 
++		 
+ 		return http.build();
+ 	}
+ 

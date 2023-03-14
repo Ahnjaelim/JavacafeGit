@@ -8,12 +8,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,7 +50,7 @@ public class HomeController {
 	private final FBoardService fBoardService;
 	private final EventService eventService;
 	private final RecipeService recipeService;
-	private final AdminService	adminService;
+	private final AdminService adminService;
 	
 	@GetMapping("/login")
 	public void loginGET(String error, String logout){
@@ -60,27 +62,6 @@ public class HomeController {
 		}
 	}	
 	
-	
-	
-	@GetMapping("/join")
-	public void joinGET() {
-		log.info("join get.....");
-	}
-	
-	@PostMapping("/join")
-	public String joinPOST(AdminJoinDTO joinDTO,RedirectAttributes redirectAttributes) {
-		log.info("join post/......");
-		log.info(joinDTO);
-		
-		try {
-			adminService.join(joinDTO);
-		}catch (AdminServiceImpl.MidExistException e) {
-			redirectAttributes.addFlashAttribute("error","id");
-			return "redirect:/join";
-		} 
-		redirectAttributes.addFlashAttribute("result","success");
-		return "redirect:/login";
-	}
 	
 	
 	 
