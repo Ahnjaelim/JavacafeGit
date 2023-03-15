@@ -18,10 +18,13 @@ public class ShopDTO {
 
 	private Long sno;
 	private String sid;
-	private Long rno;
 	private Long scount;
 	private Long sprice;
 	private String cphone;
 	private LocalDateTime regDate;
-	private LocalDateTime modDate;	
+	private LocalDateTime modDate;
+
+	private Long rno;
+	private String rname;
+	private Long rprice;	
 }

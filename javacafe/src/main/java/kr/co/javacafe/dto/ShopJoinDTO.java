@@ -21,7 +21,7 @@ public class ShopJoinDTO {
 	private String rdesc;
 	private String rtext;
 	private int rcost;
-	private int rprice;
+	private Long rprice;
 	private int rkcal;
 	private String rimg;
 	private int rstate;

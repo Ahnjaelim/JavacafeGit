@@ -20,19 +20,15 @@ import lombok.ToString;
 @ToString
 public class Shop extends BaseEntity {
 
-	// 엔티티 이름을 order로 하려고 했으나...order by 때문인지 테이블 생성이 안됨ㅋ
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long sno;
-	
 	private String sid;
+	private Long scount;
+	private Long sprice;
+	private String cphone;
 	
 	private Long rno;
-	
-	private Long scount;
-	
-	private Long sprice;
-	
-	private String cphone;
+	private String rname;
+	private Long rprice;	
 }

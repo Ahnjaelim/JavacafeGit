@@ -33,8 +33,8 @@ public class ShopSearchImpl extends QuerydslRepositorySupport implements ShopSea
 				shop.scount,
 				shop.sprice,
 				shop.rno,
-				recipe.rname,
-				recipe.rprice,
+				shop.rname,
+				shop.rprice,
 				recipe.rstate));
 		List<ShopJoinDTO> dtolist = dtoquery.fetch();
 		long count = dtoquery.fetchCount()+1L;
