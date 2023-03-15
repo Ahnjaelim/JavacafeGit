@@ -15,7 +15,24 @@
 <style>
 .col {cursor:pointer;}
 .modal-dialog {margin-top:100px;}
-.orderList li {border:1px solid #ff0000;}
+.menuList {margin:0; padding:0; opacity:0;}
+.menuList li {padding:0px 10px 10px 0px;}
+.menuList li a {display:block; cursor:pointer; background:#ffffff; border-radius: 8px; border:1px solid #dcdcdc;}
+.menuList li img {width:100%; border-radius: 6px 6px 0px 0px;}
+.menuList li p {}
+.menuList .rimg {padding:0; margin:0;}
+.menuList .rname {text-align:center; padding:30px 0px 0px 0px; margin:0; font-size:1.05em;}
+.menuList .rprice {text-align:center; padding:0px 0px 30px 0px; margin:0; font-weight:bold; font-size:1.5em;}
+
+.orderList {margin:0; padding:0;}
+.orderList li {background:#ffffff; border-radius: 8px; border:1px solid #9ec5fe; margin:0px 0px 10px 0px;}
+.orderList .rname {background:#cfe2ff; padding:15px; border-radius: 6px 6px 0px 0px; font-size:1.05em; font-weight:bold; margin:0;}
+.orderList .rname a {float:right; cursor:pointer;}
+.orderList .rname a ion-icon {font-size:26px !important;}
+.orderList .scount,
+.orderList .sprice {margin:0; padding:20px; line-height:1em; font-size:1.05em;}
+.orderList .sprice {padding-top:0; font-weight:bold;}
+.totalPrice {width:100%; font-size:1.5em; background:#f8d7da; border-radius:8px; border:1px solid #ea868f; padding:10px 10px 10px 20px; font-weight:bold; margin:0px 0px 10px 0px;}
 </style>
 
 <div>
@@ -27,22 +44,24 @@
 	<button class="btn btn-primary" onclick="printMenus(0)">분류 없음</button>
 </div>
 
-<table class="table">
+<table width="100%">
 <colgroup>
 	<col width="*" />
 	<col width="300px" />
 </colgroup>
-<tr>
+<tr style="vertical-align:top">
 	<td>
-		<div class="row row-cols-1 row-cols-md-4 g-2 menuList">
-		</div>
+		<ul class="menuList row row-cols-md-4">
+		</ul>
 	</td>
 	<td>
 		<ul class="orderList">
 		</ul>
-		<input type="text" class="totalPrice" value="0" />
-		<p><button class="btn btn-danger btn-lg paymentBtn">주문하기</button></p>
-		<p><button class="btn btn-danger btn-lg paymentBtn" onclick="orderRemoveAll()">모두 지우기</button></p>
+		<input type="text" class="totalPrice" value="0" readonly />
+		<div>
+			<button class="btn btn-danger btn-lg paymentBtn" style="width:49%;">주문하기</button>
+			<button class="btn btn-secondary btn-lg paymentBtn" style="width:49%;" onclick="orderRemoveAll()">모두 지우기</button>
+		</div>
 	</td>
 </tr>
 </table>
@@ -58,11 +77,12 @@
       </div>
       <div class="modal-body text-center">
       	<button type="button" class="btn btn-secondary btn-lg" onclick="countMinus()">-</button>
-      	<input type="text" class="ocount" value="1" />  
+      	<input type="text" class="scount" value="1" />  
       	<button type="button" class="btn btn-primary btn-lg" onclick="countPlus()">+</button>
-      	<p><input type="text" class="price" value="0" /></p>
+      	<p><input type="hidden" class="price" value="0" /></p>
       	<p><input type="text" class="priceSum" value="0" /></p>
-      	<p><input type="text" class="rno" value="" /></p>
+      	<p><input type="hidden" class="rno" value="" /></p>
+      	<p><input type="hidden" class="rimg" value="" /></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary orderBtn">주문</button>
@@ -103,65 +123,61 @@
 
 const rcate = 0
 const menuList = document.querySelector('.menuList')
+let globalDTO = null
 
 function printList(dtoList){
-	let str = '';
-	if(dtoList && dtoList.length > 0){
-		for(const dto of dtoList){
-			str += `<div class="col">
-			    <p><img src="/view/${dto.rimg}" class="card-img-top" style="width:200px; height:200px;" /></p>
-			    <p data-rno="${dto.rno}">${dto.rname}</p>
-			    <p class="rprice">${dto.rprice}</p>
-			    <p>${dto.rdesc}</p>
-			</div>`
+	$(".menuList").animate({"opacity":"0.0"},100,"swing",function(){
+		let str = '';
+		if(dtoList && dtoList.length > 0){
+			for(const dto of dtoList){
+				str += `<li data-rno="${dto.rno}"><a>`
+					if(dto.rimg!=""){str += `<p class="rimg"><img src="/view/${dto.rimg}" /></p>`}
+					else {str += `<p class="rimg"><img src="/img/noimg.jpg" /></p>`}    
+				str += `<p class="rname">${dto.rname}</p>
+				    <p class="rprice">${dto.rprice.toLocaleString('ko-KR')}</p>
+				</a></li>`
+			}
 		}
-	}
-	menuList.innerHTML = str
+		menuList.innerHTML = str
+		addClickEvent()
+	})
+	$(".menuList").animate({"opacity":"1.0"},100)
 }
 
-// axios로 데이터 불러오기 => 댓글 목록, 페이징 출력
 function printMenus(rcate){
-	getList(rcate).then(
-			data => {
-				console.log(data)
-				printList(data)
-			}).catch(e => {
-				console.error(e)
-			})
+	getList(rcate).then(data => {
+		console.log(data)
+		printList(data)
+	}).catch(e => {
+		console.error(e)
+	})
 }
 
 printMenus(rcate)
 
-/* ================================================================================ 주문하기 */
-
-const orderModal = new bootstrap.Modal(document.querySelector(".orderModal"))
-const orderModalTitle = document.querySelector(".orderModalTitle")
-const ocount = document.querySelector(".ocount")
-const price = document.querySelector(".price")
-const priceSum = document.querySelector(".priceSum")
-const closeOrderBtn = document.querySelector(".closeOrderBtn")
-const orderBtn = document.querySelector(".orderBtn")
-const orderList = document.querySelector(".orderList")
-const totalPrice = document.querySelector(".totalPrice")
-const orderArray = []
-index = 0
-const payModal = new bootstrap.Modal(document.querySelector(".payModal"))
-const paymentBtn = document.querySelector(".paymentBtn")
-const submitBtn =  document.querySelector(".submitBtn")
-
-function countPlus(){
-	ocount.value = parseInt(ocount.value)+1;
-	priceSum.value = parseInt(price.value)*ocount.value;
-}
-function countMinus(){
-	if(parseInt(ocount.value)>1){
-		ocount.value = parseInt(ocount.value)-1;
-	}else{
-		ocount.value = 1;
-	}
-	priceSum.value = parseInt(price.value)*ocount.value;
+// 데이터에 클릭 이벤트 추가
+function addClickEvent(){
+	$(".menuList li").each(function(index, item){
+		// $(item).css({"border":"1px solid #ff0000"})
+		$(item).click(function(){
+			const rno = $(item).attr("data-rno")
+			console.log(rno)
+			getOne(rno).then(dto => {
+				console.log(dto)
+				globalDTO = dto
+				document.querySelector(".rno").value = dto.rno
+				orderModalTitle.innerHTML = dto.rname
+				price.value = dto.rprice
+				priceSum.value = dto.rprice
+				document.querySelector(".rimg").value = dto.rimg
+				orderModal.show()
+			}).catch(e => alert('error'))			
+		})
+	})	
 }
 
+// 클릭 이벤트 이전 버전
+/*
 menuList.addEventListener("click", function (e){
 	e.preventDefault()
 	e.stopPropagation()
@@ -184,11 +200,44 @@ menuList.addEventListener("click", function (e){
 		orderModal.show()
 	}).catch(e => alert('error'))
 },false)
+*/
+
+/* ================================================================================ 주문하기 */
+
+const orderModal = new bootstrap.Modal(document.querySelector(".orderModal"))
+const orderModalTitle = document.querySelector(".orderModalTitle")
+const scount = document.querySelector(".scount")
+const price = document.querySelector(".price")
+const priceSum = document.querySelector(".priceSum")
+const closeOrderBtn = document.querySelector(".closeOrderBtn")
+const orderBtn = document.querySelector(".orderBtn")
+const orderList = document.querySelector(".orderList")
+const totalPrice = document.querySelector(".totalPrice")
+const orderArray = []
+index = 0
+const payModal = new bootstrap.Modal(document.querySelector(".payModal"))
+const paymentBtn = document.querySelector(".paymentBtn")
+const submitBtn =  document.querySelector(".submitBtn")
+
+function countPlus(){
+	scount.value = parseInt(scount.value)+1;
+	priceSum.value = parseInt(price.value)*scount.value;
+}
+function countMinus(){
+	if(parseInt(scount.value)>1){
+		scount.value = parseInt(scount.value)-1;
+	}else{
+		scount.value = 1;
+	}
+	priceSum.value = parseInt(price.value)*scount.value;
+}
 
 orderBtn.addEventListener("click", function(e) {
-	orderArray[index] = [document.querySelector(".rno").value, price.value, ocount.value, priceSum.value]
+	orderArray[index] = globalDTO
+	orderArray[index].scount = scount.value
+	orderArray[index].sprice = priceSum.value
 	console.log(orderArray)
-	ocount.value = 1
+	scount.value = 1
 	price.value = 0
 	priceSum.value = 0
 	index++
@@ -200,28 +249,26 @@ function printOrders(){
 	let str = ''
 	totalPrice.value = 0
 	for(var i = 0; i<orderArray.length; i++){
-		if(orderArray[i].length>0){
+		if(orderArray[i]!=null){
 			str += '<li>'
-			str += "<a href='#' onclick='orderRemove("+i+")'>[X]</a>"
-			str += '<p>'+orderArray[i][0]+'</p>'
-			str += '<p>'+orderArray[i][1]+'</p>'
-			str += '<p>'+orderArray[i][2]+'</p>'
-			str += '<p>'+orderArray[i][3]+'</p>'
+			str += `<p class="rname">${orderArray[i].rname} <a onclick="orderRemove(${i})"><ion-icon name="close-circle-outline"></ion-icon></a></p>`
+			str += `<p class="scount">X ${orderArray[i].scount}개 </p>`
+			str += `<p class="sprice">${orderArray[i].sprice}</p>`
 			str += '</li>'
-			totalPrice.value = parseInt(totalPrice.value)+parseInt(orderArray[i][3])
+			totalPrice.value = parseInt(totalPrice.value)+parseInt(orderArray[i].sprice)
 		}
 	}
 	orderList.innerHTML = str
 }
 
 function orderRemove(no) {
-	orderArray[no].length = 0
+	orderArray[no]=null
 	printOrders()
 }
 
 function orderRemoveAll(){
 	for(var i = 0; i<orderArray.length; i++){
-		orderArray[i].length = 0
+		orderArray[i]=null
 	}
 	index = 0
 	printOrders()
@@ -256,12 +303,12 @@ submitBtn.addEventListener("click", function(e) {
 	let sid = year+month.padStart(2,'0')+date.padStart(2, '0')+"-"+hh.padStart(2, '0')+mm.padStart(2, '0')+ss.padStart(2, '0')
 	
 	for(var i = 0; i<orderArray.length; i++){
-		if(orderArray[i].length>0){
+		if(orderArray[i]!=null){
 		    const shopObj = {
 	    		sid : sid,
-	            rno : orderArray[i][0],
-	    		scount : orderArray[i][2],
-	    		sprice : orderArray[i][3]
+	            rno : orderArray[i].rno,
+	    		scount : orderArray[i].scount,
+	    		sprice : orderArray[i].sprice
 		    }
 			console.log("shopObj")
 			console.log(shopObj)
@@ -295,11 +342,6 @@ submitBtn.addEventListener("click", function(e) {
 	}).catch(e => {
 		alert("Exception...")
 	});
-	
-
-
-
 }, false)
-
 
 </script>

@@ -40,21 +40,34 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class UpDownController {
 
-
 	@Value("${upload.path}")
 	private String uploadPath;
 	
 	@GetMapping("/view/{fileName}")
 	public ResponseEntity<Resource> viewFileGET(@PathVariable String fileName){
-		Resource resource = new FileSystemResource(uploadPath+File.separator+fileName);
-		String resourceName = resource.getFilename();
+		
+		File file = new File(uploadPath+File.separator+fileName);
 		HttpHeaders headers = new HttpHeaders();
+		Resource resource = null;
+		String resourceName = null;
+		
+		if(fileName=="" || fileName==null) {
+			System.out.println("파일의 이름을 입력하세요.");
+			resource = new FileSystemResource(uploadPath+File.separator+"noimg.jpg");
+		}
+		if(file.exists()) {
+			System.out.println("해당 파일이 존재합니다.");
+			resource = new FileSystemResource(uploadPath+File.separator+fileName);
+			resourceName = resource.getFilename();
+		}else {
+			System.out.println("해당 파일이 존재하지 않습니다.");
+			resource = new FileSystemResource(uploadPath+File.separator+"noimg.jpg");
+		}
 		try {
 			headers.add("Content-Type", Files.probeContentType(resource.getFile().toPath()));
 		} catch(Exception e) {
 			return ResponseEntity.internalServerError().build();
 		}
-		return ResponseEntity.ok().headers(headers).body(resource);
-	}	
-
+		return ResponseEntity.ok().headers(headers).body(resource);			
+	}
 }
