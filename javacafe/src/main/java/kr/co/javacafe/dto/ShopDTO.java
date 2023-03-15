@@ -14,13 +14,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class KioskDTO {
+public class ShopDTO {
 
-	private Long kno;
-	private String kid;
+	private Long sno;
+	private String sid;
 	private Long rno;
-	private Long kccount;
-	private Long kprice;
+	private Long scount;
+	private Long sprice;
 	private String cphone;
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;	

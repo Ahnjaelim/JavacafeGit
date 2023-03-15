@@ -18,18 +18,21 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
-public class KioskState extends BaseEntity {
+public class Shop extends BaseEntity {
 
+	// 엔티티 이름을 order로 하려고 했으나...order by 때문인지 테이블 생성이 안됨ㅋ
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long ksno;
+	private Long sno;
 	
-	private String kid;
+	private String sid;
+	
+	private Long rno;
+	
+	private Long scount;
+	
+	private Long sprice;
 	
 	private String cphone;
-	
-	private Long ksstate;
-	
-	private Long kstotal;
-	
 }

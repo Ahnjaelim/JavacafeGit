@@ -11,13 +11,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class KioskStateDTO {
+public class ShopStateDTO {
 
-	private Long ksno;
-	private String kid;
+	private Long ssno;
+	private String sid;
 	private String cphone;
-	private Long ksstate;
-	private Long kstotal;
+	private Long ssstate;
+	private Long sstotal;
+	private Long sstoday;
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;		
 }

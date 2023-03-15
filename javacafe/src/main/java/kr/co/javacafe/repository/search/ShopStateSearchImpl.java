@@ -10,20 +10,20 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQuery;
 
-import kr.co.javacafe.domain.KioskState;
-import kr.co.javacafe.domain.QKioskState;
+import kr.co.javacafe.domain.QShopState;
+import kr.co.javacafe.domain.ShopState;
 
-public class KioskStateSearchImpl extends QuerydslRepositorySupport implements KioskStateSearch{
+public class ShopStateSearchImpl extends QuerydslRepositorySupport implements ShopStateSearch{
 
-	public KioskStateSearchImpl() {
-		super(KioskState.class);
+	public ShopStateSearchImpl() {
+		super(ShopState.class);
 	}
 
 	@Override
-	public Page<KioskState> searchAll(String[] types, String keyword, Pageable pageable) {
+	public Page<ShopState> searchAll(String[] types, String keyword, Pageable pageable) {
 		
-		QKioskState kioskState = QKioskState.kioskState;
-		JPQLQuery<KioskState> query = from(kioskState);
+		QShopState shopState = QShopState.shopState;
+		JPQLQuery<ShopState> query = from(shopState);
 		
 		// 검색 조건과 키워드가 있다면
 		if((types != null && types.length > 0) && keyword != null) {
@@ -31,21 +31,31 @@ public class KioskStateSearchImpl extends QuerydslRepositorySupport implements K
 			for(String type: types) {
 				switch(type) {
 				case "t":
-					booleanBuilder.or(kioskState.kid.contains(keyword));
+					booleanBuilder.or(shopState.sid.contains(keyword));
 					break;
 				}
 			} // end for
 			query.where(booleanBuilder);
 		} // end if
 		
-		query.where(kioskState.ksno.gt(0L));
+		query.where(shopState.ssno.gt(0L));
 		
 		// paging
 		this.getQuerydsl().applyPagination(pageable, query);
-		List<KioskState> list = query.fetch();
+		List<ShopState> list = query.fetch();
 		long count = query.fetchCount();
 		return new PageImpl<>(list, pageable, count);
 				
+	}
+
+	@Override
+	public Long countTodayOrder(String today) {
+		QShopState shopState = QShopState.shopState;
+		JPQLQuery<ShopState> query = from(shopState);
+		query.where(shopState.sid.contains(today));
+		List<ShopState> list = query.fetch();
+		long count = query.fetchCount()+1L;
+		return count;
 	}
 
 	

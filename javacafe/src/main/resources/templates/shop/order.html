@@ -93,7 +93,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="/js/kiosk.js"></script>
+<script src="/js/shop.js"></script>
 
 <!-- ========================================================================================== -->
 </main>
@@ -104,7 +104,6 @@
 const rcate = 0
 const menuList = document.querySelector('.menuList')
 
-// 댓글 목록 출력
 function printList(dtoList){
 	let str = '';
 	if(dtoList && dtoList.length > 0){
@@ -252,20 +251,21 @@ submitBtn.addEventListener("click", function(e) {
 	let date = String(today.getDate())
 	let hh = String(today.getHours())
 	let mm = String(today.getMinutes())
-	let ss = String(today.getSeconds())  	
-	let kid = year+month.padStart(2,'0')+date.padStart(2, '0')+"-"+hh.padStart(2, '0')+mm.padStart(2, '0')+ss.padStart(2, '0')
+	let ss = String(today.getSeconds())
+	let todayindex = year+month.padStart(2,'0')+date.padStart(2, '0')
+	let sid = year+month.padStart(2,'0')+date.padStart(2, '0')+"-"+hh.padStart(2, '0')+mm.padStart(2, '0')+ss.padStart(2, '0')
 	
 	for(var i = 0; i<orderArray.length; i++){
 		if(orderArray[i].length>0){
-		    const kioskObj = {
-	    		kid : kid,
+		    const shopObj = {
+	    		sid : sid,
 	            rno : orderArray[i][0],
-	    		kcount : orderArray[i][2],
-	    		kprice : orderArray[i][3]
+	    		scount : orderArray[i][2],
+	    		sprice : orderArray[i][3]
 		    }
-			console.log("kioskObj")
-			console.log(kioskObj)
-	        addKiosk(kioskObj).then(result => {
+			console.log("shopObj")
+			console.log(shopObj)
+	        addShop(shopObj).then(result => {
 	            // alert(result.kno)
 	        }).catch(e => {
 	            alert("Exception...")
@@ -273,21 +273,31 @@ submitBtn.addEventListener("click", function(e) {
 		} // end of if
 	} // end of for
 	
-	// 주문 상태 저장
-	const kioskStateObj = {
-		kid : kid,
-		ksstate : 0,
-		kstotal : totalPrice.value
-	}
-	console.log("kioskStateObj")
-	console.log(kioskStateObj)
-	addKioskState(kioskStateObj).then(result => {
-	    alert("주문이 완료되었습니다. (주문번호 : "+result.ksno+")")
-	    orderRemoveAll()
-	    payModal.hide()
+	console.log("todayindex : "+todayindex)
+	
+	// 대기 번호 불러오기
+	todayOrder("20230315").then(result => {
+		const sstoday = result.todayorder
+		const shopStateObj = {
+			sid : sid,
+			ssstate : 0,
+			sstotal : totalPrice.value,
+			sstoday : sstoday
+		}
+		// 주문 상태 저장
+		addShopState(shopStateObj).then(result => {
+		    alert("주문이 완료되었습니다. (대기번호 : "+result.sstoday+")")
+		    orderRemoveAll()
+		    payModal.hide()
+		}).catch(e => {
+		    alert("Exception...")
+		})		
 	}).catch(e => {
-	    alert("Exception...")
-	})
+		alert("Exception...")
+	});
+	
+
+
 
 }, false)
 

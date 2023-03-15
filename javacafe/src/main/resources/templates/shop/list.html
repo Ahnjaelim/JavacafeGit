@@ -12,29 +12,39 @@
                     주문 내역
                 </div>
                 <div class="card-body" >
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">RegDate</th>
-                        </tr>
-                        </thead>
-
-                        <tbody th:with="link = ${pageRequestDTO.getLink()}">
-
-                        <tr th:each="dto:${responseDTO.dtoList}"  >
-                            <th scope="row">[[${dto.ksno}]]</th>
-                            <td>
-                                <a th:href="|@{/kiosk/stateread(ksno =${dto.ksno})}&${link}|"> [[${dto.kid}]] </a>
-                            </td>
- 
-                            <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
-                        </tr>
-
-
-                        </tbody>
-                    </table>
+<table class="table">
+<colgroup>
+	<col width="10%" />
+	<col width="*" />
+	<col width="15%" />
+	<col width="15%" />
+	<col width="15%" />
+</colgroup>
+<thead>
+<tr>
+    <th scope="col" class="text-center">#</th>
+    <th scope="col" class="text-center">주문 번호</th>
+    <th scope="col" class="text-center">주문자</th>
+    <th scope="col" class="text-center">주문 상태</th>
+    <th scope="col" class="text-center">주문 일자</th>
+</tr>
+</thead>
+<tbody th:with="link = ${pageRequestDTO.getLink()}">
+<tr th:each="dto:${responseDTO.dtoList}"  >
+    <th scope="row">[[${dto.ssno}]]</th>
+    <td><a th:href="|@{/shop/read(ssno =${dto.ssno})}&sid=${dto.sid}&${link}|"> [[${dto.sid}]] </a></td>
+    <td class="text-center">
+		<span th:if="${dto.cphone}=='' or ${dto.cphone}==null">비회원</span>
+		<span th:if="${dto.cphone}!='' and ${dto.cphone}!=null ">[[${dto.cphone}]]</span>    
+    </td>
+    <td class="text-center">
+		<span th:if="${dto.ssstate}==0">주문 완료</span>
+		<span th:if="${dto.ssstate}==1">픽업 완료</span>    
+    </td>
+    <td class="text-center">[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
+</tr>
+</tbody>
+</table>
 
                     <div class="float-end">
                         <ul class="pagination flex-wrap">

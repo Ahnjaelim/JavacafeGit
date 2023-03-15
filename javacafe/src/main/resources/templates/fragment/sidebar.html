@@ -12,39 +12,43 @@ text-align: center;
 
 <div class="l-navbar" id="navbar">
         <nav class="nav overflow-auto" style="height:100%;" >
-            <div>
-            	<div class="clock" id="result"></div>  
-			   	<script>
-	            const time = document.getElementById('result'); // id가 'current-time'인 요소
-	          
-	            function getClock(){
-	            
-	             	var nowtime = new Date();
-	            	time.innerHTML = nowtime.toLocaleTimeString();
-	            	 
-            	}				
-            	getClock(); 
-            	setInterval(getClock, 1000);
-            	</script>
+     <div>
+     	<div class="clock" id="result"></div>  
+<script>
+const time = document.getElementById('result'); // id가 'current-time'인 요소
+function getClock(){
+	var nowtime = new Date();
+	time.innerHTML = nowtime.toLocaleTimeString();
+}				
+getClock(); 
+setInterval(getClock, 1000);
+</script>
 			
             	
             	
-            	<br>
-                <div class="nav__brand">
-                 	<ion-icon name="cafe-sharp"></ion-icon><br>
-                    <a href="/" class="nav__logo">JavaCafe</a>
-                </div>
-                <div href="#" class="nav__link collapse1 sidemenu">
-                        <ion-icon name="person-sharp" class="nav__icon "></ion-icon>
-                        <span class="nav_name">STAFF</span>
-                        <a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
-                        <ul class="collapse__menu">
-                            <li><a href="/staff/list" class="collapse__sublink">전체 인원</a></li>
-                            <li><a href="/staff/listin" class="collapse__sublink">출근 인원</a></li>
-                            <li><a href="/staff/listout" class="collapse__sublink">퇴근 인원</a></li>
-                        </ul>
-                    </div>
-                    <div href="#" class="nav__link collapse1">
+<br>
+<div class="nav__brand">
+ 	<ion-icon name="cafe-sharp"></ion-icon><br>
+    <a href="/" class="nav__logo">JavaCafe</a>
+</div>
+
+<div href="#" class="nav__link collapse1 sidemenu">
+	<ion-icon name="cart-outline" class="nav__icon"></ion-icon><span class="nav_name">SHOP</span><a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
+	<ul class="collapse__menu">
+		<li><a th:href="@{/shop/order}" class="collapse__sublink">주문하기</a></li>
+		<li><a th:href="@{/shop/list}" class="collapse__sublink">주문 내역</a></li>
+	</ul>
+</div>
+
+<div href="#" class="nav__link collapse1 sidemenu">
+	<ion-icon name="person-sharp" class="nav__icon "></ion-icon><span class="nav_name">STAFF</span><a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
+	<ul class="collapse__menu">
+		<li><a href="/staff/list" class="collapse__sublink">전체 인원</a></li>
+		<li><a href="/staff/listin" class="collapse__sublink">출근 인원</a></li>
+		<li><a href="/staff/listout" class="collapse__sublink">퇴근 인원</a></li>
+	</ul>
+</div>
+                <div href="#" class="nav__link collapse1">
                         <ion-icon name="bag-sharp" class="nav__icon"></ion-icon>
                         <span class="nav_name">INVENTORY</span>
                         <a href="#" class="collapse__link"><ion-icon name="chevron-down-sharp"></ion-icon></a>
