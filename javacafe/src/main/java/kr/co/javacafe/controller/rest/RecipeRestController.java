@@ -1,4 +1,4 @@
-package kr.co.javacafe.controller;
+package kr.co.javacafe.controller.rest;
 
 import java.util.List;
 

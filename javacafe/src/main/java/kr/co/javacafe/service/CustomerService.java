@@ -26,5 +26,7 @@ public interface CustomerService {
 //	전체조회 페이징처리
 	PageResponseDTO<CustomerDTO> list(PageRequestDTO pageRequestDTO);
 	
+	CustomerDTO getFirstByCphone(String cphone);
+	
 	
 }

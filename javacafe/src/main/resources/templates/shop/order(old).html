@@ -37,12 +37,6 @@
 .orderModal .modal-body {padding-top:35px;}
 .orderModal .scount {text-align:center; font-size:1.5em; width:60px; padding:5px 15px 6px 15px; border-radius: 8px; border:1px solid #c8c8c8; position:relative; top:5px;}
 .orderModal .priceSum {text-align:center; font-size:1.5em; font-weight:bold; border:none; margin:10px 0px 0px 0px; padding:0;}
-
-.pointModal .modal-body {padding:40px;}
-.pointModal .modal-body div {width:70%; margin:0px auto; text-align:left;}
-.pointModal .modal-body input {width:100%; font-size:1.1em; padding:5px 15px 5px 15px; border-radius: 8px; border:1px solid #c8c8c8; text-align:center; margin:0px 0px 7px 0px;}
-.pointModal .modal-body button {width:49%;}
-.pointModal .modal-body button:nth-child(2) {float:right;}
 </style>
 
 <div class="category">
@@ -134,8 +128,11 @@
 	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	</div>
 	<div class="modal-body text-center">
-		<div><input type="text" class="cphone" value="" placeholder="휴대폰 번호를 입력하세요." /></div>
-		<div><button class="cphoneCheckBtn btn btn-danger">전화번호 조회</button><button class="pointCancelBtn btn btn-secondary">적립 안함</button></div>
+		<input type="text" class="cphone" value="" />
+		<button class="cphoneCheckBtn">전화번호 조회</button>
+		<button class="pointCancelBtn">적립 안함</button>
+	</div>
+	<div class="modal-footer">
 	</div>
 </div>
 </div>
@@ -249,7 +246,6 @@ const orderArray = []
 const payModal = new bootstrap.Modal(document.querySelector(".payModal"))
 const paymentBtn = document.querySelector(".paymentBtn")
 const submitBtn =  document.querySelector(".submitBtn")
-let globalPointObj = null
 
 function countPlus(){
 	scount.value = parseInt(scount.value)+1;
@@ -354,6 +350,9 @@ submitBtn.addEventListener("click", function(e) {
 		} // end of if
 	} // end of for
 	
+	console.log("todayindex : "+todayindex)
+	
+	// 대기 번호 불러오기
 	todayOrder(todayindex).then(result => {
 		const sstoday = result.todayorder
 		const shopStateObj = {
@@ -364,16 +363,9 @@ submitBtn.addEventListener("click", function(e) {
 		}
 		// 주문 상태 저장
 		addShopState(shopStateObj).then(result => {
-		    // alert("주문이 완료되었습니다. (대기번호 : "+result.sstoday+")")
-			globalPointObj = {
-		    	ssno : result.ssno,
-		    	totalprice : parseInt(totalPrice.value),
-		    	sstoday : result.sstoday
-		    }
+		    alert("주문이 완료되었습니다. (대기번호 : "+result.sstoday+")")
 		    orderRemoveAll()
-			payModal.hide()
-			pointModal.show()
-
+		    payModal.hide()
 		}).catch(e => {
 		    alert("Exception...")
 		})		
@@ -382,10 +374,6 @@ submitBtn.addEventListener("click", function(e) {
 	});
 }, false)
 
-function addShopStateExc(resultObj, cphone){
-	// 대기 번호 불러오기
-
-}
 /* ================================================================================ 전화번호로 회원정보 조회 */
 
 const pointModal = new bootstrap.Modal(document.querySelector(".pointModal"))
@@ -399,38 +387,11 @@ cphoneCheckBtn.addEventListener("click", function(e) {
 			alert("회원정보를 찾을 수 없습니다.")
 			return
 		}
-		const cpoint = parseInt(globalPointObj.totalprice)*0.05
-		alert(result.cname+"님 회원정보에 "+cpoint+"포인트를 적립합니다.")
-		const customerObj = {
-			cno : result.cno,
-			cpoint : cpoint
-		}
-		modifyCustomer(customerObj).then(pointresult => {
-			// alert("적립이 완료되었습니다.")
-			const shopStateObj = {
-				ssno : globalPointObj.ssno,
-				cphone : cphone.value
-			}
-			modifyShopState(shopStateObj).then(ssresult => {
-				alert("주문이 완료되었습니다. 대기번호 : "+globalPointObj.sstoday)
-				pointModal.hide()
-				globalPointObj = null
-			}).catch(e => {
-				
-			})
-		}).catch(e => {
-			alert("Exception...")
-		})
+		alert(result.cno)
 	}).catch(e => {
 		alert("Exception...")
 	})
 }, false)
 
-
-pointCancelBtn.addEventListener("click", function(e) {
-	alert("주문이 완료되었습니다. 대기번호 : "+globalPointObj.sstoday)
-	pointModal.hide()
-	globalPointObj = null
-}, false)
 
 </script>

@@ -1,4 +1,4 @@
-package kr.co.javacafe.controller;
+package kr.co.javacafe.controller.rest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,7 +62,8 @@ public class ShopRestController {
 		return resultMap;
 	}
 	
-	@ApiOperation(value = "Shop State Today Order Count", notes = "GET 방식으로 주문 순서 조회")
+	// 대기번호 출력
+	@ApiOperation(value = "GetTodayOrder ShopState", notes = "GET 방식으로 주문 순서 조회")
 	@GetMapping(value = "/today/{today}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Long> todayGET(@PathVariable("today") String today){
 		log.info("today : "+today);
@@ -70,4 +72,15 @@ public class ShopRestController {
 		resultMap.put("todayorder", todayorder);
 		return resultMap;
 	}
+	
+	// 주문 상태에 회원 전화번호 등록
+	@ApiOperation(value = "Modify ShopState", notes = "PUT방식으로 회원 전화번호 등록")
+	@PutMapping(value = "/{ssno}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Long> remove(@PathVariable("ssno") Long ssno, @RequestBody ShopStateDTO shopStateDTO){
+		shopStateDTO.setSsno(ssno);
+		shopStateService.modify(shopStateDTO);
+		Map<String, Long> resultMap = new HashMap<>();
+		resultMap.put("ssno", ssno);
+		return resultMap;
+	}	
 }

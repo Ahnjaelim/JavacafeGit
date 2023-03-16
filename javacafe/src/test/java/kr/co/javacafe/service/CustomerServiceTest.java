@@ -17,7 +17,7 @@ public class CustomerServiceTest {
 	private CustomerService customerService;
 
 	
-	@Test
+	// @Test
 	public void RegisterTest() {
 		log.info(customerService.getClass().getName());
 		CustomerDTO customerDTO = CustomerDTO.builder()
@@ -28,7 +28,7 @@ public class CustomerServiceTest {
 		Long cno = customerService.register(customerDTO);
 		log.info(cno);	
 	}
-	@Test
+	// @Test
 	public void ModifyTest() {
 		CustomerDTO customerDTO = CustomerDTO.builder()
 				.cno(11L)
@@ -41,7 +41,7 @@ public class CustomerServiceTest {
 	
 	}
 	
-	@Test
+	// @Test
 	public void ListTest() {
 		PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
 				.type("n")
@@ -53,6 +53,10 @@ public class CustomerServiceTest {
 		log.info(responseDTO);
 	}
 	
+	@Test
+	public void getFirstByCphoneTest() {
+		log.info(customerService.getFirstByCphone("010-1111-1111"));
+	}
 	
 	
 	

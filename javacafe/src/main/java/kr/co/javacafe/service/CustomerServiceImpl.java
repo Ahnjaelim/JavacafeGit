@@ -109,6 +109,15 @@ public class CustomerServiceImpl implements CustomerService{
 		customerRepository.save(customer);
 		
 	}
+	@Override
+	public CustomerDTO getFirstByCphone(String cphone) {
+		Customer customer = customerRepository.findFirstByCphone(cphone);
+		CustomerDTO customerDTO = null;
+		if(customer!=null) {
+			customerDTO = modelMapper.map(customer, CustomerDTO.class);
+		}
+		return customerDTO;
+	}
 
 
 }

@@ -34,4 +34,8 @@ public class ShopState extends BaseEntity {
 	
 	private Long sstoday;
 	
+	public void cphoneUpdate(String cphone) {
+		this.cphone = cphone;
+	}
+	
 }

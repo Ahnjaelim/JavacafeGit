@@ -68,5 +68,13 @@ public class ShopStateServiceImpl implements ShopStateService {
 	public Long countTodayOrder(String today) {
 		return shopStateRepository.countTodayOrder(today);
 	}
+
+	@Override
+	public void modify(ShopStateDTO shopStateDTO) {
+		Optional<ShopState> result = shopStateRepository.findById(shopStateDTO.getSsno());
+		ShopState shopState = result.orElseThrow();
+		shopState.cphoneUpdate(shopStateDTO.getCphone());
+		shopStateRepository.save(shopState);
+	}
 	
 }
