@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import kr.co.javacafe.domain.Admin;
 import kr.co.javacafe.domain.AdminRole;
-import kr.co.javacafe.domain.Sales;
 import kr.co.javacafe.dto.AdminDTO;
 import kr.co.javacafe.dto.AdminJoinDTO;
  

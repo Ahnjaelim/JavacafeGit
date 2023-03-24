@@ -3,7 +3,6 @@ package kr.co.javacafe.service;
 import kr.co.javacafe.domain.Admin;
 import kr.co.javacafe.dto.AdminDTO;
 import kr.co.javacafe.dto.AdminJoinDTO;
-import kr.co.javacafe.dto.SalesDTO;
  
 
 public interface AdminService {

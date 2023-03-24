@@ -1,29 +1,18 @@
 package kr.co.javacafe.service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import javax.transaction.Transactional;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import kr.co.javacafe.domain.Inventory;
 import kr.co.javacafe.domain.Sales;
-import kr.co.javacafe.dto.InventoryDTO;
 import kr.co.javacafe.dto.PageRequestDTO;
 import kr.co.javacafe.dto.HomePageRequestDTO;
 import kr.co.javacafe.dto.PageResponseDTO;
-import kr.co.javacafe.dto.HomePageResponseDTO;
 import kr.co.javacafe.dto.SalesDTO;
-
-import kr.co.javacafe.repository.InventoryRepository;
 import kr.co.javacafe.repository.SalesRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

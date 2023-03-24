@@ -14,10 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import kr.co.javacafe.dto.AdminDTO;
 import kr.co.javacafe.dto.AdminJoinDTO;
 import kr.co.javacafe.dto.PageRequestDTO;
-import kr.co.javacafe.dto.SalesDTO;
 import kr.co.javacafe.service.AdminService;
 import kr.co.javacafe.service.AdminServiceImpl;
-import kr.co.javacafe.service.InvenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 

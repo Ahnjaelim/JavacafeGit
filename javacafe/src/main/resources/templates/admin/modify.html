@@ -49,46 +49,46 @@
  	
  	//수정
 	const formObj = document.querySelector("#f1")
-
 	
 	document.querySelector(".modBtn").addEventListener("click", function(e){
-	e.preventDefault()
-	e.stopPropagation()
+		e.preventDefault()
+		e.stopPropagation()
  
-	formObj.action = `/admin/modify`
-	formObj.method = 'post'
-	formObj.submit()
+		formObj.action = `/admin/modify`
+		formObj.method = 'post'
+		formObj.submit()
 	},false)
 	
 
 	
 	//삭제
 	document.querySelector(".removeBtn").addEventListener("click",function(e){
-	e.preventDefault()
-	e.stopPropagation()
-	var YN = false;
-	var removeValue = confirm('정말 삭제하시겠습니까? 삭제할경우 되돌릴 수 없습니다');
-	if(removeValue == false){ 
+		e.preventDefault()
+		e.stopPropagation()
+		var YN = false;
+		var removeValue = confirm('정말 삭제하시겠습니까? 삭제할경우 되돌릴 수 없습니다');
+		if(removeValue == false){ 
 
-	return false;
+			return false;
 	
-	} else {
-	YN = true;
-	}
+		} else {
+		YN = true;
+		}
 	
-	formObj.action = `/admin/remove`
-	formObj.method = 'post'
-	formObj.submit()
+		formObj.action = `/admin/remove`
+		formObj.method = 'post'
+		formObj.submit()
 	}, false)
 	
 	//목록으로 이동
 	document.querySelector(".listBtn").addEventListener("click", function(e){
-	e.preventDefault()
-	e.stopPropagation()
-	
-	formObj.reset()
-	self.location =`/`
+		e.preventDefault()
+		e.stopPropagation()
+		
+		formObj.reset()
+		self.location =`/`
 	}, false)
-	});
+	
+});
 	
 </script>
