@@ -50,5 +50,12 @@ public class ShopServiceImpl implements ShopService {
 		List<ShopJoinDTO> dtolist = shopRepository.findBySidJoin(sid);
 		return dtolist;
 	}
+
+	@Override
+	public List<Shop> demandlist() {
+	 
+		return shopRepository.findAll();
+			 
+	}
 	
 }
