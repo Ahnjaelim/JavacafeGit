@@ -71,6 +71,11 @@ public class ShopController {
 		// List<ShopDTO> dtolist = shopService.getByKid(sid);
 		model.addAttribute("dto", shopStateService.readOne(ssno));
 		model.addAttribute("dtolist", shopService.getByKidJoin(sid));
+	}
+	
+	@GetMapping("/dashboard")
+	public void dashboard(Model model) {
+		model.addAttribute("bestlist", shopService.getBest());
 		
 	}
 }
