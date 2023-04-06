@@ -52,15 +52,9 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-<<<<<<< HEAD
-	public List<Shop> demandlist() {
-	 
-		return shopRepository.findAll();
-			 
-=======
 	public List<ShopJoinDTO> getBest() {
 		return shopRepository.findBest();
->>>>>>> upstream/master
+
 	}
 	
 }

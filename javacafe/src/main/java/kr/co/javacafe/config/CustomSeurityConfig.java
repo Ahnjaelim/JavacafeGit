@@ -48,8 +48,8 @@ public class CustomSeurityConfig {
 				 "/customer/**",
 				 "/fboard/**",
 				 "/event/**",
-				 "/admin/**",
-				 "/join").authenticated()
+				 "/admin/**"
+				 ).authenticated()
 		 
 		 .antMatchers("/", 
 				 "/inven/**",
@@ -59,8 +59,8 @@ public class CustomSeurityConfig {
 				 "/customer/**",
 				 "/fboard/**",
 				 "/event/**",
-				 "/admin/**",
-				 "/join").hasRole("ADMIN"); //AdminRole = ADMIN일 경우에 허락
+				 "/admin/**"
+				  ).hasRole("ADMIN"); //AdminRole = ADMIN일 경우에 허락
 		 			  // .authenticated() - 인증된 사용자들만 허용
 		              // .permitAll() - 모두 허용
          			  // .anonymous() - 익명의 사용자 허용

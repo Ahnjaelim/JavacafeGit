@@ -15,13 +15,9 @@ public interface ShopService {
 	
 	// 주문 번호로 주문 레코드 불러오기 + 메뉴 레프트 조인
 	List<ShopJoinDTO> getByKidJoin(String sid);
-	
-<<<<<<< HEAD
-	//수요예측용 전체데이터 불러오기
-	List<Shop> demandlist();
-	    
-=======
+ 
+ 
 	// 많이 팔린 메뉴 불러오기
 	List<ShopJoinDTO> getBest();
->>>>>>> upstream/master
+ 
 }

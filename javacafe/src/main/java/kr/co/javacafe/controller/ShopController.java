@@ -42,21 +42,13 @@ public class ShopController {
         
 	}
 	
-	@GetMapping("/test")
-	public void testGET(PageRequestDTO pageRequestDTO, Model model) {
-        PageResponseDTO<ShopStateDTO> responseDTO = shopStateService.list(pageRequestDTO);
-        log.info(responseDTO);
-        model.addAttribute("responseDTO", responseDTO);	
-        System.out.println("testGET===========");
+	@GetMapping("/demand")
+	public void testGET(Model model) {
+		model.addAttribute("bestlist", shopService.getBest());
+		
 	}
 	
-	@PostMapping("demandlist")
-	@ResponseBody
-	public List<Shop> demandlist(Model model){
-		List<Shop> demandlist = shopService.demandlist();
-	 
-		return demandlist;
-	}
+	
 	//ajax recipelist받기
 	@PostMapping("recipelist")
 	@ResponseBody
