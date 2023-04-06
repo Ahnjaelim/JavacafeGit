@@ -2,6 +2,7 @@ package kr.co.javacafe.service;
 
 import java.util.List;
 
+import kr.co.javacafe.domain.Shop;
 import kr.co.javacafe.dto.ShopDTO;
 import kr.co.javacafe.dto.ShopJoinDTO;
 
@@ -14,7 +15,9 @@ public interface ShopService {
 	
 	// 주문 번호로 주문 레코드 불러오기 + 메뉴 레프트 조인
 	List<ShopJoinDTO> getByKidJoin(String sid);
-	
+ 
+ 
 	// 많이 팔린 메뉴 불러오기
 	List<ShopJoinDTO> getBest();
+ 
 }

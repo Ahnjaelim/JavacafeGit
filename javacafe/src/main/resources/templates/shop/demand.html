@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/mainlayout.html}">
+<head>
+	<meta charset="UTF-8">	
+	<script src="/js/demand.js"></script>
+	<link rel="stylesheet" th:href="@{/css/demand.css}">
+</head>
+ 
+<div layout:fragment="content">
+	<div class="row mt-3">
+		<div class="col">
+
+			<div class="card">
+				<div class="card-header">수요 예측</div>
+				<div class="card-body" style="display: flex;">
+					<div style=" width: 1100px; height: 600px;  padding-top: 45px;">
+						<!--차트가 그려질 부분-->
+						<canvas id="demandChart"></canvas>
+						<!-- 누적판매순위(수요예측) -->
+					</div>
+						<div class="demandlist" >
+							<p class="text"> 매출 Best </p> 
+							<th:block th:each="dto, i :${bestlist}"  >
+								<div th:if="${i.index} <= 2 ">
+									
+									<div>[[${i.index+1}]]. [[${dto.rname}]]</div>
+									<div>주문횟수 : [[${dto.cnt}]]</div>
+									<div>누적 판매 갯수 : [[${dto.totalCount}]]</div>
+									<br>
+								</div>
+							</th:block>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+
+
+
+<script layout:fragment="script" th:inline="javascript">
+ //=================recipe목록 불러오기
+	$.ajax({
+		type: "post",
+		url: "recipelist",
+		async: false,
+		dataType: "json",
+		success: function(result) {
+			recipedata = result;
+		},
+		error: function() {
+			alert('ajax레시피불러오기 실패')
+		}
+	})//recipe ajax end
+	
+
+	// =================================================
+
+	var k = 0; var s = 0; var num = 1;
+
+	arrM = new Array(); //chart x축 (음료명 나열하기)
+	for (var i = 0; i <= recipedata.length - 1; i++) {
+		arrM[k] = num + ". " + recipedata[i].rname;	//rno 빠른순서대로 들어감 
+		k++; num++;
+	}
+
+	 
+ 
+	arrS = new Array(); // chart 그래프 (주문내역 갯수확인)
+	
+	
+	var test =  [[${bestlist}]]
+ 	
+ 	for(var i = 0; i <=recipedata.length -1; i++){
+		 for(var j = 0; j <= test.length-1; j++){
+			 if(recipedata[i].rname == test[j].rname){
+				 arrS[i] = test[j].totalCount;
+			 }
+		 }
+	 }
+  
+	var context = document.getElementById('demandChart').getContext('2d');
+	var demandChart = new Chart(context, {
+		type: 'bar', // 차트의 형태
+		data: { // 차트에 들어갈 데이터
+			labels: //x 축 
+				arrM,
+			datasets: [{ //데이터
+					label: '누적판매수', //차트 제목
+					fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+					data: arrS,
+					backgroundColor: [
+						//색상
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)',
+						'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)',
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)',
+						'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)',
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)'						
+					],
+					borderColor: [
+						//경계선 색상
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)',
+						'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)',
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)',
+						'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)',
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)'
+					],
+					borderWidth: 1 //경계선 굵기
+				}]
+		},
+		options: {
+			scales: {
+				yAxes: [
+					{
+						ticks: {
+							beginAtZero: true
+						}
+					}
+				]
+			}
+		}
+	});
+
+ 
+</script>

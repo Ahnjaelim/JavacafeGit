@@ -54,6 +54,7 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public List<ShopJoinDTO> getBest() {
 		return shopRepository.findBest();
+
 	}
 	
 }

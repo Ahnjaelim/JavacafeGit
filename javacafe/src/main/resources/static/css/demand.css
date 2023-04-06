@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.demandlist{
+
+	margin: 0 auto;
+	padding-top: 100px;
+ 	margin-left: 45px;
+ 	text-align: left;
+	
+}
+
+.text{
+	font-size: 25px;
+	text-align: center;
+}

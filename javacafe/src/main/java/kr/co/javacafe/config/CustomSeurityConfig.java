@@ -15,11 +15,10 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-
 import kr.co.javacafe.security.CustomUserDetailsService;
 import kr.co.javacafe.security.handler.Custom403Handler;
-
 import javax.sql.DataSource;
+
 
 @Log4j2
 @Configuration
@@ -49,8 +48,8 @@ public class CustomSeurityConfig {
 				 "/customer/**",
 				 "/fboard/**",
 				 "/event/**",
-				 "/admin/**",
-				 "/join").authenticated()
+				 "/admin/**"
+				 ).authenticated()
 		 
 		 .antMatchers("/", 
 				 "/inven/**",
@@ -60,9 +59,12 @@ public class CustomSeurityConfig {
 				 "/customer/**",
 				 "/fboard/**",
 				 "/event/**",
-				 "/admin/**",
-				 "/join").hasRole("ADMIN"); //AdminRole = ADMIN일 경우에 허락
-		 
+				 "/admin/**"
+				  ).hasRole("ADMIN"); //AdminRole = ADMIN일 경우에 허락
+		 			  // .authenticated() - 인증된 사용자들만 허용
+		              // .permitAll() - 모두 허용
+         			  // .anonymous() - 익명의 사용자 허용
+		        	  // .hasAnyRole(표현식) - 여러 권한 중 하나만 존재해도 허용 
 		 
 		 http.rememberMe() //자동로그인 기능
 	     		.key("12345678")
